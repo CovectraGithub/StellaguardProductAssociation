@@ -1,0 +1,290 @@
+﻿<!doctype html>
+@using System.Web.Optimization;
+@using MvcSiteMapProvider.Web.Html
+<html class="fixed">
+<head>
+    <!-- Basic -->
+    <meta charset="UTF-8">
+    <title>Stellaguard Product Association</title>
+    <meta name="keywords" content="HTML5 Admin Template" />
+    <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
+    <meta name="author" content="JSOFT.net">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- Web Fonts  -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.css" />
+    @*@Styles.Render("~/bundles/NewDesignCSS");*@
+
+    <link rel="stylesheet" href="~/assets/stylesheets/theme.css" />
+
+    <script src="~/assets/vendor/modernizr/modernizr.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+</head>
+<body>
+    @{
+        var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+    }
+
+    @helper selected(string c, string culture)
+    {
+if (c == culture)
+{
+        @:checked="checked"
+    }
+}
+
+
+    <section class="body">
+
+        <!-- start: header -->
+        <header class="header">
+            <div class="logo-container">
+                <a href="../" class="logo">
+                    <img src="~/Content/images/StellaGuard-logo-horizontal-tagline.jpg" alt="JSOFT Admin" />
+
+                </a>
+
+                <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                    <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                </div>
+
+            </div>
+
+            <!-- start: search & user box -->
+
+            <div class="header-right">
+                @if (Session["Username"] != null)
+                {
+                    <div id="userbox" class="userbox">
+                        <a href="#" data-toggle="dropdown">
+                            <figure class="profile-picture">
+                            </figure>
+                            <div class="profile-info">
+                                <span class="name" style="text-align:right">Welcome &nbsp;  @Session["Username"]  </span>
+                            </div>
+
+                            @*<i class="fa custom-caret"></i>*@
+                        </a>
+                        @Html.ActionLink("Logout", "Logout", "Home")
+
+                        @*<div class="dropdown-menu">
+                            <ul class="list-unstyled">
+                                <li class="divider"></li>
+
+                                <li>
+                                    @Html.ActionLink("Logout", "Logout", "Home", new { area = "", @class = "fa fa-user fa-power-off", role = "Admin" }, new { @id = "logout_link" })
+                                </li>
+                            </ul>
+                        </div>*@
+                    </div>
+                }
+
+
+
+                
+
+            </div>
+
+            <!-- end: search & user box -->
+        </header>
+        <!-- end: header -->
+
+        <div class="inner-wrapper">
+            <!-- start: sidebar -->
+
+            <aside id="sidebar-left" class="sidebar-left">
+
+                <div class="sidebar-header">
+                    <div class="sidebar-title">
+
+                    </div>
+                    <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                        <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+                    </div>
+                </div>
+
+
+                <div class="nano">
+                    <div class="nano-content sidebar">
+                        <nav id="menu" class="nav-main" role="navigation">
+                            @if (Session["Username"] != null)
+                            {
+                                <ul class="nav nav-main">
+                                    @*<li class="nav-active ">
+                                            <a href="~/Home/Index">
+                                                <i class="fa fa-home" aria-hidden="true"></i>
+                                                <span>Dashboard</span>
+                                            </a>
+                                        </li>*@
+                                    <li class="nav-active ">
+                                        <a href="~/ProductAssociation/Index">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Product Association</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-active ">
+                                        <a href="~/ProductAssociationHistory/Index">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <span>Product Association History</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right"></ul>
+                            }
+                        </nav>
+
+
+                    </div>
+                    <div class="nano-pane" style="opacity: 1; visibility: visible;"><div class="nano-slider" style="height: 60px; transform: translate(0px, 0px);"></div></div>
+                </div>
+
+
+
+            </aside>
+            <!-- end: sidebar -->
+            @*@using AuthentiTrack.UI.Helpers;
+
+                @{
+                    culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+                    AuthentiTrack.UI.Models.UserSession userSession = (AuthentiTrack.UI.Models.UserSession)Session[AuthentiTrack.Utility.SessionKeys.USER_SESSION];
+                    byte clientId = 0;
+                    if (Session[AuthentiTrack.Utility.SessionKeys.CLIENTID_SESSION] != null)
+                    {
+                        clientId = Convert.ToByte(Session[AuthentiTrack.Utility.SessionKeys.CLIENTID_SESSION]);
+                    }
+                }*@
+            <section role="main" class="content-body">
+                <header class="page-header">
+                    <div class="col-sm-8">
+                        <div style="padding-left:2%">
+                            @*@Html.MvcSiteMap().SiteMapPath()*@
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="float:right;">
+                        <div class="right-wrapper pull-right" style="margin-right:2%;padding-top:0.5%">
+                            @*@using (Html.BeginForm("SetCulture", "Home", new { area = "" }))
+                                {
+                                    <ul class="nav navbar-nav navbar-right">
+
+                                        <li id="langli">
+                                            @Html.Partial("_LanguageDropdown", new AuthentiTrack.UI.Models.LanguageViewModel(true))
+                                        </li>
+
+                                    </ul>
+                                }*@
+
+
+                        </div>
+                    </div>
+
+
+
+
+                </header>
+
+
+
+                <!-- start: page -->
+                <div class="layoutBody">
+                    @RenderBody()
+                </div>
+
+                <!-- Footer -->
+                <footer class="page-footer font-small blue">
+
+                    <!-- Copyright -->
+                    <div class="footer-copyright text-center py-3">
+                        © @DateTime.Now.Year :
+                        <a href="https://Covectra.com/" class="text-primary">   Covectra AuthentiTrack Serialization</a>
+                        <p>
+                            @*@if (userSession != null && userSession.ClientId > 0)
+                                {
+                                    if (userSession.ClientId == 12)
+                                    {
+
+                                        if ((string)Session[AuthentiTrack.Utility.SessionKeys.CLIENT_NAME_SESSION].ToString().ToLower() == "demo")
+                                        {
+                                            @Html.ActionLink("Clear Database", "ClearDatabase", "Home", new { area = "" }, new { id = "clear-database-link", @class = "text-danger", onclick = "return confirm('Are you sure you want to clear the database?');" })
+                                            <span>&nbsp;|&nbsp;</span>
+                                        }
+                                    }
+                                }*@
+                            @*@Html.ActionLink("Backup Database", "BackupDatabase", "Home", new { area = "" }, new { id = "backup-database-link", @class = "text-danger", onclick = "return confirm('Are you sure you want to take backup of database?');" })
+                                &nbsp;|&nbsp;*@
+                            @if (System.Configuration.ConfigurationManager.AppSettings["ReleaseNoteLink"] == "true")
+                            {
+                                @Html.ActionLink("Release Note", "Index", "ReleaseNote", new { area = "" }, new { id = "releasenote-link", @class = "text-primary" })
+                            }
+                        </p>
+                    </div>
+                    <!-- Copyright -->
+
+                </footer>
+                <!-- Footer -->
+            
+                <!-- end: page -->
+            </section>
+        </div>
+
+        <div id="popup">
+            @RenderSection("popup", required: false)
+        </div>
+    </section>
+
+    <!-- Vendor -->
+    <script src="~/Scripts/CustomValidation.js"></script>
+    <script src="~/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/assets/vendor/nanoscroller/nanoscroller.js"></script>
+    <script src="~/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/assets/vendor/magnific-popup/magnific-popup.js"></script>
+    <script src="~/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+    <!-- Specific Page Vendor -->
+    <script src="~/assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+    <script src="~/assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
+    <script src="~/assets/vendor/jquery-appear/jquery.appear.js"></script>
+    <script src="~/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+    <script src="~/assets/vendor/jquery-easypiechart/jquery.easypiechart.js"></script>
+    <script src="~/assets/vendor/flot/jquery.flot.js"></script>
+    <script src="~/assets/vendor/flot-tooltip/jquery.flot.tooltip.js"></script>
+    <script src="~/assets/vendor/flot/jquery.flot.pie.js"></script>
+    <script src="~/assets/vendor/flot/jquery.flot.categories.js"></script>
+    <script src="~/assets/vendor/flot/jquery.flot.resize.js"></script>
+    <script src="~/assets/vendor/jquery-sparkline/jquery.sparkline.js"></script>
+    <script src="~/assets/vendor/raphael/raphael.js"></script>
+    <script src="~/assets/vendor/morris/morris.js"></script>
+    <script src="~/assets/vendor/gauge/gauge.js"></script>
+    <script src="~/assets/vendor/snap-svg/snap.svg.js"></script>
+    <script src="~/assets/vendor/liquid-meter/liquid.meter.js"></script>
+    <script src="~/assets/vendor/jqvmap/jquery.vmap.js"></script>
+    <script src="~/assets/vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
+    <script src="~/assets/vendor/jqvmap/maps/jquery.vmap.world.js"></script>
+    <script src="~/assets/vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
+    <script src="~/assets/vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
+    <script src="~/assets/vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
+    <script src="~/assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
+    <script src="~/assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
+    <script src="~/assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
+
+    <!-- Theme Base, Components and Settings -->
+    <script src="~/assets/javascripts/theme.js"></script>
+
+    <!-- Theme Custom -->
+    <script src="~/assets/javascripts/theme.custom.js"></script>
+
+    <!-- Theme Initialization Files -->
+    <script src="~/assets/javascripts/theme.init.js"></script>
+
+
+    <!-- Examples -->
+    @*<script src="~/assets/javascripts/dashboard/examples.dashboard.js"></script>*@
+</body>
+</html>

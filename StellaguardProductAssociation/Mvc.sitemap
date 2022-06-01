@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+  <mvcSiteMapNode title="$resources:Menu,Home" controller="Home" action="Index">
+    <mvcSiteMapNode default-id="Ship" title="$resources:Menu,Ship_Header" url="/Home#Ship">
+      <mvcSiteMapNode  default-id="Ship" title="$resources:Menu,Ship" action="Index" controller="Shipping" area="Serialization" visibility="{&quot;Module&quot;:&quot;Shipping&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode  default-id="DropShipment_Menu" title="$resources:Menu,DropShipment_Menu" action="DropShipment" controller="Shipping" area="Serialization" visibility="{&quot;Module&quot;:&quot;Drop Shipping&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode  default-id="Receive" title="$resources:Menu,Receive" action="Index"  controller="Receiving" area="Serialization" visibility="{&quot;Module&quot;:&quot;Receiving&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode default-id="Rework" title="$resources:Menu,Rework"  url="/Home#Rework">
+      <mvcSiteMapNode default-id="Aggregation" title="$resources:Menu,Aggregation" action="Index" controller="Aggregation" area="Serialization" visibility="{&quot;Module&quot;:&quot;Aggregation&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Disaggregation" title="$resources:Menu,Disaggregation" action="Index" controller="Disaggregation" area="Serialization" visibility="{&quot;Module&quot;:&quot;Disaggregation&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Repackage" title="$resources:Menu,Repackage" action="Index" controller="Repackaging" area="Serialization" visibility="{&quot;Module&quot;:&quot;Repackaging&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Decommissioning" title="$resources:Menu,Decommissioning" action="Index" controller="Decommissioning" area="Serialization" visibility="{&quot;Module&quot;:&quot;Decommissioning&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Damage" title="$resources:Menu,Menu_Damage" action="Index" controller="Damaging" area="Serialization" visibility="{&quot;Module&quot;:&quot;Damage&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Sampling" title="$resources:Menu,Sampling" action="Index" controller="Sampling" area="Serialization" visibility="{&quot;Module&quot;:&quot;Sampling&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Return" title="$resources:Menu,Return" action="Index" controller="Return" area="Serialization" visibility="{&quot;Module&quot;:&quot;Return&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Kitting" title="$resources:Menu,Kitting" action="Index" controller="Kitting" area="Serialization" visibility="{&quot;Module&quot;:&quot;Kitting&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Quarantine" title="$resources:Menu,Quarantine" action="Index" controller="Quarantine" area="Serialization" visibility="{&quot;Module&quot;:&quot;Quarantine&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Destroy" title="$resources:Menu,Destroy" action="Index" controller="Destroying" area="Serialization" visibility="{&quot;Module&quot;:&quot;Destroying&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Divert" title="$resources:Menu,Divert" action="Index" controller="Diverted" area="Serialization" visibility="{&quot;Module&quot;:&quot;Diverted&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Dispense" title="$resources:Menu,Dispense" action="Index" controller="Dispense" area="Serialization" visibility="{&quot;Module&quot;:&quot;Dispense&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Finalize" title="$resources:Menu,EndOfLife" action="Index" controller="EndOfLifeEvents" area="Serialization" visibility="{&quot;Module&quot;:&quot;Finalize&quot;,&quot;ActionType&quot;:&quot;Write&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Reprint" title="$resources:Menu,Reprint" action="Index" controller="Reprint" area="Serialization" visibility="{&quot;Module&quot;:&quot;Reprint&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      
+      <!--<mvcSiteMapNode default-id="TPNConfiguration" title="$resources:Menu,TPNConfiguration" action="Index" controller="TPNConfiguration" area="Serialization" visibility="{&quot;Module&quot;:&quot;TPNConfiguration&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>-->
+    </mvcSiteMapNode>
+    <mvcSiteMapNode default-id="Master" title="$resources:Menu,Master" url="/Home#Master">
+      
+    <mvcSiteMapNode default-id="CompanyPrefixSetup" title="$resources:Menu,CompanyPrefixSetup" action="Index" controller="CompanyPrefixSetup" area="Serialization" visibility="{&quot;Module&quot;:&quot;CompanyPrefixSetup&quot;,&quot;ActionType&quot;:&quot;Read&quot;}">
+        <mvcSiteMapNode default-id="Add_CompanyPrefixSetup" title="$resources:Menu,Add_CompanyPrefixSetup" action="Add" visibility="{&quot;Module&quot;:&quot;CompanyPrefixSetup&quot;,&quot;ActionType&quot;:&quot;Write&quot;}"></mvcSiteMapNode>
+        <!--<mvcSiteMapNode default-id="Edit_CompanyPrefixSetup" title="$resources:Menu,Edit_CompanyPrefixSetup" action="Edit" visibility="{&quot;Module&quot;:&quot;CompanyPrefixSetup&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" preservedRouteParameters="CompanyPrefixId"></mvcSiteMapNode>-->
+    </mvcSiteMapNode>
+      
+     <mvcSiteMapNode default-id="Client" title="$resources:Menu,Client_Menu" action="Index" controller="Client" area="UserManager" visibility="{&quot;Module&quot;:&quot;Client&quot;,&quot;ActionType&quot;:&quot;Read&quot;}">
+        <mvcSiteMapNode default-id="Add_Client" title="$resources:Menu,Add_Client" action="Add" visibility="{&quot;Module&quot;:&quot;Client&quot;,&quot;ActionType&quot;:&quot;Write&quot;}"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Edit_Client" title="$resources:Menu,Edit_Client" action="Edit" visibility="{&quot;Module&quot;:&quot;Client&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" preservedRouteParameters="productId"></mvcSiteMapNode>
+
+      </mvcSiteMapNode>
+     <mvcSiteMapNode default-id="Product" title="$resources:Menu,Product" action="Index" controller="Product" area="Serialization" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Read&quot;}">
+        <mvcSiteMapNode default-id="Add_Product" title="$resources:Menu,Add_Product" action="Add" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Write&quot;}"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Edit_Product" title="$resources:Menu,Edit_Product" action="Edit" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" preservedRouteParameters="productId"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Manage_Configuration" title="$resources:Menu,Manage_Configuration" action="Index" controller="PackageConfiguration" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Read&quot;}" preservedRouteParameters="productId" key="manageConfiguration">
+          <mvcSiteMapNode default-id="Add_Configuration" title="$resources:Menu,Add_Configuration"  action="AddPackageConfiguration" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" inheritedRouteParameters="productId" preservedRouteParameters="productId" key="addConfiguration"></mvcSiteMapNode>
+          <mvcSiteMapNode default-id="Edit_Configuration" title="$resources:Menu,Edit_Configuration" action="EditPackageConfiguration" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" inheritedRouteParameters="productId" preservedRouteParameters="productId,packageConfigurationId" key="EditConfiguration"></mvcSiteMapNode>
+          <mvcSiteMapNode default-id="View_Ranges" title="$resources:Menu,View_Ranges" action="GetRanges" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Read&quot;}" inheritedRouteParameters="productId" preservedRouteParameters="productId,packageConfigurationId" key="GetRanges">
+            <mvcSiteMapNode default-id="Add_Range" title="$resources:Menu,Add_Range" action="AddPackageRange" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" inheritedRouteParameters="productId,packageConfigurationId" preservedRouteParameters="productId,packageConfigurationId" key="AddPackageRange"></mvcSiteMapNode>
+          </mvcSiteMapNode>
+        </mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Manage_Hierarchies" title="$resources:Menu,Manage_Hierarchies" action="Index" controller="ProductHierarchy" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Read&quot;}" preservedRouteParameters="productId">
+          <mvcSiteMapNode default-id="Package_Hierarchy" title="$resources:Menu,Package_Hierarchy" action="Packages" controller="ProductHierarchy" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Read&quot;}" inheritedRouteParameters="productId" preservedRouteParameters="productId,hierarchyId"></mvcSiteMapNode>
+          <mvcSiteMapNode default-id="Add_Hierarchy" title="$resources:Menu,Add_Hierarchy" action="Add" controller="ProductHierarchy" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" inheritedRouteParameters="productId" preservedRouteParameters="productId"></mvcSiteMapNode>
+        </mvcSiteMapNode>
+      </mvcSiteMapNode>
+
+      <mvcSiteMapNode default-id="ProductFamily" title="$resources:Menu,ProductFamily" action="Index" controller="ProductFamily" area="Serialization" visibility="{&quot;Module&quot;:&quot;ProductFamily&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}">
+	   <mvcSiteMapNode default-id="Manage_Configuration1" title="$resources:Menu,Manage_Configuration" action="Index" controller="PackageConfiguration" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Read&quot;}" preservedRouteParameters="productId" category="pf"  canonicalKey="manageConfiguration">
+          <mvcSiteMapNode default-id="Add_Configuration1" title="$resources:Menu,Add_Configuration"  action="AddPackageConfiguration" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" inheritedRouteParameters="productId" preservedRouteParameters="productId" category="pf" canonicalKey="addConfiguration"></mvcSiteMapNode>
+          <mvcSiteMapNode default-id="Edit_Configuration1" title="$resources:Menu,Edit_Configuration" action="EditPackageConfiguration" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" inheritedRouteParameters="productId" preservedRouteParameters="productId,packageConfigurationId" category="pf" canonicalKey="EditConfiguration"></mvcSiteMapNode>
+          <mvcSiteMapNode default-id="View_Ranges1" title="$resources:Menu,View_Ranges" action="GetRanges" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Read&quot;}" inheritedRouteParameters="productId" preservedRouteParameters="productId,packageConfigurationId" category="pf" canonicalKey="GetRanges">
+            <mvcSiteMapNode default-id="Add_Range1" title="$resources:Menu,Add_Range" action="AddPackageRange" visibility="{&quot;Module&quot;:&quot;Product&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" inheritedRouteParameters="productId,packageConfigurationId" preservedRouteParameters="productId,packageConfigurationId" category="pf" canonicalKey="AddPackageRange"></mvcSiteMapNode>
+          </mvcSiteMapNode>
+        </mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Add_ProductFamily" title="$resources:Menu,AddProductFamily" action="Add" controller="ProductFamily"  visibility="{&quot;Module&quot;:&quot;ProductFamily&quot;,&quot;ActionType&quot;:&quot;Write&quot;,&quot;ShowInScanner&quot;:true}" ></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Edit_ProductFamily" title="$resources:Menu,EditProductFamily" action="Edit" visibility="{&quot;Module&quot;:&quot;ProductFamily&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" preservedRouteParameters="productFamilyId"></mvcSiteMapNode>
+	  </mvcSiteMapNode>
+
+      <mvcSiteMapNode default-id="Batch" title="$resources:Menu,Menu_Batch" action="Index" controller="Batch" area="Serialization" visibility="{&quot;Module&quot;:&quot;Batch&quot;,&quot;ActionType&quot;:&quot;Read&quot;}">
+        <mvcSiteMapNode default-id="Batch_Details" title="$resources:Menu,Batch_Details" action="ListPackageDetails" visibility="{&quot;Module&quot;:&quot;Batch&quot;,&quot;ActionType&quot;:&quot;Read&quot;}" preservedRouteParameters="userBatchNumber">
+        </mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Event_History" title="EventHistory" action="Index" controller="EventHistory" visibility="{&quot;Module&quot;:&quot;Batch&quot;,&quot;ActionType&quot;:&quot;Read&quot;}" preservedRouteParameters="serializationId,serialNumber"></mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <!--<mvcSiteMapNode default-id="Recalled_Batch" title="$resources:Menu,Recalled_Batch" action="ListRecalledBatches" controller="Batch" area="Serialization" visibility="{&quot;Module&quot;:&quot;Batch&quot;,&quot;ActionType&quot;:&quot;Read&quot;}"></mvcSiteMapNode>-->
+      <mvcSiteMapNode default-id="Reason" title="$resources:Menu,Reason" action="Index" controller="Reason" area="Serialization" visibility="{&quot;Module&quot;:&quot;Reason&quot;,&quot;ActionType&quot;:&quot;Read&quot;}">
+        <mvcSiteMapNode default-id="AddReason" title="$resources:Menu,Add_Reason" action="Add" visibility="{&quot;Module&quot;:&quot;Reason&quot;,&quot;ActionType&quot;:&quot;Write&quot;}"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="EditReason" title="$resources:Menu,Edit_Reason" action="Edit" visibility="{&quot;Module&quot;:&quot;Reason&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" preservedRouteParameters="reasonId"></mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode default-id="User" title="$resources:Menu,User" action="Index" controller="User" area="UserManager" visibility="{&quot;Module&quot;:&quot;User&quot;,&quot;ActionType&quot;:&quot;Read&quot;}">
+        <mvcSiteMapNode default-id="Add_User" title="$resources:Menu,Add_User" action="AddUser" visibility="{&quot;Module&quot;:&quot;User&quot;,&quot;ActionType&quot;:&quot;Write&quot;}"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Edit_User" title="$resources:Menu,Edit_User" action="EditUser" visibility="{&quot;Module&quot;:&quot;User&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" preservedRouteParameters="userId"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Contact_Addresses" title="$resources:Menu,Contact_Addresses" action="ListUserAddress" visibility="{&quot;Module&quot;:&quot;User&quot;,&quot;ActionType&quot;:&quot;Read&quot;}" preservedRouteParameters="userId">
+          <mvcSiteMapNode default-id="Add_Contact_Address" title="$resources:Menu,Add_Contact_Address" action="AddUserAddress" visibility="{&quot;Module&quot;:&quot;User&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" preservedRouteParameters="userId"></mvcSiteMapNode>
+          <mvcSiteMapNode default-id="Edit_Contact_Address" title="$resources:Menu,Menu_Edit_Contact_Address" action="EditUserAddress" visibility="{&quot;Module&quot;:&quot;User&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" inheritedRouteParameters="userId" preservedRouteParameters="userId,addressId"></mvcSiteMapNode>
+        </mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Supplier" title="$resources:Menu,Supplier" action="Index" controller="SupplierChain" area="UserManager" visibility="{&quot;Module&quot;:&quot;Supplier&quot;,&quot;ActionType&quot;:&quot;Read&quot;}">
+        <mvcSiteMapNode default-id="Add_Supplier" title="$resources:Menu,Menu_Add_Supplier" action="AddSupplierChain" visibility="{&quot;Module&quot;:&quot;Supplier&quot;,&quot;ActionType&quot;:&quot;Write&quot;}"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Edit_Supplier" title="$resources:Menu,Edit_Supplier" action="Edit" visibility="{&quot;Module&quot;:&quot;Supplier&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" preservedRouteParameters="supplierId"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Add_Contact_Address" title="$resources:Menu,Menu_Add_Contact_Address" action="AddSupplierAddress" visibility="{&quot;Module&quot;:&quot;Supplier&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" inheritedRouteParameters="supplierId" preservedRouteParameters="supplierId"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Edit_Contact_Address" title="$resources:Menu,Edit_Contact_Address" action="EditSupplierAddress" visibility="{&quot;Module&quot;:&quot;Supplier&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" inheritedRouteParameters="supplierId" preservedRouteParameters="supplierId,addressId"></mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Role" title="$resources:Menu,Menu_Role" action="Index" controller="Roles" area="UserManager" visibility="{&quot;Module&quot;:&quot;Roles&quot;,&quot;ActionType&quot;:&quot;Read&quot;}">
+        <mvcSiteMapNode default-id="Add_Role" title="$resources:Menu,Menu_Add_Role" action="Add" visibility="{&quot;Module&quot;:&quot;Roles&quot;,&quot;ActionType&quot;:&quot;Write&quot;}"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Edit_Role" title="$resources:Menu,Edit_Role" action="Edit" visibility="{&quot;Module&quot;:&quot;Roles&quot;,&quot;ActionType&quot;:&quot;Write&quot;}" preservedRouteParameters="roleId"></mvcSiteMapNode>
+        <mvcSiteMapNode default-id="Role_Permissions" title="$resources:Menu,Role_Permissions" action="Index" controller="RolePermission" visibility="{&quot;Module&quot;:&quot;Roles&quot;,&quot;ActionType&quot;:&quot;Read&quot;}" preservedRouteParameters="roleId,roleName"></mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Language_Translation_List" title="$resources:Menu,Language_Translation_List" action="Index" controller="LanguageTranslation" area="UserManager" visibility="{&quot;Module&quot;:&quot;LanguageTranslation&quot;,&quot;ActionType&quot;:&quot;Read&quot;}">
+        <mvcSiteMapNode default-id="Language_Translation" title="$resources:Menu,Language_Translation" action="Edit" visibility="{&quot;Module&quot;:&quot;LanguageTranslation&quot;,&quot;ActionType&quot;:&quot;Write&quot;}"></mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Buffer_Number_Request" title="$resources:Menu,Buffer_Number_Request" action="Index" controller="SerializationGenerationRequest" area="Serialization" visibility="{&quot;Module&quot;:&quot;GenerationRequest&quot;,&quot;ActionType&quot;:&quot;Read&quot;}">
+        <mvcSiteMapNode default-id="Add_Buffer_Number_Request" title="$resources:Menu,Add_Buffer_Number_Request" action="RequestSerialNumbers" visibility="{&quot;Module&quot;:&quot;GenerationRequest&quot;,&quot;ActionType&quot;:&quot;Read&quot;}"></mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Provisioning" title="$resources:Menu,Provisioning" action="Index" controller="Provisioning" area="Serialization" visibility="{&quot;Module&quot;:&quot;Provisioning&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}"></mvcSiteMapNode>
+      <mvcSiteMapNode  default-id="ASNConfiguration" title="ASN Configuration" action="Index"  controller="ASNConfiguration" area="Serialization" visibility="{&quot;Module&quot;:&quot;ASNConfiguration&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <!--<mvcSiteMapNode default-id="InitiateLot" title="$resources:Menu,Initiate_Lot" action="Index" controller="InitiateLot" area="Serialization" visibility="{&quot;Module&quot;:&quot;InitiateLot&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>-->
+
+      
+      <!--<mvcSiteMapNode  default-id="SeedDosage" title="SeedDosage" action="Index"  controller="DosageForm" area="Serialization" visibility="{&quot;Module&quot;:&quot;SeedDosage&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode  default-id="SeedPackageType" title="SeedPackageType" action="Index"  controller="SeedPackageType" area="Serialization" visibility="{&quot;Module&quot;:&quot;SeedPackageType&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>-->
+      <mvcSiteMapNode  default-id="GenerateA2A" title="GenerateA2A" action="Index"  controller="GenerateA2A" area="Serialization" visibility="{&quot;Module&quot;:&quot;GenerateA2A&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode  default-id="DosageForm" title="Dosage Form" action="Index"  controller="DosageForm" area="Serialization" visibility="{&quot;Module&quot;:&quot;Dosage Form&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode  default-id="SeedPackageType" title="Seed Package Type" action="Index"  controller="SeedPackageType" area="Serialization" visibility="{&quot;Module&quot;:&quot;Seed Package Type&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+      <mvcSiteMapNode  default-id="ResourceMessage" title="Resource Message" action="Index"  controller="ResourceMessage" area="Serialization" visibility="{&quot;Module&quot;:&quot;ResourceMessage&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}"></mvcSiteMapNode>
+
+    </mvcSiteMapNode>
+    <mvcSiteMapNode default-id="Validate" title="$resources:Menu,Validate" url="/Home#Validate" >
+      <mvcSiteMapNode default-id="History_Tracker" title="$resources:Menu,History_Tracker" action="Index" controller="History"  area="Serialization" visibility="{&quot;Module&quot;:&quot;TrackHistory&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:true}">
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode default-id="Reports" title="$resources:Menu,Reports" url="/Home#Reports">
+      <!--<mvcSiteMapNode default-id ="Custom_Reports" title="$resources:Menu,Custom_Reports" action="Index" controller="Product" area="Reports" visibility="{&quot;Module&quot;:&quot;Reports&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}" ></mvcSiteMapNode>-->
+      <mvcSiteMapNode default-id ="dscsa_Report" title="$resources:Menu,Menu_DSCSA_Report" action="Index" controller="DSCSAReport" area="Reports" visibility="{&quot;Module&quot;:&quot;DSCSAReports&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}" ></mvcSiteMapNode>
+      <mvcSiteMapNode default-id ="audit_Report" title="Audit Reports" action="Index" controller="AuditReports" area="Reports" visibility="{&quot;Module&quot;:&quot;AuditReports&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}" >
+        <mvcSiteMapNode default-id ="useraudit_Report" title="User Audit" action="Index" controller="UserAuditReport" area="Reports" visibility="{&quot;Module&quot;:&quot;AuditReports&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}" ></mvcSiteMapNode>
+        <mvcSiteMapNode default-id ="productaudit_Report" title="Product Audit" action="Index" controller="ProductAuditReport" area="Reports" visibility="{&quot;Module&quot;:&quot;AuditReports&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}" ></mvcSiteMapNode>
+        <mvcSiteMapNode default-id ="loginstatus_Report" title="Login Status" action="Index" controller="LoginStatusReport" area="Reports" visibility="{&quot;Module&quot;:&quot;AuditReports&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}" ></mvcSiteMapNode>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode default-id="XMLGenerator" title="XML Generator" action="Index" controller="EPCISXMLGenerator"  area="" visibility="{&quot;Module&quot;:&quot;XMLGenerator&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}"></mvcSiteMapNode>
+      <!--<mvcSiteMapNode default-id="ActivityReport" title="$resources:Menu,Menu_EPCIS_ActivityLog" action="Index" controller="ActivityReport"  area="Reports" visibility="{&quot;Module&quot;:&quot;ActivityReport&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}">
+        <mvcSiteMapNode default-id ="EPCISActivityReport" title="EPCIS Capture Log" action="Index" controller="EPCISCaptureReport" area="Reports" visibility="{&quot;Module&quot;:&quot;ActivityReport&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}" ></mvcSiteMapNode>
+        <mvcSiteMapNode default-id ="ProvisioningActivityReport" title="Provisioning Log" action="Index" controller="ProvisioningActivityReport" area="Reports" visibility="{&quot;Module&quot;:&quot;ActivityReport&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}" ></mvcSiteMapNode>
+      </mvcSiteMapNode>-->
+      <mvcSiteMapNode default-id="EPCISActivityReport" title="EPCIS Activity Report" action="Index" controller="EPCISCaptureReport"  area="Reports" visibility="{&quot;Module&quot;:&quot;EPCISActivityReport&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="ProvisioningActivityReport" title="Provisioning Log" action="Index" controller="ProvisioningActivityReport"  area="Reports" visibility="{&quot;Module&quot;:&quot;ProvisioningLog&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="SNImportLog" title="SN Import Log" action="Index" controller="SNImportLogActivityReport"  area="Reports" visibility="{&quot;Module&quot;:&quot;SNImportLog&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="Charts" title="Charts" action="ChartSample" controller="Chart"  area="Reports" visibility="{&quot;Module&quot;:&quot;Charts&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}"></mvcSiteMapNode>
+      <mvcSiteMapNode default-id="ChartsDynamic" title="Charts Dynamic" action="ChartIndex" controller="Chart"  area="Reports" visibility="{&quot;Module&quot;:&quot;Charts&quot;,&quot;ActionType&quot;:&quot;Read&quot;,&quot;ShowInScanner&quot;:false}"></mvcSiteMapNode>
+  </mvcSiteMapNode>
+  </mvcSiteMapNode>
+</mvcSiteMap>
