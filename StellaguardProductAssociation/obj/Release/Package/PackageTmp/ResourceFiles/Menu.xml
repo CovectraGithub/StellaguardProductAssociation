@@ -1,0 +1,713 @@
+<?xml version="1.0" standalone="yes"?>
+<resources>
+  <resource>
+    <culture>en-us</culture>
+    <name>Reprint</name>
+    <value>Pallet Rework</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Initiate_Lot</name>
+    <value>Can not proceed with given input.</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>ProductFamily</name>
+    <value>Product Family</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>CompanyPrefixSetup</name>
+    <value>Company Prefix Setup</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Add_CompanyPrefixSetup</name>
+    <value>Add CompanyPrefix</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Edit_CompanyPrefixSetup</name>
+    <value>Edit CompanyPrefix</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Damage</name>
+    <value>Damage</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Home</name>
+    <value>Home</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Ship</name>
+    <value>Ship</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Receive</name>
+    <value>Receive</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Rework</name>
+    <value>Rework</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Aggregation</name>
+    <value>Aggregation</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Disaggregation</name>
+    <value>Disaggregation</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Repackage</name>
+    <value>Repackage</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Decommissioning</name>
+    <value>Decommissioning</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Menu_Damage</name>
+    <value>Damage</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Sampling</name>
+    <value>Sampling</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Return</name>
+    <value>Return</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Kitting</name>
+    <value>Kitting</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Quarantine</name>
+    <value>Quarantine</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Destroy</name>
+    <value>Destroy</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Divert</name>
+    <value>Divert</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Dispense</name>
+    <value>Dispense</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Master</name>
+    <value>Master</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Product</name>
+    <value>Product</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Add_Product</name>
+    <value>Add Product</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Edit_Product</name>
+    <value>Edit Product</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Manage_Configuration</name>
+    <value>Manage Configuration</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Add_Configuration</name>
+    <value>Add Configuration</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Edit_Configuration</name>
+    <value>Edit Configuration</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>View_Ranges</name>
+    <value>View Ranges</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Add_Range</name>
+    <value>Add Range</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Manage_Hierarchies</name>
+    <value>Manage Hierarchies</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Package_Hierarchy</name>
+    <value>Package Hierarchy</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Add_Hierarchy</name>
+    <value>Add Hierarchy</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Buffer_Number_Request</name>
+    <value>Generate Serial Buffer</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Add_Buffer_Number_Request</name>
+    <value>Add Buffer Number Request</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Provisioning</name>
+    <value>Provisioning</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Batch_Details</name>
+    <value>Batch Details</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Recalled_Batch</name>
+    <value>Recalled Batch</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>User</name>
+    <value>User List</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Add_User</name>
+    <value>Add User</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Edit_User</name>
+    <value>Edit User</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Contact_Addresses</name>
+    <value>Contact Addresses</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Add_Contact_Address</name>
+    <value>Add Contact Address</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Edit_Contact_Address</name>
+    <value>Edit Contact Address</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Supplier</name>
+    <value>Vendor List</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Edit_Supplier</name>
+    <value>Edit Vendor</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>View_Contact_Addresses</name>
+    <value>View Contact Addresses</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Role_Permissions</name>
+    <value>Role Permissions</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Validate</name>
+    <value>Validate</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>History_Tracker</name>
+    <value>History Tracker</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Reports</name>
+    <value>Reports</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Custom_Reports</name>
+    <value>Custom Reports</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Edit_Role</name>
+    <value>Edit Role</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Menu_Add_Role</name>
+    <value>Add Role</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Menu_Role</name>
+    <value>Role List</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Menu_Edit_Contact_Address</name>
+    <value>Edit Contact Address</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Menu_Add_Contact_Address</name>
+    <value>Add Contact Address</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Menu_Add_Supplier</name>
+    <value>Add Vendor Location</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Menu_Batch</name>
+    <value>Batch</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Ship_Header</name>
+    <value>Ship</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>EndOfLife</name>
+    <value>Finalize</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Reason</name>
+    <value>Reason</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Add_Reason</name>
+    <value>Add Reason</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Edit_Reason</name>
+    <value>Edit Reason</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>DSCSA_Report</name>
+    <value>DSCSA Report</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>ShipByBatch</name>
+    <value>Ship By Batch</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Menu_DSCSA_Report</name>
+    <value>DSCSA Report</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Language_Translation_List</name>
+    <value>Language Translation List</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>ASNConfiguration</name>
+    <value>XML Generator</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Client_Menu</name>
+    <value>Client</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Add_Client</name>
+    <value>Add Client</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Edit_Client</name>
+    <value>Edit Client</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>Menu_EPCIS_ActivityLog</name>
+    <value>Activity Log</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>DropShipment_Menu</name>
+    <value>Drop Shipment</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>ASNConfiguration</name>
+    <value>Gerador de XML</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Menu_DSCSA_Report</name>
+    <value>DSCSA Relatório</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Language_Translation_List</name>
+    <value>Linguagem lista de Tradução</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>ShipByBatch</name>
+    <value>navio pelo lote</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Edit_Reason</name>
+    <value>Editar Razão</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Add_Reason</name>
+    <value>Adicionar Razão</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Reason</name>
+    <value>Razão</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>EndOfLife</name>
+    <value>Finalizar</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Ship_Header</name>
+    <value>Carga</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Menu_Batch</name>
+    <value>Lote</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Menu_Add_Supplier</name>
+    <value>Adicionar Vendor Localização</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Menu_Add_Contact_Address</name>
+    <value>Adicionar contato Endereço</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Menu_Edit_Contact_Address</name>
+    <value>Editar Contato Endereço</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Menu_Role</name>
+    <value>Lista de Regras</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Menu_Add_Role</name>
+    <value>Adicionar regra</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Edit_Role</name>
+    <value>Editar regra</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Custom_Reports</name>
+    <value>Relatórios Personalizados</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Reports</name>
+    <value>relatórios</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>History_Tracker</name>
+    <value>Rastreador de histórico</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Validate</name>
+    <value>Validar</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Role_Permissions</name>
+    <value>Permissão de função</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>View_Contact_Addresses</name>
+    <value>Ver Endereços e contatos</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Edit_Supplier</name>
+    <value>Editar vendedor</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Supplier</name>
+    <value>Lista de vendedores</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Edit_Contact_Address</name>
+    <value>Editar Contato Endereço</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Add_Contact_Address</name>
+    <value>Adicionar contato Endereço</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Contact_Addresses</name>
+    <value>Endereços e contatos</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Edit_User</name>
+    <value>Editar usuário</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Add_User</name>
+    <value>Adicionar Usuário</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>User</name>
+    <value>Lista de usuários</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Recalled_Batch</name>
+    <value>Batch lembrou</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Batch_Details</name>
+    <value>Detalhes de lote</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Provisioning</name>
+    <value>Abastecimento</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Add_Buffer_Number_Request</name>
+    <value>Adicionar número de tampão Pedido</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Buffer_Number_Request</name>
+    <value>Gerar buffer de série</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Add_Hierarchy</name>
+    <value>Adicionar hierarquia</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Package_Hierarchy</name>
+    <value>Hierarquia de pacote</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Manage_Hierarchies</name>
+    <value>Gerenciar hierarquias</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Add_Range</name>
+    <value>Adicionar Gama</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>View_Ranges</name>
+    <value>Veja Ranges</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Edit_Configuration</name>
+    <value>Editar configuração</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Add_Configuration</name>
+    <value>Adicionar Configuração</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Manage_Configuration</name>
+    <value>Gerenciar configuração</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Edit_Product</name>
+    <value>Editar produto</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Add_Product</name>
+    <value>Adicionar produto</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Product</name>
+    <value>Produto</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Master</name>
+    <value>Master</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Dispense</name>
+    <value>Dispensar</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Divert</name>
+    <value>desviar</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Destroy</name>
+    <value>destruir</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Quarantine</name>
+    <value>quarentena</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Kitting</name>
+    <value>kitting</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Return</name>
+    <value>Retornar</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Sampling</name>
+    <value>amostragem</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Menu_Damage</name>
+    <value>Dano</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Decommissioning</name>
+    <value>Desativar</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Repackage</name>
+    <value>Reembalar</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Disaggregation</name>
+    <value>Desagregar</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Aggregation</name>
+    <value>Agregar</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Rework</name>
+    <value>Retrabalho</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Receive</name>
+    <value>Receber</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Ship</name>
+    <value>Enviar</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Home</name>
+    <value>Página inicial</value>
+  </resource>
+  <resource>
+    <culture>pt-br</culture>
+    <name>Damage</name>
+    <value>Dano</value>
+  </resource>
+ <resource>
+    <culture>en-us</culture>
+    <name>AddProductFamily</name>
+    <value>Add Product Family</value>
+  </resource>
+  <resource>
+    <culture>en-us</culture>
+    <name>EditProductFamily</name>
+    <value>Edit Product Family</value>
+  </resource>
+</resources>

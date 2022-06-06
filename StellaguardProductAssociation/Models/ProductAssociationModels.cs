@@ -37,11 +37,14 @@ namespace StellaguardProductAssociation.Models
 
         // public int LotNumberId1 { get; set; }
         public List<ProductClass> ProductList { get; set; }
+        public List<ScanTableData> TableList { get; set; }
         //[JsonProperty("UpcList")]
         //public List<ProductUpcClass> UpcList { get; set; }
         public string JsonLotList { get; set; }
         // public string HtmlValue { get; set; }
         public List<ScannedBarcode> ScannedBarcodeList { get; set; }
+
+        public ProductAssociationFilter FilterParameters { get; set; }
 
     }
     public class ProductUpcClass
@@ -56,6 +59,18 @@ namespace StellaguardProductAssociation.Models
         public string Delete { get; set; }
 
     }
+
+    public class ProductAssociationFilter
+    {
+        public string SerialNumber { get; set; }
+
+        public string Upc { get; set; }
+        public string UserName { get; set; }
+        public string WorkOrder { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+
+    }
     public class ScannedBarcode
     {
        // public int TempScannedBarcodeDataId { get; set; }
@@ -66,7 +81,15 @@ namespace StellaguardProductAssociation.Models
        // public DateTime CreatedDate { get; set; }
 
     }
+    public class ScanTableData
+    {
 
+        public string SerialNumber { get; set; }
+
+        public string Upc { get; set; }
+        // public DateTime CreatedDate { get; set; }
+
+    }
     public class ProductClass
     {
         public int ProductId { get; set; }

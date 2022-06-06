@@ -3,8 +3,10 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -14,12 +16,12 @@ using System.Xml.Linq;
 using StellaguardProductAssociation.DAL;
 using StellaguardProductAssociation.Models;
 
-
-
 namespace StellaguardProductAssociation.Controllers
 {
+    //[RoutePrefix("ProductAssociation")]
     public class ProductAssociationController : Controller
     {
+
         private DBHelper helper = null;
         // GET: ProductAssociation
         [HttpGet, ValidateInput(false)]
@@ -27,40 +29,45 @@ namespace StellaguardProductAssociation.Controllers
         {
             if (Session["Username"] != null)
             {
+
+
                 ProductAssociationModels objProductView = new ProductAssociationModels();
                 objProductView._Lotlist = new List<Models.ProductClass>();
                 if (objProductView.Message != null)
                 {
                     objProductView.Message = objProductView.Message;
                 }
-                objProductView.BatchNumber = "W" + DateTime.Now.ToString("yyyy-MM-ddTHH':'mm':'sszzz");
+                objProductView.BatchNumber = "Wo-" + DateTime.Now.ToString("yyyy-MM-ddTHH':'mm':'sszzz");
+                objProductView.TimeStamp = DateTime.Now.ToString("yyyy-MM-ddTHH':'mm':'sszzz");
 
-
-                int  userid = Convert.ToInt32(Session["UserId"]);
-                objProductView=GetScannedBarcodeListByUser(userid);
+                int userid = Convert.ToInt32(Session["UserId"]);
+                objProductView = GetScannedBarcodeListByUser(userid);
                 objProductView.ProductList = new List<Models.ProductClass>();
                 objProductView.ProductList = this.GetProductList();
                 objProductView._Lotlist = this.GetProductList();
+
+
                 return View(objProductView);
             }
             else
             {
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Login", "ProductAssociation", new { area = "" });
             }
         }
-        
-        
         //POST: ProductAssociation
         [HttpPost, ValidateInput(false)]
         [Route("Index/{productAssociationModel}")]
         public ActionResult Index(ProductAssociationModels productAssociationModel, string submitButton)
         {
             ProductAssociationModels objProductView = new ProductAssociationModels();
+           // string myStringFromTheInput = TimeStamp.Value;
+
+            // productAssociationModel.BatchNumber+=
 
             //  //return View();
             if (Request.Form["Save"] != null)
             {
-               // productAssociationModel.BarcodeData = productAssociationModel.BarcodeData.Replace("\r\n", string.Empty);
+                // productAssociationModel.BarcodeData = productAssociationModel.BarcodeData.Replace("\r\n", string.Empty);
                 return (Save((productAssociationModel)));
 
             }
@@ -75,6 +82,9 @@ namespace StellaguardProductAssociation.Controllers
                 // code for function 2
                 return RedirectToAction("Index");
             }
+
+
+
             return View();
         }
 
@@ -84,30 +94,35 @@ namespace StellaguardProductAssociation.Controllers
             ProductAssociationModels objProductView = new ProductAssociationModels();
             if (Session["Username"] != null)
             {
+
+                string result1 = Regex.Replace(productAssociationModel1.BatchNumber, @"_", "");
+                productAssociationModel1.BatchNumber = result1;
+
                 string username = Session["Username"].ToString();
                 var result = string.Empty;
                 SqlParameter[] param = null;
-                param = new SqlParameter[2];
+
+                param = new SqlParameter[5];
                 param[0] = new SqlParameter("BarcodeList", productAssociationModel1.BarcodeData);
                 param[1] = new SqlParameter("UserName", username);
-                // ProductAssociationModels objProductView = new ProductAssociationModels();
-                // string username = Session["Username"].ToString();
+                param[2] = new SqlParameter("WorkOrder", productAssociationModel1.BatchNumber);
 
-                // dynamic jsonResponse = JsonConvert.DeserializeObject(productAssociationModel.JsonLotList);
+                param[3] = new SqlParameter("Message", SqlDbType.NVarChar, 1000);
+                param[3].Direction = ParameterDirection.Output;
 
-                //List<ProductUpcClass> myDeserializedObjList = (List<ProductUpcClass>)Newtonsoft.Json.JsonConvert.DeserializeObject(Request["jsonString"], typeof(List<ProductUpcClass>));
-
-
+                param[4] = new SqlParameter("MessageType", SqlDbType.Bit);
+                param[4].Direction = ParameterDirection.Output;
                 helper = new DBHelper(mustCloseConnection: false);
-                DataSet dsResult = helper.ExecuteDataSet(CommandType.StoredProcedure, "ProductAssociationSerialNumber", param);
-                if (dsResult != null && dsResult.Tables[0].Rows.Count > 0)
+                DataSet dsResult = helper.ExecuteDataSet(CommandType.StoredProcedure, "ProductAssociationSerialNumber_New", param);
+
+                if (param[3].Value.ToString() == "Product Associated Successfully.")
                 {
-                    result = dsResult.Tables[0].Rows[0]["Message"].ToString();
+                    return Content("<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>");
                 }
-                return Content("<script language='javascript' type='text/javascript'>alert  ('Product Details Updated Successfully ');</script>");
+
             }
             // process the cancellation request here.
-            return View(objProductView);
+            return RedirectToAction("Index");
         }
 
         private ActionResult Save(ProductAssociationModels productAssociationModel2)
@@ -128,13 +143,14 @@ namespace StellaguardProductAssociation.Controllers
                 param[1] = new SqlParameter("UserName", username);
                 // perform the actual send operation here.
 
+
                 helper = new DBHelper(mustCloseConnection: false);
                 DataSet dsResult = helper.ExecuteDataSet(CommandType.StoredProcedure, "AddTempScannedBarcodeData", param);
                 if (dsResult != null && dsResult.Tables[0].Rows.Count > 0)
                 {
                     result = dsResult.Tables[0].Rows[0]["Message"].ToString();
                 }
-               // msg = dsResult.ToString();
+                // msg = dsResult.ToString();
                 objProductView.Message = result;
 
                 //objProductView.Message="<script language='javascript' type='text/javascript'>alert  ('Scanned Details Saved Successfully ');</script>";
@@ -142,56 +158,53 @@ namespace StellaguardProductAssociation.Controllers
                 //"alert('Time OutAlert'); window.location='" +
                 //Request.ApplicationPath + "Index';", true);
 
+
             }
-             return RedirectToAction("Index");
-           // return View(objProductView);
+            return RedirectToAction("Index");
+            // return View(objProductView);
         }
         // GET: ProductAssociation
-        //[AllowAnonymous]
-        //public ActionResult Login()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-       
-        //public ActionResult Login(ProductAssociationLogin objUser)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var result = string.Empty;
-        //        SqlParameter[] param = null;
-        //        try
-        //        {
-        //            param = new SqlParameter[2];
-        //            param[0] = new SqlParameter("Username", objUser.Username);
-        //            param[1] = new SqlParameter("Password", objUser.Password);
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(ProductAssociationLogin objUser)
+        {
 
-        //            helper = new DBHelper(mustCloseConnection: false);
-        //            DataSet dsResult = helper.ExecuteDataSet(CommandType.StoredProcedure, "ProductAssociationLogin", param);
-        //            if (dsResult != null && dsResult.Tables[0].Rows.Count > 0)
-        //            {
-        //                result = dsResult.Tables[0].Rows[0]["Message"].ToString();
-        //            }
-        //            if (result == "Login Success")
-        //            {
-        //                if (!string.IsNullOrEmpty(dsResult.Tables[0].Rows[0]["Username"].ToString()))
-        //                    Session["Username"] = dsResult.Tables[0].Rows[0]["Username"].ToString();
-        //                if (!string.IsNullOrEmpty(dsResult.Tables[0].Rows[0]["id"].ToString()))
-        //                    Session["UserId"] = dsResult.Tables[0].Rows[0]["id"].ToString();
-        //                if (!string.IsNullOrEmpty(dsResult.Tables[0].Rows[0]["RoleName"].ToString()))
-        //                    Session["RoleName"] = dsResult.Tables[0].Rows[0]["RoleName"].ToString();
-        //                return RedirectToAction("Index", "ProductAssociation");
-        //            }
-        //            ModelState.AddModelError("Result", result);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            throw ex;
-        //        }
-        //    }
-        //    return View("Index","Home");
-        //}
+            if (ModelState.IsValid)
+            {
+                var result = string.Empty;
+                SqlParameter[] param = null;
+                try
+                {
+                    param = new SqlParameter[2];
+                    param[0] = new SqlParameter("Username", objUser.Username);
+                    param[1] = new SqlParameter("Password", objUser.Password);
+
+                    helper = new DBHelper(mustCloseConnection: false);
+                    DataSet dsResult = helper.ExecuteDataSet(CommandType.StoredProcedure, "ProductAssociationLogin", param);
+                    if (dsResult != null && dsResult.Tables[0].Rows.Count > 0)
+                    {
+                        Session["Username"] = dsResult.Tables[0].Rows[0]["UserName"].ToString();
+                        Session["UserId"] = dsResult.Tables[0].Rows[0]["id"].ToString();
+                        result = dsResult.Tables[0].Rows[0]["Message"].ToString();
+                    }
+                    if (result == "Login Success")
+                    {
+                        return RedirectToAction("Index", "ProductAssociation");
+                    }
+                    ModelState.AddModelError("Result", "Login Failed");
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            return View();
+
+        }
 
 
         //[HttpPost]
@@ -203,7 +216,7 @@ namespace StellaguardProductAssociation.Controllers
         //    string message;
         //    bool isSent = false;
 
-          
+
         //    return View(productAssociationModel);
         //}
 
@@ -253,10 +266,10 @@ namespace StellaguardProductAssociation.Controllers
                 //BarcodeData = m.Field<string>("BarcodeData"),
                 BarcodeData = m.Field<string>("BarcodeData"),
                 ScannedBatchId = m.Field<int>("ScannedBatchId"),
-               // TotalBarcode = m.Field<int>("TotalBarcode"),
-           }).ToList();
+                // TotalBarcode = m.Field<int>("TotalBarcode"),
+            }).ToList();
 
             return productListViewModel;
-            }
         }
     }
+}

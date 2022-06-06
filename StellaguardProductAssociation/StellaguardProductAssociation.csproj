@@ -220,6 +220,7 @@
     </Compile>
     <Compile Include="Helper\HtmlExtensions.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddProductAssociation.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProductAssociationHistoryModels.cs" />
@@ -242,6 +243,7 @@
     <Content Include="assets\images\!sample-user.jpg" />
     <Content Include="assets\images\apple-touch-icon-precomposed.png" />
     <Content Include="assets\images\arrows.png" />
+    <Content Include="assets\images\beeps_notification.mp3" />
     <Content Include="assets\images\blog-image-1.jpg" />
     <Content Include="assets\images\blog-image-2.jpg" />
     <Content Include="assets\images\blog-image-3.jpg" />
@@ -1518,7 +1520,7 @@
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\images\1x100.png" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\images\ui-icons_222222_256x240.png" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\images\ui-icons_454545_256x240.png" />
@@ -1531,21 +1533,6 @@
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\jquery.ui.spinner.min.css" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\animated-overlay.gif" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-bg_glass_100_f6f6f6_1x400.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-bg_glass_100_fdf5ce_1x400.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-icons_222222_256x240.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-icons_228ef1_256x240.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-icons_ef8c08_256x240.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\jquery-ui.css" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\jquery.ui.all.css" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\jquery.ui.base.css" />
@@ -1555,21 +1542,6 @@
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\jquery.ui.slider.css" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\jquery.ui.spinner.css" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\jquery.ui.theme.css" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\animated-overlay.gif" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-bg_flat_10_000000_40x100.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-bg_glass_100_f6f6f6_1x400.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-bg_glass_100_fdf5ce_1x400.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-icons_222222_256x240.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-icons_228ef1_256x240.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-icons_ef8c08_256x240.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-icons_ffd27a_256x240.png" />
-    <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\images\ui-icons_ffffff_256x240.png" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\jquery-ui.min.css" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\jquery.ui.button.min.css" />
     <Content Include="assets\vendor\jquery-ui\development-bundle\themes\ui-lightness\minified\jquery.ui.core.min.css" />
@@ -1775,6 +1747,9 @@
     <Content Include="assets\vendor\summernote\summernote.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\StellaGuard-logo-horizontal-tagline.jpg" />
+    <Content Include="Content\Images\StellaGuard-logo-horizontal-white.png" />
+    <Content Include="Content\Images\trash.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2049,6 +2024,8 @@
     <Content Include="assets\vendor\style-switcher\less\shared.less" />
     <Content Include="assets\vendor\style-switcher\less\skin.less" />
     <Content Include="assets\vendor\style-switcher\less\variables.less" />
+    <Content Include="Mvc.sitemap" />
+    <None Include="Properties\PublishProfiles\Stellaguard-PA.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CustomValidation.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2062,7 +2039,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
