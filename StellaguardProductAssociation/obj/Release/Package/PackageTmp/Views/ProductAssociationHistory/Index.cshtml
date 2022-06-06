@@ -31,121 +31,136 @@ if (addressId != null && Address1 != null && SupplierId != null)
     }
 }
 
-    <div id="product-list-div">
-@using (Html.BeginForm("Index", "ProductAssociationHistory", FormMethod.Get, new
-{
-    id = "frmSearch",
-    name = "frmsearch",
-    @class = "form-horizontal",
-    style
-                        = "margin: 8px!important;"
-}))
-{
 
-        <div id="product-list-form">
-            <div class="form-horizontal" style="margin-bottom:0px;margin:5px!important;margin: 2px!important;">
-                <fieldset>
-                    <br />
-                    <div class="panel panel-primary form-horizontal" style="margin-bottom:0px;">
-                        <div class="panel-heading" data-toggle="collapse" data-target="#filter" style="min-height:45px!important;">
-                            <h3 class="panel-title">
-                                Select Filter Criteria
-                                <a id="collapseTrigger" href="#" class="collapseTrigger btn btn-xs pull-right glyphicon glyphicon-plus"></a>
-                            </h3>
-                        </div>
-                        <div id="filter" class="panel-body collapse">
-                            <div class="form-group">
-                                @*@Html.Label(@Index.ProductFilter_ProductName_Display_Name, new { @class = "col-xs-12 col-sm-2 control-label" })*@
-                                <label class="col-sm-2 col-xs-12 control-label " for="FilterParameters_UserBatchNumber">Serial Number #</label>
-                                <div class="col-xs-12 col-sm-4">
-                                    @*@Html.TextBoxFor(model => model.FilterParameters.FilterProductName, new { @class = "form-control", @placeholder = AuthentiTrack.I18NResources.Serialization.Product.Index.ProductFilter_ProductName_Display_Name })*@
-                                    <input class="form-control" data-val="true" data-val-length="Batch Number should not exceed 100 characters." data-val-length-max="100" id="FilterParameters_UserBatchNumber" name="FilterParameters.UserBatchNumber" type="text" value="">
+<section class="panel-group">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <p class="panel-subtitle"></p>
+        </div>
+
+        <h2 class="panel-title"><br />Product Association History</h2>
+
+    </header>
+    <div class="panel-body">
+
+        <div id="product-list-div">
+            <div style="background-color:white;">
+                @using (Html.BeginForm("Index", "ProductAssociationHistory", FormMethod.Post, new { id = "filter-form" }))
+            {
+                    <div id="product-list-form">
+                        <div class="form-horizontal" style="margin-bottom:0px;">
+
+
+
+                            @*<div class="panel form-horizontal">*@
+                            <div class="panel panel-primary form-horizontal" style="margin-bottom:0px;">
+                                <div class="panel-heading">
+                                    <div class="panel-actions">
+                                        <a href="#" class="fa fa-caret-down"></a>
+
+                                    </div>
+
+                                    <h3 class="panel-title">
+                                        Select Filter Criteria
+
+                                    </h3>
                                 </div>
-                                <label class="col-sm-2 col-xs-12 control-label " for="FilterParameters_ProductName">Product UPC</label>
-                                <div class="col-xs-12 col-sm-4">
-                                    <input class="form-control" data-val="true" data-val-length="Product Name should not exceed 100 characters." data-val-length-max="100" id="FilterParameters_ProductName" name="FilterParameters.ProductName" type="text" value="">
-                                </div>
-                                @*<div class="form-group">*@
-
-                                @*</div>*@
-                            </div>
-                            <div class="form-group">
-
-                                <label class="col-xs-12 col-sm-2 control-label text-right">
-                                    Users
-                                </label>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div>
-                                        <div class="selectBox" onclick="showCheckboxes()">
-                                            <select class="form-control valid">
-                                                <option>Select Users</option>
-                                            </select>
-                                            <div class="overSelect"></div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                       
+                                        @Html.Label("Serial Number", new { @class = "col-xs-12 col-sm-2 control-label" })
+                                        <div class="col-xs-12 col-sm-4">
+                                            @Html.TextBoxFor(model => model.FilterParameters.SerialNumber, new { @class = "form-control", @placeholder = "Serial Number" })
                                         </div>
-                                        <div id="checkboxes">
-                                            <label for="one">
-                                                <input type="checkbox" id="one" /> CovectraSupport
-                                            </label>
-                                            <label for="two">
-                                                <input type="checkbox" id="two" /> Abhandari
-                                            </label>
-                                            <label for="three">
-                                                <input type="checkbox" id="three" /> Aprisauser
-                                            </label>
+                                        @Html.Label("Product UPC", new { @class = "col-xs-12 col-sm-2 control-label" })
+                                        <div class="col-xs-12 col-sm-4">
+                                            @Html.TextBoxFor(model => model.FilterParameters.Upc, new { @class = "form-control", @placeholder = "Product UPC" })
                                         </div>
+                                        @*<div class="form-group">*@
+
+                                        @*</div>*@
                                     </div>
-                                </div>
+                                    <div class="form-group">
 
-                                <label class="col-xs-12 col-sm-2 control-label text-right">
-                                    Work Order No.
-                                </label>
-                                <div class="col-xs-12 col-sm-4">
+                                        <label class="col-xs-12 col-sm-2 control-label">
+                                            From Date
+                                        </label>
+                                        <div class="col-xs-12 col-sm-2" id="dtPickerFrom">
+                                            @Html.TextBoxFor(model => model.FilterParameters.FromDate, "{0:dd/mm/yyyy}", new
+                       {
+                           @class = "form-control date",
+                           @placeholder = "From Date"
+                       })
+                                        </div>
 
-                                    <input class="form-control" data-val="true" data-val-length="Product Name should not exceed 100 characters." data-val-length-max="100" id="FilterParameters_ProductName" name="FilterParameters.ProductName" type="text" value="">
+                                        <div class="col-xs-12 col-sm-2" id="dtPickerTo">
+                                            @Html.TextBoxFor(model => model.FilterParameters.ToDate, "{0:dd/mm/yyyy}", new { @class = "form-control date", @placeholder = "To Date" })
+                                        </div>
 
+
+                                        @Html.Label("Work Order", new { @class = "col-xs-12 col-sm-2 control-label" })
+                                        <div class="col-xs-12 col-sm-4">
+                                            @Html.TextBoxFor(model => model.FilterParameters.WorkOrder, new { @class = "form-control", @placeholder = "WorkOrder", @maxlength = "100" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        @Html.Label("User", new { @class = "col-xs-12 col-sm-2 control-label", @style = "text-align:left;" })
+                                        <div class="col-sm-4 col-xs-11">
+                                            @Html.DropDownListFor(model => model.Keyword, new SelectList(Model.WorkOrderList, "", ""), "User", new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-sm-offset-2 col-xs-12 col-sm-4">
+                                            <button type="submit" class="btn btn-primary small-button" id="btnSubmit" name="btnSubmit">search</button>
+
+                                            <span style="padding-left:10%">
+                                                <input type="reset" value="reset" id="btnReset" name="BtnReset" class="btn btn-primary small-button" />
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    @*<div class="form-group">
+
+                                        @Html.Label("Work Order", new { @class = "col-xs-12 col-sm-2 control-label" })
+                                        <div class="col-xs-12 col-sm-4">
+                                            @Html.TextBoxFor(model => model.FilterParameters.WorkOrder, new { @class = "form-control", @placeholder = "Work Order" })
+                                        </div>
+                
+                                    </div>*@
                                 </div>
                             </div>
+                            @*</div>*@
 
-                            <div class="form-group">
-                                <label class="col-xs-12 col-sm-2 control-label">
-                                    Date
-                                </label>
-                                <div class="col-xs-12 col-sm-2">
-                                    <input class="form-control date" data-val="true" data-val-date="The field MFGDateFrom must be a date." id="FilterParameters_MFGDateFrom" name="FilterParameters.MFGDateFrom" placeholder="From" type="text" value="">
-                                </div>
-                                <div class="col-xs-12 col-sm-2">
-                                    <input class="form-control date" data-val="true" data-val-date="The field MFGDateTo must be a date." id="FilterParameters_MFGDateTo" name="FilterParameters.MFGDateTo" placeholder="To" type="text" value="">
-                                </div>
-
-                                <div class="col-sm-offset-2 col-sm-4">
-                                    <div class="col-sm-6">
-                                        <button type="submit" class="btn btn-primary" formmethod="get">
-                                            Search
-                                        </button>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button type="reset" class="btn btn-primary">
-                                            Reset
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <br />
-                    <br />
+                    <div class="validsummary"> @Html.ValidationSummary()</div>
+                    @*@section popup {
+                        @Html.Partial("_ModalPopup", Model.Message)
+                    }*@
+                }
+                <div class="form-horizontal" style="margin-bottom:0px;">
+                    <div class="panel panel-primary form-horizontal" style="margin-bottom:0px;">
 
+                        @if (this.Model.WorkOrderList != null)
+                        {
 
-                </fieldset>
-            </div>
-        </div>
+                            <div class="panel-heading" style="min-height:45px;">
+                                <div class="panel-actions">
+                                    <a href="#" class="fa fa-caret-down"></a>
 
+                                </div>
+                                <h3 class="panel-title">
+                                    Product Association Details
+                                    @*@AuthentiTrack.I18NResources.Serialization.Product.Index.Product_Details*@
 
-}
-
-        <div class="panel-body collapse in" id="volume-details-grid">
-            <div id="divGrid">
-                @if (Model != null)
+                                </h3>
+                            </div>
+                            <div class="panel-body collapse in" id="volume-details-grid">
+                                <div id="divGrid" class="table-responsive">
+                          @if (Model != null)
                 {
                     <div>
                         @if (Model.WorkOrderList.Count() != 0)
@@ -159,21 +174,22 @@ if (addressId != null && Address1 != null && SupplierId != null)
 
                                 }
 
-                                @grid.GetHtml(tableStyle: "table table-striped table-hover custom-grid numbered-grid",
-                                headerStyle: "webgrid-header",
+                                @grid.GetHtml(tableStyle: "table table-bordered table-striped mb-none dataTable no-footer table-hover",
+                                headerStyle: "grid-header",
+                                footerStyle: "table-pager",
                                 selectedRowStyle: "info",
                                 htmlAttributes: new { id = "MainTable" },
                                 columns: grid.Columns(
-                                grid.Column("", style: "text-right col-sm-1 width-1_3", header: "#", format: item => ((currentPageIndex * rowsPerPage) + (item.WebGrid.Rows.IndexOf(item)) + 1)),
-                                grid.Column("TimeStamp", style: "col-sm-4 col-xs-4 col-merge", header: "Time Stamp", format: (item) => SupplierNameLink(item.Id, item.timestamp)),
-                                grid.Column("WorkOrder", header: "Work Order No.", style: "col-sm-4 col-xs-4 col-merge"),
+                                grid.Column("+", style: "text-right col-custom-1 width-1_3", header: "#", format: item => ((currentPageIndex * rowsPerPage) + (item.WebGrid.Rows.IndexOf(item)) + 1)),
+                                grid.Column("TimeStamp", style: "col-custom-8 col-merge", header: "Time Stamp", format: (item) => SupplierNameLink(item.Id, item.timestamp)),
+                                grid.Column("WorkOrder", header: "Work Order No.", style: "col-custom-10 col-merge"),
                                 grid.Column("User", header: "User", style: "col-sm-4 col-xs-4 col-merge"),
 
                                  grid.Column(format: (item) =>
                                  {
                                      WebGrid subGrid = new WebGrid(source: item.ScannedBarcodeList, canPage: false, canSort: false);
                                      return subGrid.GetHtml(
-                                         tableStyle: "table sub-grid padding-10",
+                                         tableStyle: "table table-bordered table-striped mb-none dataTable no-footer table-hover",
                                          htmlAttributes: new { id = "SubTable" },
                                          columns: new[]{
             grid.Column("", header: "#",style:"col-sm-1 col-xs-1 col-lg-1 width-1_3 custom-td text-right",format: item1 =>item1.WebGrid.Rows.IndexOf(item1) + 1),
@@ -211,200 +227,217 @@ if (addressId != null && Address1 != null && SupplierId != null)
                                     {
                                         <text>NORECORDFOUND</text>
                                     }
+
+                                </div>
+                            </div>
+
+                                                        }
+                    </div>
+                </div>
+                <br />
             </div>
-
-
-            @*</div>*@
         </div>
-
-
-
-
-
-
-
     </div>
+</section>
+
+
+
+
+   
 
                                     
-
 @section scripts {
 
     <script type="text/javascript">
-                                                @*$(document).ready(function () {
-                                                    if (true) {
-                                                        var message = "Model.POP up Message";
-                                                        if (message != '') {
-                                                            $('#myModal').modal('show');
-                                                        }
-                                                        $(".closePopup").click(function () {
-                                                            $("#myModal").hide();
-                                                            if (true) {
-                                                                var url = '@Url.Action("Index", "ProductAssociationHistory")';
-                                                                window.location.href = url;
-                                                            }
-                                                        });
-                                                    }
-                                                    //MergeGridColumn();
-
-                                                    $('#divGrid:visible').css("max-width", (screen.width - 75) + "px")
-                                                    $('#divGrid:visible').css("overflow-x", "auto");
-                                                });*@
-
-            function MergeGridColumn() {
-                var gridrows = $("#divGrid table.table tbody tr");
-                var rowcount = gridrows.length;
-                if (gridrows.length > 0) {
-                    for (i = 0; i < gridrows.length; i++) {
-                        var CurrnetRowKeyId = $(gridrows[i]).find("td a").attr("primarykey");
-                        var rowspan = 1;
-                        if (i + 1 < gridrows.length) {
-                            for (j = i + 1; j < gridrows.length; j++) {
-                                var NextRowKeyId = $(gridrows[j]).find("td a").attr("primarykey");
-                                if (NextRowKeyId == CurrnetRowKeyId) {
-                                    $(gridrows[j]).find("td.col-merge").hide();
-                                    rowspan++;
-                                }
+                @*$(document).ready(function () {
+                    if ('@Model.Message.MessageVisible.ToString().ToLower()' == 'true') {
+                        var message = '@Model.Message.Message.Trim()';
+                        if (message != '') {
+                            $('#myModal').modal('show');
+                        }
+                        $(".closePopup").click(function () {
+                            $("#myModal").hide();
+                            if ('@Model.Message.IsGoodMessage.ToString().ToLower()' == 'true') {
+                                var url = '@Url.Action("Index", "SupplierChain")';
+                                window.location.href = url;
                             }
-                            if (rowcount > 1) {
-                                $(gridrows[i]).find("td.col-merge").attr("rowspan", rowspan);
+                        });
+                    }
+                    //MergeGridColumn();
+
+                    $('#divGrid:visible').css("max-width", (screen.width - 75) + "px")
+                    $('#divGrid:visible').css("overflow-x", "auto");
+                });*@
+
+                function MergeGridColumn() {
+                    var gridrows = $("#divGrid table.table tbody tr");
+                    var rowcount = gridrows.length;
+                    if (gridrows.length > 0) {
+                        for (i = 0; i < gridrows.length; i++) {
+                            var CurrnetRowKeyId = $(gridrows[i]).find("td a").attr("primarykey");
+                            var rowspan = 1;
+                            if (i + 1 < gridrows.length) {
+                                for (j = i + 1; j < gridrows.length; j++) {
+                                    var NextRowKeyId = $(gridrows[j]).find("td a").attr("primarykey");
+                                    if (NextRowKeyId == CurrnetRowKeyId) {
+                                        $(gridrows[j]).find("td.col-merge").hide();
+                                        rowspan++;
+                                    }
+                                }
+                                if (rowcount > 1) {
+                                    $(gridrows[i]).find("td.col-merge").attr("rowspan", rowspan);
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            $(document).ready(function () {
-                var size = $("#TableGrid #MainTable > thead > tr >th").size(); // get total column
-                $("#TableGrid #MainTable > thead > tr >th").last().remove(); // remove last column
-                $("#TableGrid #MainTable > thead > tr").prepend($("<th></th>").addClass("col-sm-1 width-1_3")); // add one column at first for collapsible column
-                $("#TableGrid #MainTable > tbody > tr").each(function (i, el) {
-                    $(this).prepend(
-                            $("<td></td>")
-                            .addClass("subtable-expand col-sm-1 width-1_3")
-                            .addClass("hoverEff")
-                            .attr('title', "click for show/hide address")
-                        );
+                $(document).ready(function () {
+                    var size = $("#TableGrid #MainTable > thead > tr >th").size(); // get total column
+                    $("#TableGrid #MainTable > thead > tr >th").last().remove(); // remove last column
+                    $("#TableGrid #MainTable > thead > tr").prepend($("<th></th>").addClass("col-custom-1 width-1_3 ")); // add one column at first for collapsible column
+                    $("#TableGrid #MainTable > tbody > tr").each(function (i, el) {
+                        $(this).prepend(
+                                $("<td></td>")
+                                .addClass("subtable-expand col-custom-1 width-1_3 fa fa-plus-square-o center ")
+                                .addClass("hoverEff ")
+                                .attr('title', "click for show/hide address")
+                            );
 
-                    //Now get sub table from last column and add this to the next new added row
-                    var table = $("table", this).parent().html();
-                    //add new row with this subtable
-                    $(this).after("<tr><td style='padding:15px; margin:0px;' colspan='" + (size) + "'>" + table + "</td></tr>");
-                    $("table", this).parent().remove();
-                    // ADD CLICK EVENT FOR MAKE COLLAPSIBLE
-                    $(".hoverEff", this).on("click", function () {
-                        $(this).parent().closest("tr").next().slideToggle(100);
+                        //Now get sub table from last column and add this to the next new added row
+                        var table = $("table", this).parent().html();
+                        //add new row with this subtable
+                        $(this).after("<tr><td style='padding:15px; margin:0px;' colspan='" + (size) + "'>" + table + "</td></tr>");
+                        $("table", this).parent().remove();
+                        // ADD CLICK EVENT FOR MAKE COLLAPSIBLE
+                        $(".hoverEff", this).on("click", function () {
+
+                            debugger;
+                            $(this).parent().closest("tr").next().slideToggle(100);
+                            if ($(this).hasClass("fa-plus-square-o")) {
+                                $(this).removeClass("fa fa-plus-square-o");
+                                $(this).addClass("fa fa-minus-square-o");
+                            }
+                            else {
+                                $(this).removeClass("fa fa-minus-square-o");
+                                $(this).addClass("fa fa-plus-square-o");
+
+                            }
+                            $(this).toggleClass("subtable-expand subtable-collapse  ");
+
+                        });
+                    });
+
+                    //by default make all subgrid in collapse mode
+                    $("#TableGrid #MainTable > tbody > tr td.subtable-expand").each(function (i, el) {
                         $(this).toggleClass("subtable-expand subtable-collapse");
+                        $(this).parent().closest("tr").next().slideToggle(100);
+                    });
+                    $('.btn-delete').unbind('click').bind('click', function () {
+
+                        var confirmDelete = confirm('@Html.Raw("Delete")');
+
+                        return confirmDelete;
                     });
                 });
 
-                //by default make all subgrid in collapse mode
-                $("#TableGrid #MainTable > tbody > tr td.subtable-expand").each(function (i, el) {
-                    $(this).toggleClass("subtable-expand subtable-collapse");
-                    $(this).parent().closest("tr").next().slideToggle(100);
+                $('#Keyword').keypress(function (e) {
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    if (code == 13) {
+                        $("#frmSearch").submit();
+                    }
                 });
-                $('.btn-delete').unbind('click').bind('click', function () {
-
-                    var confirmDelete = confirm('@Html.Raw("Delete_Confirm")');
-
-                    return confirmDelete;
-                });
-            });
-
-            $('#Keyword').keypress(function (e) {
-                var code = (e.keyCode ? e.keyCode : e.which);
-                if (code == 13) {
-                    $("#frmSearch").submit();
-                }
-            });
-            var expanded = false;
-            function showCheckboxes() {
-                var checkboxes = document.getElementById("checkboxes");
-                if (!expanded) {
-                    checkboxes.style.display = "block";
-                    expanded = true;
-                } else {
-                    checkboxes.style.display = "none";
-                    expanded = false;
-                }
-            }
 
     </script>
 
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+<script src="~/Scripts/jquery.timepicker.js"></script>
+<link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+<script src="~/Scripts/maskedit.js"></script>
+<script type="text/javascript">
+        var message = "";
+        //var avoidOnChange = false;
 
-    <script type="text/javascript">
+
+
         $(document).ready(function () {
 
-            $(".filter").removeClass("panel-body in");
-            $(".filter").addClass("panel-body collapse");
+            $(".closePopup").click(function () {
+                $("#myModal").hide();
+                $('#myCustomSummary').html('');
+                $('.customsummary').html('');
 
-            // Change collapse/expand button icon on collapse/expand events
-            $(".panel-body").on('shown.bs.collapse', function () {
-                $(this).parent().find('.collapseTrigger').removeClass('glyphicon-plus');
-                $(this).parent().find('.collapseTrigger').addClass('glyphicon-minus');
-            });
-            $(".panel-body").on('hidden.bs.collapse', function () {
-                $(this).parent().find('.collapseTrigger').removeClass('glyphicon-minus');
-                $(this).parent().find('.collapseTrigger').addClass('glyphicon-plus');
             });
 
-            //if ($("#volume-details-grid").val() != null) {
-            //    $('#filter').collapse('hide');
-            //}
+            //// Change collapse/expand button icon on collapse/expand events
+            //$(".panel-body").on('shown.bs.collapse', function () {
+            //    $(this).parent().find('.collapseTrigger').removeClass('glyphicon-plus');
+            //    $(this).parent().find('.collapseTrigger').addClass('glyphicon-minus');
+            //});
+            //$(".panel-body").on('hidden.bs.collapse', function () {
+            //    $(this).parent().find('.collapseTrigger').removeClass('glyphicon-minus');
+            //    $(this).parent().find('.collapseTrigger').addClass('glyphicon-plus');
+            //});
 
-            if (true) {
-                var message = 'Message';
-                if (message != '') {
-                    $("#myCustomSummary").html($(".validsummary").html()); //Added for passing in partial view
-                    $(".validsummary").hide(); //Added for clear from screen RJ
-                    $('#myModal').modal('show');
-                }
-                $(".closePopup").click(function () {
-                    $("#myModal").hide();
-                    if (true) {
-                        var url = '@Url.Action("Index", "Product")';
-                        window.location.href = url;
-                    }
-                });
+            if ($("#volume-details-grid").val() != null) {
+                $('#filter').collapse('hide');
             }
 
-            $('#divGrid:visible').css("max-width", (screen.width - 75) + "px")
-            $('#divGrid:visible').css("overflow-x", "auto")
+            @*if ('@Model.Message.MessageVisible.ToString().ToLower()' == 'true') {
+                var message = '@Html.Raw(Model.Message.Message.Trim())';
+                if (message != '') {
+                    $('#myModal').modal('show');
+                }
+            }*@
 
-            $('.btn-delete').unbind('click').bind('click', function () {
-                var confirmDelete = confirm('Message');
-                return confirmDelete;
+
+            @*message = '@Model.Message.Message';*@
+
+            if (message != "") {
+                $('.customsummary').text('');
+                $('.customsummary').text(message);
+                $('#myModal').modal('show');
+            }
+
+            $("#dtPickerTo .date").datepicker({
+                'format': 'mm/dd/yy',
+                'autoclose': true
             });
 
-            $('#product-list-form button[type="reset"]').click(function () {
-                //$('#batch-list-form input[type="radio"]:checked').removeAttr("checked");
-                //$('#batch-list-form input[type="radio"][value=""]').attr("checked", "checked");
-                //$('#batch-list-form input[type="text"]').val('');
-                var url = '@Url.Action("Index", "Product", new {Type = "Reset"})';
-                window.location.href = url;
+            $("#dtPickerFrom .date").datepicker({
+                'format': 'mm/dd/yy',
+                'autoclose': true,
             });
-            //$('#filter-form button[type="submit"]').click(function () {
-            //    debugger;
 
-            $('#search').click(function () {
-                var productName = $('#FilterParameters_FilterProductName').val();
-                var productNDC = $('#FilterParameters_FilterProductNDC').val();
-                var productBrandOwner = $('#FilterParameters_FilterProductBrandOwner').val();
-                if (productName == "" && productNDC == "" && productBrandOwner == "") {
+            $("#btnSubmit").click(function () {
+
+
+                var fromDate = $("#FromDate").val();
+                var toDate = $("#ToDate").val();
+                var shippmentId = $("#ShipmentId").val();
+                var SourceId = $("#SourceId").val();
+                var Batch = $("#Batch").val();
+                var DestinationId = $("#DestinationId").val();
+                var ProductId = $("#ProductId").val();
+
+
+                // var qrCode = $("#HumanReadableCode").val();
+                // var sscc = $("#SSCC").val();
+                // var statusId = $("#SelectedStatusId").val();
+
+                if (fromDate == "" && toDate == "" && shippmentId == "" && SourceId == 0 && Batch == "" && DestinationId == 0 && ProductId == 0) {
+                    debugger;
+                    alert(AuthentiTrack.Utility.SystemMessage.TRACKHISTORYREQUIREDVALIDATION);
                     $('.customsummary').text('');
-                    $('.customsummary').append("Please enter atleast one of the search criteria!");
+                    $('.customsummary').append('TRACKHISTORYREQUIREDVALIDATION');
                     $('#myModal').modal('show');
                     return false;
                 }
 
-                $('.btn-delete').unbind('click').bind('click', function () {
-                    var confirmDelete = confirm('DELETE_PRODUCT_CONFIRM)');
-                    return confirmDelete;
-                });
-            });
-
-            $('#filter-form button[type="submit"]').click(function () {
-                if (!$("#filter-form").valid()) {
+                $("#divErrortext").text('');
+                if (!$("#frmHistory").valid()) {
                     $(".validsummary").show();
+
                     $("#myCustomSummary").html($(".validsummary").html()); //Added for passing in partial view
                     $(".validsummary").hide(); //Added for clear from screen RJ
                     $(".customsummary").hide();
@@ -412,13 +445,74 @@ if (addressId != null && Address1 != null && SupplierId != null)
                     $('#myModal button:nth-child(1)').focus();
                     return false;
                 }
+
+                // Validate if expiry date range lies within 90 days
+                var fromDateString = $('#FromDate').val();
+                var toDateString = $('#ToDate').val();
+                var fromDate = new Date(fromDateString);
+                var toDate = new Date(toDateString);
+
+                if (fromDateString != '') {
+                    var toDateLimit = new Date($('#FromDate').val());
+                    toDateLimit.setDate(toDateLimit.getDate() + 90);
+
+                    if (toDateString != '') {
+                        if (toDate > toDateLimit) {
+                            $('.customsummary').text('');
+                            $('.customsummary').append('Date_Difference_Error_Message');
+                            $('#myModal').modal('show');
+                            return false;
+                        }
+                    }
+
+                    else {
+                        $('#ToDate').datepicker('setDate', toDateLimit);
+                    }
+                }
+
+                else if (toDateString != '') {
+                    var fromDateLimit = new Date($('#ToDate').val());
+                    fromDateLimit.setDate(fromDateLimit.getDate() - 90);
+
+                    if (fromDateString != '') {
+                        if (fromDate < fromDateLimit) {
+                            $('.customsummary').text('');
+                            $('.customsummary').append('Date_Difference_Error_Message');
+                            $('#myModal').modal('show');
+                            return false;
+                        }
+                    }
+
+                    else {
+                        $('#FromDate').datepicker('setDate', fromDateLimit);
+                    }
+                }
+
+                return true;
             });
+
+
+            $('#btnReset').click(function () {
+                //$('input[type="text"]').val('');
+                var url = '@Url.Action("Index", "DSCSAReport")';
+                window.location.href = url;
+            });
+
+            $('#gridContent:visible').css("max-width", (screen.width - 100) + "px")
+            $('#gridContent:visible').css("overflow-x", "auto")
+
+
         });
-    </script>
+
+        $(".myLink").mousedown(function () {
+
+            var Issr = $('#IsSerialized').is(':checked');
+
+            this.href = this.href.replace("xx", Issr);
+        });
 
 
 
 
-
-
+</script>
 }

@@ -510,75 +510,9 @@ if (addressId != null && Address1 != null && SupplierId != null)
 
             this.href = this.href.replace("xx", Issr);
         });
-        //$('.view').click(function () {
-        //    alert("hi");
-        //   // alert($(this).name);
-        //    ///Code
-        //});
 
 
-        @*$('input[type=radio][name=IsSerialized]').change(function () {
 
-            if (this.value == 'true') {
-                @Model.IsSerialized='true';
-            }
-            else if (this.value == 'false') {
 
-            }
-        });*@
-
-        function generateFile(shippingDetailId, fileType, aText) {
-            var url = "";
-            if (fileType.toLowerCase() == "pdf") {
-                url = "/DSCSAReport/AddDSCSARequest";
-                if (aText == 'Generate') {
-                    $('#' + shippingDetailId).html('Generating PDF');
-                    $('#' + shippingDetailId).addClass('inactiveLink');
-                    ShowModelPopup();
-                }
-            }
-            else {
-                url = "/DSCSAReport/GenerateExcelFile";
-            }
-
-            var isSerialized = $('#IsSerialized').is(':checked');
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: { shippingDetailId: shippingDetailId, isSerialized: isSerialized },
-                success: function (repsonse) {
-                    //debugger
-                    //$('#aTagGeneratePdf').hide();
-                    //$('#aTagGeneratePdf').removeClass('inactiveLink');
-                    //$('#aTagDownloadPdf').addClass('downloadBtnClass');
-                    //$('#aTagDownloadPdf').show();
-                },
-                error: function (error) {
-                    debugger
-                    console.log(error);
-                }
-            });
-        }
-
-        function ShowModelPopup() {
-            $("#myModalLabel").html("");
-            $("#myModalLabel").html('Generating PDF');
-            $('.customsummary').append('We are processing your request for generating pdf, It will take some time to complete');
-            $("#myCustomSummary").removeClass("validation-summary-errors");
-            $("#myCustomSummary").addClass("SuccessMessage");
-            $(".customsummary").removeClass('validation-summary-errors');
-            $(".customsummary").addClass("SuccessMessage");
-            $('#myModal').modal('show');
-        }
-
-        function downloadPDF(shippingDetailId, fileType) {
-            var apiUrl = '/DSCSAReportFiles/';
-            var filename = apiUrl + fileType + '/' + 'DSCSAReport' + '_' + fileType + shippingDetailId + '.' + fileType;
-            $('#aTagDownloadPdf').attr('href', filename);
-            $('#aTagDownloadPdf').click();
-            $('#aTagBtnDownloadPdf').attr('href', filename);
-            $('#aTagBtnDownloadPdf').click();
-
-        }
 </script>
 }
