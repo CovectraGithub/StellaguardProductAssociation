@@ -1,0 +1,331 @@
+﻿body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 190px;
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+/* Custom CSS for dropdown menu in header */
+
+#userbar {
+    list-style-type: none;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+    #userbar li {
+        float: left;
+        position: relative;
+        padding: 0;
+        line-height: 20px;
+    }
+
+        #userbar li a {
+            display: block;
+            color: #222;
+            text-decoration: none;
+            padding: 0 2px;
+        }
+
+#navbar {
+    list-style-type: none;
+    height: 15px;
+    padding: 0;
+    margin: 0;
+    background: #808080 url(nav-bg.png) repeat-x 0 0; /*#111111 url(nav-bg.png) repeat-x 0 0;*/
+}
+
+    #navbar li {
+        float: left;
+        position: relative;
+        padding: 0;
+        line-height: 15px;
+    }
+
+        #navbar li:hover {
+            background-position: 0 -15px;
+        }
+
+        #navbar li a {
+            display: block;
+            padding: 0 6px;
+            color: #fff;
+            text-decoration: none;
+            border-right: ridge thin;
+            border-right-color: ActiveBorder;
+        }
+
+        #navbar li:nth-last-child(-n+2) a {
+            border-right: none;
+        }
+
+        #navbar li a:hover {
+            color: #a3f1d7;
+        }
+
+        #navbar li ul {
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            width: 8em;
+            background: #555555;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #navbar li:hover ul {
+            opacity: 1;
+        }
+
+        #navbar li ul li {
+            float: none;
+            position: static;
+            height: 0;
+            line-height: 0;
+            background: none;
+        }
+
+        #navbar li:hover ul li {
+            height: 15px;
+            line-height: 15px;
+        }
+
+        #navbar li ul li a {
+            background: #555555;
+            padding: 0 6px;
+        }
+
+            #navbar li ul li a:hover {
+                background: #999999;
+            }
+
+    #navbar li {
+        -webkit-transition: all 0.2s;
+    }
+
+        #navbar li a {
+            -webkit-transition: all 0.5s;
+        }
+
+        #navbar li ul {
+            -webkit-transiion: all 1s;
+        }
+
+            #navbar li ul li {
+                -webkit-transition: height 0.5s;
+            }
+
+/* Modal popup fix for IE6 */
+/* for IE6 (Ref: http://codeissue.com/articles/a04daf3210c8b0a/cross-browser-modal-popup-using-javascript-jquery ) */
+*html #myModal {
+    top: expression(eval(document.documentElement.scrollTop)) !important;
+}
+
+*html #ReprintModal {
+    top: expression(eval(document.documentElement.scrollTop)) !important;
+}
+
+/* Custom CSS for forms */
+
+fieldset {
+    padding-bottom: 2px;
+    padding-left: 10px;
+}
+
+    fieldset legend {
+        font-weight: bold;
+    }
+
+.form-horizontal {
+    width: 190px;
+}
+
+.form-group {
+    margin: 0 0 0 0;
+    display: block;
+}
+
+.form-group .left {
+        width: 49%;
+        padding-left: 1%;
+        float: left;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+    }
+
+    .form-group .right {
+        width: 50%;
+        float: right;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+    }
+
+    .form-group .align-right {
+        width: 49%;
+        text-align: right;
+        padding-right: 1%;
+        float: right;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+    }
+
+.form-panel {
+    width: 100%;
+}
+
+    .form-panel .panel-header {
+        width: 99%;
+        padding-left: 1%;
+        border: 1px solid;
+        background-color: #CCCCCC;
+        min-height: 15px;
+    }
+
+    .form-panel .panel-body {
+        width: 100%;
+        border: 1px solid;
+    }
+
+        .form-panel .panel-body .panel-content {
+            display: inline-block;
+            width: 100%;
+        }
+
+            .form-panel .panel-body .panel-content .left {
+                float: left;
+            }
+
+            .form-panel .panel-body .panel-content .right {
+                float: right;
+            }
+.counter {
+    clear: both;
+}
+
+.form-label {
+    padding: 2px 10px 0 0;
+    float: left;
+    text-align: left;
+    display: inline;
+    width: 150px; /* changed by virendra : 80% */
+}
+
+.form-field {
+    float: left;
+    display: inline;
+    width: 160px; /*80% changed by virendra for proper display of forms*/
+}
+
+.form-field-full {
+    float: left;
+    display: inline;
+    width: 100%;
+}
+
+.asterisk {
+    color: red;
+    /*added by virendra*/
+    float:left;
+}
+
+.form-button {
+    padding: 5px 10px 0 0;
+    float: left;
+    display: block;
+    width: 100%;
+}
+
+.btn {
+    text-align: center;
+    width: 80%;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.btn-primary {
+    background-color: AppWorkspace; /*#395C82;*/
+    color: white;
+}
+
+select {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 10px;
+}
+
+/* Custom CSS for modal popup */
+
+.modal {
+    width: 194px;
+    background-color: white;
+}
+
+    .modal .modal-header {
+        padding: 1px;
+        height: 14px;
+        color: white;
+        background-color: #808080;
+        width:auto;
+    }
+
+        .modal .modal-header .popupcross {
+            margin: 0 2px 0 0;
+            height: 5px;
+            float: right;
+            cursor: pointer;
+            
+        }
+
+    .modal .modal-body .validation-summary-errors ul {
+        color: red;
+    }
+
+    .modal .modal-footer button {
+        margin: 2px 0 5px 72px;
+        width: 40px;
+        text-align: center;
+        background-color: #808080;
+        color: white;
+        
+    }
+
+#loader {
+    background: url(Images/ajax-loader.gif) no-repeat;
+    width: 30px;
+    height: 30px;
+}
+/* width changed to 150 from  160 by virendra */
+select {
+    width:150px;
+}
+
+textarea{
+    width:150px;
+}
+
+input[type="text"],input[type=password]{
+    width:150px;
+}
+
+.text-input{
+    width:150px;
+}
+
+#customdiv{
+    margin-left:2px;
+    
+}
+
+.validation-summary-errors
+{
+    color:red;
+}
+
+.validsummary {
+    color:red;
+}
+
+.SuccessMessage {
+    color: green;
+}

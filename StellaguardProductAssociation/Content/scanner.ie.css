@@ -1,0 +1,14 @@
+﻿
+#navbar li ul {
+    display: none;
+}
+
+#navbar li:hover ul, #navbar li.over ul {
+    display: block;
+}
+
+#navbar li ul li {
+    height: 20px;
+    line-height: 20px;
+    width: 100px;
+}
