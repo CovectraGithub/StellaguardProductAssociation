@@ -5452,7 +5452,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2022 13:33:51</publishTime>
     </File>
     <File Include="bin/StellaguardProductAssociation.dll">
-      <publishTime>06/06/2022 12:56:52</publishTime>
+      <publishTime>06/09/2022 18:48:00</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>06/01/2022 13:33:51</publishTime>
@@ -6043,10 +6043,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/26/2019 13:40:05</publishTime>
     </File>
     <File Include="Scripts/validation.js">
-      <publishTime>06/06/2022 13:01:01</publishTime>
+      <publishTime>06/09/2022 18:47:57</publishTime>
     </File>
     <File Include="Scripts/validation.js.map">
-      <publishTime>06/06/2022 13:01:01</publishTime>
+      <publishTime>06/09/2022 18:47:57</publishTime>
     </File>
     <File Include="Scripts/validation.old.js">
       <publishTime>09/26/2019 13:40:05</publishTime>
@@ -6121,7 +6121,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/03/2022 23:51:15</publishTime>
     </File>
     <File Include="Views/ProductAssociationHistory/Index.cshtml">
-      <publishTime>06/06/2022 12:44:37</publishTime>
+      <publishTime>06/09/2022 18:29:17</publishTime>
     </File>
     <File Include="Views/Shared/DisplayTemplates/CanonicalHelperModel.cshtml">
       <publishTime>06/01/2022 13:33:49</publishTime>
@@ -6154,7 +6154,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2022 13:33:49</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/06/2022 11:48:48</publishTime>
+      <publishTime>06/07/2022 12:47:32</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>06/01/2022 13:33:49</publishTime>

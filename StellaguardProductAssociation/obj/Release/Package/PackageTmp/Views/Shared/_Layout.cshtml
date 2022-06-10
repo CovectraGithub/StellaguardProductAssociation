@@ -15,6 +15,7 @@
 
     <!-- Web Fonts  -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.css" />
     @*@Styles.Render("~/bundles/NewDesignCSS");*@
@@ -117,21 +118,21 @@ if (c == culture)
                             @if (Session["Username"] != null)
                             {
                                 <ul class="nav nav-main">
-                                    @*<li class="nav-active ">
-                                            <a href="~/Home/Index">
+                                    <li class="nav-active ">
+                                            <a href="#">
                                                 <i class="fa fa-home" aria-hidden="true"></i>
                                                 <span>Dashboard</span>
                                             </a>
-                                        </li>*@
+                                        </li>
                                     <li class="nav-active ">
                                         <a href="~/ProductAssociation/Index">
-                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <i  aria-hidden="true"></i>
                                             <span>Product Association</span>
                                         </a>
                                     </li>
                                     <li class="nav-active ">
                                         <a href="~/ProductAssociationHistory/Index">
-                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                            <i  aria-hidden="true"></i>
                                             <span>Product Association History</span>
                                         </a>
                                     </li>

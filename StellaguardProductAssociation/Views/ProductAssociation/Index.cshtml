@@ -87,18 +87,12 @@
                                                                             var grid = new WebGrid(Model._Lotlist, canPage: false, canSort: false, rowsPerPage: 100);
                                                                             var currentRowIndex = grid.SelectedIndex;
                                                                         }
-                                                                        <table class="table table-bordered table-striped mb-none dataTable no-footer" style="margin-left: 198px; text-align: center!important;">
+                                                                        <table id="tableid" class="table table-bordered table-striped mb-none dataTable no-footer" style="margin-left: 198px; text-align: center!important;">
                                                                             <thead class="grid-header">
                                                                                 <tr>
-                                                                                    <th scope="col" class="col-xs-4 text-center">
-                                                                                        SerialNumber
-                                                                                    </th>
-                                                                                    <th scope="col" class="col-xs-4 text-center">
-                                                                                        UPC
-                                                                                    </th>
-                                                                                    <th scope="col" class="col-xs-2 text-center">
-                                                                                        Delete
-                                                                                    </th>
+                                                                                    <th scope="col" class="col-xs-4 text-center">SerialNumber</th>
+                                                                                    <th scope="col" class="col-xs-4 text-center">UPC</th>
+                                                                                    <th scope="col" class="col-xs-2 text-center">Delete</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody></tbody>
@@ -273,10 +267,6 @@
 
 
                 });
-
-
-
-
                 return true;
             });
 
@@ -337,7 +327,7 @@
                     else {
                         var lastPackageName = $("#pkgList").find("table>tbody tr").eq(totalItemsInTable1 - 1).find("td").eq(1).text();
                         $(".imgDelete").attr("src", "/Content/Images/trash.gif");
-                        $("#pkgList").find("table>tbody tr:last").after('<tr><td class="col-xs-4 text-center" >' + serialnumber + '</td><td class="col-xs-2 text-center">' + produpc + '</td><td class="col-xs-1 text-center"><button class="btn-image btnDelete"  name="btnDelete"  id="' + produpc+"21"+serialnumber + '"><img width="20" class="imgDelete" height="20" src="/Content/Images/trash.gif"></button></td></tr>');
+                        $("#pkgList").find("table>tbody tr:last").after('<tr><td class="col-xs-4 text-center" >' +serialnumber+ '</td><td class="col-xs-2 text-center">' +produpc+ '</td><td class="col-xs-1 text-center"><button class="btn-image btnDelete"  name="btnDelete"  id="' + produpc+"21"+serialnumber + '"><img width="20" class="imgDelete" height="20" src="/Content/Images/trash.gif"></button></td></tr>');
                         //<td class="col-xs-2 text-center">' + ProductName + '</td>
                     }
                     //var htmlval1 = $("<div />").append($("#pkgList").clone()).html();

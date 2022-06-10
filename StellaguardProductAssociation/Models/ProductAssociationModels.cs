@@ -46,6 +46,7 @@ namespace StellaguardProductAssociation.Models
 
         public ProductAssociationFilter FilterParameters { get; set; }
 
+
     }
     public class ProductUpcClass
     {
@@ -65,10 +66,10 @@ namespace StellaguardProductAssociation.Models
         public string SerialNumber { get; set; }
 
         public string Upc { get; set; }
-        public string UserName { get; set; }
+        public Nullable <int> Id { get; set; }
         public string WorkOrder { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
+        public Nullable<System.DateTime> FromDate { get; set; }
+        public Nullable<System.DateTime> ToDate { get; set; }
 
     }
     public class ScannedBarcode
@@ -89,6 +90,13 @@ namespace StellaguardProductAssociation.Models
         public string Upc { get; set; }
         // public DateTime CreatedDate { get; set; }
 
+    }
+    public class UserDetails
+    {
+
+        public Nullable <int> Id { get; set; }
+
+        public string UserName { get; set; }
     }
     public class ProductClass
     {

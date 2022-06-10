@@ -18,8 +18,13 @@ namespace StellaguardProductAssociation.Models
 
         // public ModulePermissions Permissions { get; set; }
         public ProductAssociationFilter FilterParameters { get; set; }
-        public string Keyword { get; set; }
+
+        public Nullable<int> Id { get; set; }
+        public List<UserDetails> Users { get; set; }
+        public int TotalRecords { get; set; }
     }
+
+
 
     public class WorkOrderDetails
     {

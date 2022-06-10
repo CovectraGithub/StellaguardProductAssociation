@@ -109,13 +109,15 @@ if (addressId != null && Address1 != null && SupplierId != null)
 
                                         @Html.Label("User", new { @class = "col-xs-12 col-sm-2 control-label", @style = "text-align:left;" })
                                         <div class="col-sm-4 col-xs-11">
-                                            @Html.DropDownListFor(model => model.Keyword, new SelectList(Model.WorkOrderList, "", ""), "User", new { @class = "form-control" })
+                                            @*@Html.DropDownListFor(model => model.Keyword, new SelectList(Model.WorkOrderList, "", ""), "User", new { @class = "form-control" })*@
+                                            @Html.DropDownListFor(model => model.FilterParameters.Id, new SelectList(Model.Users, "Id", "UserName", Model.Users), "Select User", new { @class = "form-control" }).
+
                                         </div>
                                         <div class="col-sm-offset-2 col-xs-12 col-sm-4">
-                                            <button type="submit" class="btn btn-primary small-button" id="btnSubmit" name="btnSubmit">search</button>
+                                            <button type="submit" class="btn btn-primary small-button" id="btnSubmit" name="btnSubmit">Search</button>
 
                                             <span style="padding-left:10%">
-                                                <input type="reset" value="reset" id="btnReset" name="BtnReset" class="btn btn-primary small-button" />
+                                                <input type="reset" value="Reset" id="btnReset" name="BtnReset" class="btn btn-primary small-button" />
                                             </span>
                                         </div>
 
@@ -190,13 +192,13 @@ if (addressId != null && Address1 != null && SupplierId != null)
                                      WebGrid subGrid = new WebGrid(source: item.ScannedBarcodeList, canPage: false, canSort: false);
                                      return subGrid.GetHtml(
                                          tableStyle: "table table-bordered table-striped mb-none dataTable no-footer table-hover",
-                                         htmlAttributes: new { id = "SubTable" },
+                                         htmlAttributes: new { id = "SubTable",style="Width:96% !important; Margin-left:27px; Margin-right:27px;" },
                                          columns: new[]{
-            grid.Column("", header: "#",style:"col-sm-1 col-xs-1 col-lg-1 width-1_3 custom-td text-right",format: item1 =>item1.WebGrid.Rows.IndexOf(item1) + 1),
+            grid.Column("", header: "#",style:"text-right col-custom-1 width-1_3",format: item1 =>item1.WebGrid.Rows.IndexOf(item1) + 1),
 
-            grid.Column("SerialNumber", header: "Serial Number",style:"co-sm-3 col-xs-3 col-lg-3 custom-td",format: (item1)=> SupplierAddressLink(item1.SerialNumber,item1.AssociationId,item1.Id)),
-            grid.Column("UPC",style:"col-sm-2 col-xs-2 col-lg-2 custom-td", header: "UPC"),
-            grid.Column("ProductName", header: "Product Name",style:"col-sm-1 col-xs-1 col-lg-1 custom-td"),
+            grid.Column("SerialNumber", header: "Serial Number",style:"text-right col-custom-1 width-1_3",format: (item1)=> SupplierAddressLink(item1.SerialNumber,item1.AssociationId,item1.Id)),
+            grid.Column("UPC",style:"text-right col-custom-1 width-1_3", header: "UPC"),
+            grid.Column("ProductName", header: "Product Name",style:"text-right col-custom-1 width-1_3"),
 
 
                                          }
@@ -348,6 +350,10 @@ if (addressId != null && Address1 != null && SupplierId != null)
                     }
                 });
 
+
+
+
+
     </script>
 
 <script src="~/Scripts/bootstrap-datepicker.js"></script>
@@ -410,57 +416,58 @@ if (addressId != null && Address1 != null && SupplierId != null)
             });
 
             $("#btnSubmit").click(function () {
+                debugger;
 
-
-                var fromDate = $("#FromDate").val();
-                var toDate = $("#ToDate").val();
-                var shippmentId = $("#ShipmentId").val();
-                var SourceId = $("#SourceId").val();
-                var Batch = $("#Batch").val();
-                var DestinationId = $("#DestinationId").val();
-                var ProductId = $("#ProductId").val();
+                var fromDate = $("#FilterParameters_FromDate").val();
+                var toDate = $("#FilterParameters_ToDate").val();
+                var shippmentId = $("#FilterParameters_SerialNumber").val();
+                var SourceId = $("#FilterParameters_Id").val();
+                var Batch = $("#FilterParameters_Upc").val();
+                var DestinationId = $("#FilterParameters_WorkOrder").val();
+               // var ProductId = $("#ProductId").val();
 
 
                 // var qrCode = $("#HumanReadableCode").val();
                 // var sscc = $("#SSCC").val();
                 // var statusId = $("#SelectedStatusId").val();
 
-                if (fromDate == "" && toDate == "" && shippmentId == "" && SourceId == 0 && Batch == "" && DestinationId == 0 && ProductId == 0) {
+                if (fromDate == "" && toDate == "" && shippmentId == "" && SourceId == 0 && Batch == "" && DestinationId == 0 ) {
                     debugger;
-                    alert(AuthentiTrack.Utility.SystemMessage.TRACKHISTORYREQUIREDVALIDATION);
-                    $('.customsummary').text('');
-                    $('.customsummary').append('TRACKHISTORYREQUIREDVALIDATION');
-                    $('#myModal').modal('show');
+                    alert("Please enter atleast one of the search criteria!");
+                    //$('.customsummary').text('');
+                   // $('.customsummary').append('TRACKHISTORYREQUIREDVALIDATION');
+                   // $('#myModal').modal('show');
                     return false;
                 }
 
                 $("#divErrortext").text('');
-                if (!$("#frmHistory").valid()) {
-                    $(".validsummary").show();
+                //if (!$("#filter-form").valid()) {
+                //    $(".validsummary").show();
 
-                    $("#myCustomSummary").html($(".validsummary").html()); //Added for passing in partial view
-                    $(".validsummary").hide(); //Added for clear from screen RJ
-                    $(".customsummary").hide();
-                    $('#myModal').modal('show');
-                    $('#myModal button:nth-child(1)').focus();
-                    return false;
-                }
+                //    $("#myCustomSummary").html($(".validsummary").html()); //Added for passing in partial view
+                //    $(".validsummary").hide(); //Added for clear from screen RJ
+                //    $(".customsummary").hide();
+                //    $('#myModal').modal('show');
+                //    $('#myModal button:nth-child(1)').focus();
+                //    return false;
+                //}
 
                 // Validate if expiry date range lies within 90 days
-                var fromDateString = $('#FromDate').val();
-                var toDateString = $('#ToDate').val();
+                var fromDateString = $('#FilterParameters_FromDate').val();
+                var toDateString = $('#FilterParameters_ToDate').val();
                 var fromDate = new Date(fromDateString);
                 var toDate = new Date(toDateString);
 
                 if (fromDateString != '') {
-                    var toDateLimit = new Date($('#FromDate').val());
+                    var toDateLimit = new Date($('#FilterParameters_FromDate').val());
                     toDateLimit.setDate(toDateLimit.getDate() + 90);
 
                     if (toDateString != '') {
                         if (toDate > toDateLimit) {
                             $('.customsummary').text('');
                             $('.customsummary').append('Date_Difference_Error_Message');
-                            $('#myModal').modal('show');
+                            // $('#myModal').modal('show');
+                            alert("Please enter date range within 90 days !");
                             return false;
                         }
                     }
@@ -471,14 +478,15 @@ if (addressId != null && Address1 != null && SupplierId != null)
                 }
 
                 else if (toDateString != '') {
-                    var fromDateLimit = new Date($('#ToDate').val());
+                    var fromDateLimit = new Date($('#FilterParameters_ToDate').val());
                     fromDateLimit.setDate(fromDateLimit.getDate() - 90);
 
                     if (fromDateString != '') {
                         if (fromDate < fromDateLimit) {
                             $('.customsummary').text('');
                             $('.customsummary').append('Date_Difference_Error_Message');
-                            $('#myModal').modal('show');
+                            // $('#myModal').modal('show');
+                            alert("Please enter date range within 90 days !");
                             return false;
                         }
                     }
@@ -494,7 +502,7 @@ if (addressId != null && Address1 != null && SupplierId != null)
 
             $('#btnReset').click(function () {
                 //$('input[type="text"]').val('');
-                var url = '@Url.Action("Index", "DSCSAReport")';
+                var url = '@Url.Action("Index", "ProductAssociationHistory")';
                 window.location.href = url;
             });
 

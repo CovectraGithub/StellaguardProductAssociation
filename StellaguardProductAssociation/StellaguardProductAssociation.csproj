@@ -214,6 +214,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductAssociationController.cs" />
     <Compile Include="Controllers\ProductAssociationHistoryController.cs" />
+    <Compile Include="Controllers\SerialNumberHistoryController.cs" />
+    <Compile Include="Controllers\ShippingController.cs" />
     <Compile Include="DAL\CustomAuthenticationFilter.cs" />
     <Compile Include="DAL\CustomAuthorizeAttribute .cs" />
     <Compile Include="DAL\DBHelper.cs" />
@@ -2247,6 +2249,8 @@
     <Content Include="Views\ProductAssociationHistory\Index.cshtml" />
     <Content Include="Scripts\JSON-js-master\README" />
     <Content Include="Scripts\validation.js.map" />
+    <Content Include="Views\SerialNumberHistory\Index.cshtml" />
+    <Content Include="Views\Shipping\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
