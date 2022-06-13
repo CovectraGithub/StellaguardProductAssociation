@@ -4,6 +4,11 @@
 }
 
 
+@*@section myCustomScript {
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/jquery.timepicker.js"></script>
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+}*@
 
 @using (Html.BeginForm("Index", "ProductAssociation", FormMethod.Post, new { id = "frm", name = "frm" }))
 {
@@ -65,7 +70,7 @@
 
                                                 </span>
 
-                                                <span id="ErrorMessage" style="color:green;">@Html.DisplayFor(m => m.Message)</span><span class="text-info">
+                                                <span id="ErrorMessage" style="color:red;">@Html.DisplayFor(m => m.Message)</span><span class="text-info">
 
                                                 </span>
 
@@ -143,7 +148,11 @@
 
                         </div>
 
+                @*@section popup {
 
+                    @Html.Partial("_ModalPopup", Model.Message)
+
+                }*@
 </section>
 
 
@@ -448,7 +457,11 @@
                         {
                             invalid = true;
                             document.getElementById('xyz').play();
-                            alert("Duplicate UPC Scan Please Scan Serial Number.")
+                            $('.customsummary').text('');
+                            $('.customsummary').append("Duplicate UPC Scan Please Scan Serial Number.");
+                            $('#myModal').modal('show');
+
+                           // alert("Duplicate UPC Scan Please Scan Serial Number.")
                             $('#UPCSerialNumber').val("");
                         }
 

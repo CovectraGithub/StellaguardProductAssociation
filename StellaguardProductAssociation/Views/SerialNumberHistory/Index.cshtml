@@ -4,7 +4,179 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <div id="track-history-form">
+    <div class="form-horizontal">
+        <fieldset>
+            <legend>
+                @ViewBag.Title
+            </legend>
+            @*<div class="form-group">
+                    <label for="SerialNumber" class="col-lg-2 control-label ">Serial #</label>
+                    <div class="col-lg-10">
+                        <input style="float:left" id="SerialNumber" name="SerialNumber" class="login-form-field form-control" data-val="true" data-val-required="Please enter a Serial #" data-val-length="Serial # must be of length 20" onkeypress="return isNumber(event)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 " style="width:95%;">
+                        <input type="submit" value="Track History" name="BtnSubmit" onclick="return checkvalid();" class="btn btn-primary large-button" />
+                    </div>
+                </div>*@
+
+
+            <br />
+
+            <div style="font-size: 12px; color: #446e9b" class="col-lg-12">
+
+            </div>
+
+            @if (Model != null && Model.CurrentChildren != null && Model.lstEventHistory.Count > 0)
+            {
+
+                <div class="col-sm-4 col-lg-4 text-info"><strong><text>Display_Name : </text></strong>   @ViewBag.CurrentSerialNumber </div>
+                <div class="col-sm-4 col-lg-4 text-info"><strong>  <text>Package_Type_Display_Name : </text></strong> @Model.PackageType </div>
+                @*<div class="col-sm-4 col-lg-4 text-info"><strong><text>Items_In_Package_Display_Name : </text></strong> 
+            @Html.ActionLink((string)Model.CurrentChildren, "Index", "ChildrenDetail", new { SerialNumber = @ViewBag.CurrentSerialNumber, RedirectTo = "EventHistory" }, new { title =Click_to_view_Child_Serial_Ids }) </div>*@
+                <div class="col-sm-4 col-lg-4 text-info" style="margin-top:10px;"><strong><text>Parent : </text></strong>  @Model.Parent  </div>
+
+
+
+            }
+
+            @if (Model != null && Model.CurrentChildren != null && Model.lstEventHistory.Count > 0)
+            {
+
+                <div class="col-sm-4 col-lg-4 text-info" style="margin-top:10px;"><strong><text>Lot_Display_Name : </text></strong>@Model.UserLotNumber </div>
+                if (@Model.ExpiryDate == null)
+                {
+                    <div class="col-sm-4 col-lg-4 text-info" style="margin-top:10px;"><strong>  <text>Expiry_Date : </text></strong> </div>
+                }
+                else
+                {
+                    <div class="col-sm-4 col-lg-4 text-info" style="margin-top:10px;"><strong>  <text>Expiry_Date : </text></strong> @Model.ExpiryDate.ToString("MM/dd/yyyy") </div>
+                }
+
+                @*<div class="col-sm-12 col-lg-12 " style="margin-top: 10px; margin-bottom: 10px">
+                    <button class=" btn btn-primary" id="aExportExcel">
+                        @AuthentiTrack.I18NResources.Common.Export_to_Excel
+                    </button>
+                    @Html.ActionLink(AuthentiTrack.I18NResources.Common.Export_To_PDF, "EventHistoryPDFConversion", "EventHistory", new { area = "Serialization", ParentSerialNumber = @ViewBag.CurrentSerialNumber }, new { @class = "btn btn-primary", @style = "float:left;margin-right:20px;", @target = "_blank" })
+                    <div class="col-sm-5 col-lg-5 text-info" id="divBack" style="margin-top: 10px; font-size: 16px; float: right;">@Html.ActionLink(AuthentiTrack.I18NResources.Common.Back, "Index", "EventHistory", new { id = "lnkBack" }, new { @style = "float:right;" })</div>
+                </div>*@
+            }
+            else
+            {
+                @*<div>
+                    <button class="btn btn-primary" id="aExportExcel">@AuthentiTrack.I18NResources.Common.Export_to_Excel</button>
+                    @Html.ActionLink(AuthentiTrack.I18NResources.Common.Export_To_PDF, "EventHistoryPDFConversion", "EventHistory", new { area = "Serialization", ParentSerialNumber = @ViewBag.CurrentSerialNumber }, new { @class = "btn btn-primary", @style = "float:left;margin-right:20px;", @target = "_blank" })
+                    <div class="col-sm-5 col-lg-5 text-info" id="divBack" style="margin-top: 10px; font-size: 16px; float: right;">@Html.ActionLink(AuthentiTrack.I18NResources.Common.Back, "Index", "EventHistory", new { id = "lnkBack" }, new { @style = "float:right;" })</div>
+                </div>*@
+            }
+
+
+
+
+
+
+
+
+            <br />
+            <br />
+
+            <div id="EventHistoryPopUp">
+                <div id="myModal" class="modal popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header" style="background-color:#395C82;">
+                        <span class="close closePopup popupcross" data-dismiss="modal">×</span>
+                        <p id="myModalLabel">
+                            FAILURE
+
+                        </p>
+                    </div>
+                    <div class="modal-body" style="background-color:white;">
+                        <div class="validsummary"> @Html.ValidationSummary()</div>
+                    </div>
+                    <div class="modal-footer" style="background-color:white;">
+                        <button class="closePopup btn btn-primary" data-dismiss="modal" aria-hidden="true">&nbsp;Common.OK&nbsp;</button>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            @if (Model != null)
+            {
+                if (Model.lstEventHistory != null)
+                {
+                    if (Model.lstEventHistory.Count > 0)
+                    {
+
+                        <div class="col-lg-12" id="divHistoryPrintGrid" >
+                            @{
+                                var grid1 = new WebGrid(Model.lstEventHistory, canPage: false, canSort: false, rowsPerPage: 2);
+                            }
+
+                            @grid1.GetHtml(tableStyle: "table table-striped table-hover custom-grid", selectedRowStyle: "info", columns: grid1.Columns(
+                grid1.Column("Location", header: "Location"),
+                grid1.Column("CreatedBy", header: "Updated_By"),
+                 grid1.Column("EventTime", header: "Date", style: "col-sm-3 col-xs-3", format: @<text>@item.EventTime.ToString("MM/dd/yyyy HH:mm:ss")</text>),
+                            grid1.Column("Parent", header:"Parent", format: (item) => (item.Parent == null || item.Parent.Trim().ToString() == "") ? Html.Label("") : Html.Label((string)item.Parent.ToString())),
+             //grid1.Column("Parent", header: "Parent"),
+             grid1.Column("Notes", header: "Notes", style: "col-sm-2 col-xs-2"),
+                grid1.Column("StatusDescription", header: "Status")
+                ))
+                        </div>
+
+                                }
+                                else
+                                {
+                                    //@insertScript()
+                                    }
+                                }
+                                else
+                                {
+                                   // @insertScript()
+                                    }
+                                }
+
+        </fieldset>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#divBack a").click(function () { history.go(-1); return false });
+    });
+</script>
+<script src="~/Scripts/jquery.base64.js"></script>
+<script src="~/Scripts/jquery.btechco.excelexport.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery("#aExportExcel").click(function () {
+            jQuery("#divHistoryPrintGrid").btechco_excelexport({
+                containerid: "divHistoryPrintGrid",
+                datatype: $datatype.Table
+            });
+            return false;
+        });
+        //jQuery("#divImageLoaderForUsageReport").hide();
+      //  if (screen.width<600) {
+            $('#divHistoryGrid:visible').css("max-width", (screen.width - 75) + "px")
+            $('#divHistoryGrid:visible').css("overflow-x", "auto")
+            $('#divHistoryGrid:visible').css("clear", "both");
+        //}
+    });
+</script>
+<script language="javascript" type="text/javascript">
+    //$('td:nth-child(1),th:nth-child(1)').addClass("hidden-xs");
+    //$('td:nth-child(2),th:nth-child(2)').addClass("hidden-xs");
+    //$('td:nth-child(4),th:nth-child(4)').addClass("hidden-xs");
+    //$('td:nth-child(5),th:nth-child(5)').addClass("hidden-xs");
+    //$('td:nth-child(6),th:nth-child(6)').addClass("visible-lg");
+    //$('td:nth-child(7),th:nth-child(7)').addClass("hidden-xs");
+    //$('td:nth-child(8),th:nth-child(8)').addClass("hidden-xs");
+</script>
+
+@*<div id="track-history-form">
     <div class="form-horizontal">
         <fieldset>
             <legend>
@@ -170,5 +342,5 @@
             </div>
         </fieldset>
     </div>
-</div>
+</div>*@
 

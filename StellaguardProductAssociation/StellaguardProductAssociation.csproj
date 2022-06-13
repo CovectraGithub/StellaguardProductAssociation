@@ -227,6 +227,7 @@
     <Compile Include="Models\AddProductAssociation.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MessageDisplay.cs" />
     <Compile Include="Models\ProductAssociationHistoryModels.cs" />
     <Compile Include="Models\ProductAssociationLogin.cs" />
     <Compile Include="Models\ProductAssociationModels.cs" />
@@ -2201,6 +2202,7 @@
     <Content Include="Scripts\validation.js" />
     <Content Include="Scripts\validation.old.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Shared\_ModalPopup.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

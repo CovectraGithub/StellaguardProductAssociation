@@ -101,7 +101,7 @@ namespace StellaguardProductAssociation.Controllers
                 string username = Session["Username"].ToString();
                 var result = string.Empty;
                 SqlParameter[] param = null;
-
+                string message;
                 param = new SqlParameter[5];
                 param[0] = new SqlParameter("BarcodeList", productAssociationModel1.BarcodeData);
                 param[1] = new SqlParameter("UserName", username);
@@ -117,12 +117,29 @@ namespace StellaguardProductAssociation.Controllers
 
                 if (param[3].Value.ToString() == "Product Associated Successfully.")
                 {
-                    return Content("<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>");
+                    //countLabel2.te
+                    // objProductView.Message = param[3].Value.ToString();
+                    // objProductView.Message = "<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>";
+                    message = param[3].Value.ToString();
+                    objProductView.Message = param[3].Value.ToString();
+                   // objProductView.Message = new MessageDisplay { IsGoodMessage = true, MessageVisible = true, Message = message };
+
+                    //return Content("<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>");
+                    return View("Index", objProductView);
+                }
+                if (param[3].Value.ToString() == "Invalid Serial Number & Product UPC Scanned.")
+                {
+                    // objProductView.Message = "<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>";
+                    // return Content("<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>");
+                    // objProductView.Message = param[3].Value.ToString();
+                    objProductView.Message = param[3].Value.ToString();
+                     return View("Index", objProductView);
                 }
 
             }
             // process the cancellation request here.
-            return RedirectToAction("Index");
+            return View("Index", objProductView);
+            // return RedirectToAction("Index");
         }
 
         private ActionResult Save(ProductAssociationModels productAssociationModel2)
@@ -153,10 +170,10 @@ namespace StellaguardProductAssociation.Controllers
                 // msg = dsResult.ToString();
                 objProductView.Message = result;
 
-                //objProductView.Message="<script language='javascript' type='text/javascript'>alert  ('Scanned Details Saved Successfully ');</script>";
-                //     ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
-                //"alert('Time OutAlert'); window.location='" +
-                //Request.ApplicationPath + "Index';", true);
+           //     objProductView.Message = "<script language='javascript' type='text/javascript'>alert  ('Scanned Details Saved Successfully ');</script>";
+           //     ScriptManager.RegisterStartupScript(Index, this.GetType(), "redirect",
+           //"alert('Time OutAlert'); window.location='" +
+           //Request.ApplicationPath + "Index';", true);
 
 
             }

@@ -5,7 +5,7 @@
 
 
 
-    @helper SupplierNameLink(byte supplierId, string supplierName)
+    @*@helper SupplierNameLink(byte supplierId, string supplierName)
         {
 if (true)
 {
@@ -15,18 +15,18 @@ if (true)
     {
         @Html.ActionLink(@supplierName, "Edit", "SupplierChain", new { supplierId = @supplierId }, new { @class = "link-disabled" });
     }
-}
-    @helper SupplierAddressLink(string Address1, short addressId, byte SupplierId)
+}*@
+    @helper SupplierAddressLink(string Address1)
     {
-if (addressId != null && Address1 != null && SupplierId != null)
+if (Address1 != null )
 {
     if (true)
     {
-            @Html.ActionLink(Address1, "Index", "SerialNumberHistory", new { serialnumber = SupplierId, id = addressId }, new { title = "Click_to_edit_address" });
+            @Html.ActionLink(Address1, "Index", "SerialNumberHistory", new { serialnumber = Address1 }, new { title = "Click_to_edit_address" });
     }
     else
     {
-            @Html.ActionLink(Address1, "Index", "SerialNumberHistory", new { supplierId = SupplierId, addressId = addressId }, new { @class = "link-disabled" });
+            @Html.ActionLink(Address1, "Index", "SerialNumberHistory", new { supplierId = Address1 }, new { @class = "link-disabled" });
         }
     }
 }
@@ -183,7 +183,7 @@ if (addressId != null && Address1 != null && SupplierId != null)
                                 htmlAttributes: new { id = "MainTable" },
                                 columns: grid.Columns(
                                 grid.Column("+", style: "text-right col-custom-1 width-1_3", header: "#", format: item => ((currentPageIndex * rowsPerPage) + (item.WebGrid.Rows.IndexOf(item)) + 1)),
-                                grid.Column("TimeStamp", style: "col-custom-8 col-merge", header: "Time Stamp", format: (item) => SupplierNameLink(item.Id, item.timestamp)),
+                                grid.Column("TimeStamp", style: "col-custom-8 col-merge", header: "Time Stamp"),
                                 grid.Column("WorkOrder", header: "Work Order No.", style: "col-custom-10 col-merge"),
                                 grid.Column("User", header: "User", style: "col-sm-4 col-xs-4 col-merge"),
 
@@ -196,7 +196,7 @@ if (addressId != null && Address1 != null && SupplierId != null)
                                          columns: new[]{
             grid.Column("", header: "#",style:"text-right col-custom-1 width-1_3",format: item1 =>item1.WebGrid.Rows.IndexOf(item1) + 1),
 
-            grid.Column("SerialNumber", header: "Serial Number",style:"text-right col-custom-1 width-1_3",format: (item1)=> SupplierAddressLink(item1.SerialNumber,item1.AssociationId,item1.Id)),
+            grid.Column("SerialNumber", header: "Serial Number",style:"text-right col-custom-1 width-1_3",format: (item1)=> SupplierAddressLink(item1.SerialNumber)),
             grid.Column("UPC",style:"text-right col-custom-1 width-1_3", header: "UPC"),
             grid.Column("ProductName", header: "Product Name",style:"text-right col-custom-1 width-1_3"),
 
