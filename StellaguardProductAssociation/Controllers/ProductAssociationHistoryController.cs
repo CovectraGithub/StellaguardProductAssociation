@@ -172,6 +172,7 @@ namespace StellaguardProductAssociation.Controllers
                         UPC = row.Field<string>("UPC"),
                         BarcodeData = row.Field<string>("BarcodeData"),
                         UserName = row.Field<string>("UserName"),
+                        ProductName = row.Field<string>("ProductName"),
                     }).ToList();
         }
 

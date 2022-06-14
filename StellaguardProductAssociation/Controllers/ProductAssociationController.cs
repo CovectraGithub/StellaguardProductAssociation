@@ -115,26 +115,26 @@ namespace StellaguardProductAssociation.Controllers
                 helper = new DBHelper(mustCloseConnection: false);
                 DataSet dsResult = helper.ExecuteDataSet(CommandType.StoredProcedure, "ProductAssociationSerialNumber_New", param);
 
-                if (param[3].Value.ToString() == "Product Associated Successfully.")
-                {
-                    //countLabel2.te
-                    // objProductView.Message = param[3].Value.ToString();
-                    // objProductView.Message = "<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>";
-                    message = param[3].Value.ToString();
-                    objProductView.Message = param[3].Value.ToString();
-                   // objProductView.Message = new MessageDisplay { IsGoodMessage = true, MessageVisible = true, Message = message };
+                //if (param[3].Value.ToString() == "Product Associated Successfully.")
+                //{
+                //    //countLabel2.te
+                //    // objProductView.Message = param[3].Value.ToString();
+                //    // objProductView.Message = "<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>";
+                //    message = param[3].Value.ToString();
+                //    objProductView.Message = param[3].Value.ToString();
+                //   // objProductView.Message = new MessageDisplay { IsGoodMessage = true, MessageVisible = true, Message = message };
 
-                    //return Content("<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>");
-                    return View("Index", objProductView);
-                }
-                if (param[3].Value.ToString() == "Invalid Serial Number & Product UPC Scanned.")
-                {
+                //    //return Content("<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>");
+                //    return View("Index", objProductView);
+                //}
+                //if (param[3].Value.ToString() == "Invalid Serial Number & Product UPC Scanned.")
+                //{
                     // objProductView.Message = "<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>";
                     // return Content("<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>");
                     // objProductView.Message = param[3].Value.ToString();
                     objProductView.Message = param[3].Value.ToString();
                      return View("Index", objProductView);
-                }
+               // }
 
             }
             // process the cancellation request here.
