@@ -3,356 +3,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 @using (Html.BeginForm("Index", "Shipping", FormMethod.Post, new { id = "frm", name = "frm" }))
 {
-
-    @*<section class="panel-group">
-    <header class="panel-heading">
-        <div class="panel-actions">
-            <p class="panel-subtitle"></p>
-        </div>
-
-        <h2 class="panel-title"><br />Product Association History</h2>
-
-    </header>
-    <div id="frm">
-        <div class="column2" style="text-align:left;">
-            <h4><b>&nbsp;&nbsp;Shipping</b></h4>
-        </div>
-
-
-        <div class="col-lg-12 col-lg-offset-2 container" style="margin-left:0px!important; float:none !important; padding-left: 0px!important;
-padding-right: 0px!important;">
-            <div class="form-horizontal" style="margin: 2px!important;">
-                <fieldset>
-                   <legend>
-                        <span class="col-xs-12 col-sm-6">
-                         
-                        </span>
-                        <span class="col-xs-12 col-sm-6 actionlinkRight">
-                           
-                        </span>
-                    </legend>
-
-                    <div id="shipping_div_ShipbyLot">
-                        <div class="form-group" id="divLotNumber">
-
-                            <label class="col-sm-2 col-xs-12 col-lg-2 control-label" for="FilterParameters_UserBatchNumber">Serial Codes</label>
-                            <div class="col-sm-9 col-xs-11 shipping_LotNo">
-
-
-
-
-                                <textarea autofocus="autofocus" class="form-control" cols="22" id="UPCSerialNumber" name="UPCSerialNumber" rows="3"></textarea>
-
-                            </div>
-                            <div class="col-sm-offset-2 col-sm-8 col-xs-12">
-                                <span id="count" class="label label-info count-label">0</span><span class="text-info">
-                                    ItemsScanned
-                                </span>
-                                <button type="Submit" class="btn btn-primary small-button btnAdd" name="Add" id="btnAdd" style="visibility:hidden;">Ship</button>
-
-
-                                <span id="ErrorMessage" style="color:green;"></span><span class="text-info">
-
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 col-xs-2 control-label" for="ShipmentDateTime">Shipment Date</label>
-                            <div class="col-sm-4">
-                                <input class="form-control date datetimepicker valid" data-val="true" data-val-date="The field Shipment Date must be a date." data-val-required="The Shipment Date field is required." id="ShipmentDateTime" name="ShipmentDateTime" type="text" value="1/1/0001 12:00:00 AM">
-                            </div>
-                            <div class="asterisk-div col-sm-1 col-xs-1 glyphicon glyphicon-asterisk shipping_astrik"></div>
-                            <label class="col-xs-12 col-sm-2 shipping_buyer" for="TimeZone">Time Zone</label>
-                            <div class="col-xs-12 col-sm-4 shipping_drp">
-
-                                <select class="form-control" id="timezone1" name="timezone1">
-                                    <option value="Dateline Standard Time">(UTC-12:00) International Date Line West</option>
-                                    <option value="UTC-11">(UTC-11:00) Coordinated Universal Time-11</option>
-                                    <option value="Aleutian Daylight Time">(UTC-09:00) Aleutian Daylight Time</option>
-                                    <option value="Aleutian Standard Time">(UTC-10:00) Aleutian Islands</option>
-                                    <option value="Hawaiian Standard Time">(UTC-10:00) Hawaii</option>
-                                    <option value="Marquesas Standard Time">(UTC-09:30) Marquesas Islands</option>
-                                    <option value="Alaskan Daylight Time">(UTC-08:00) Alaskan Daylight Time</option>
-                                    <option value="Alaskan Standard Time">(UTC-09:00) Alaska</option>
-                                    <option value="UTC-09">(UTC-09:00) Coordinated Universal Time-09</option>
-                                    <option value="Pacific Daylight Time (Mexico)">(UTC-07:00) Pacific Daylight Time (Mexico)</option>
-                                    <option value="Pacific Standard Time (Mexico)">(UTC-08:00) Baja California</option>
-                                    <option value="UTC-08">(UTC-08:00) Coordinated Universal Time-08</option>
-                                    <option value="Pacific Daylight Time">(UTC-07:00) Pacific Daylight Time</option>
-                                    <option value="Pacific Standard Time">(UTC-08:00) Pacific Time (US &amp; Canada)</option>
-                                    <option value="US Mountain Standard Time">(UTC-07:00) Arizona</option>
-                                    <option value="Mountain Daylight Time (Mexico)">(UTC-06:00) Mountain Daylight Time (Mexico)</option>
-                                    <option value="Mountain Standard Time (Mexico)">(UTC-07:00) Chihuahua, La Paz, Mazatlan</option>
-                                    <option value="Mountain Daylight Time">(UTC-06:00) Mountain Daylight Time</option>
-                                    <option value="Mountain Standard Time">(UTC-07:00) Mountain Time (US &amp; Canada)</option>
-                                    <option value="Yukon Daylight Time">(UTC-07:00) Yukon Daylight Time</option>
-                                    <option value="Yukon Standard Time">(UTC-07:00) Yukon</option>
-                                    <option value="Central America Standard Time">(UTC-06:00) Central America</option>
-                                    <option value="Central Daylight Time">(UTC-05:00) Central Daylight Time</option>
-                                    <option value="Central Standard Time">(UTC-06:00) Central Time (US &amp; Canada)</option>
-                                    <option value="Easter Island Daylight Time">(UTC-06:00) Easter Island Daylight Time</option>
-                                    <option value="Easter Island Standard Time">(UTC-06:00) Easter Island</option>
-                                    <option value="Central Daylight Time (Mexico)">(UTC-05:00) Central Daylight Time (Mexico)</option>
-                                    <option value="Central Standard Time (Mexico)">(UTC-06:00) Guadalajara, Mexico City, Monterrey</option>
-                                    <option value="Canada Central Standard Time">(UTC-06:00) Saskatchewan</option>
-                                    <option value="SA Pacific Standard Time">(UTC-05:00) Bogota, Lima, Quito, Rio Branco</option>
-                                    <option value="Eastern Daylight Time (Mexico)">(UTC-05:00) Eastern Daylight Time (Mexico)</option>
-                                    <option value="Eastern Standard Time (Mexico)">(UTC-05:00) Chetumal</option>
-                                    <option value="Eastern Daylight Time">(UTC-04:00) Eastern Daylight Time</option>
-                                    <option value="Eastern Standard Time">(UTC-05:00) Eastern Time (US &amp; Canada)</option>
-                                    <option value="Haiti Daylight Time">(UTC-04:00) Haiti Daylight Time</option>
-                                    <option value="Haiti Standard Time">(UTC-05:00) Haiti</option>
-                                    <option value="Cuba Daylight Time">(UTC-04:00) Cuba Daylight Time</option>
-                                    <option value="Cuba Standard Time">(UTC-05:00) Havana</option>
-                                    <option value="US Eastern Daylight Time">(UTC-04:00) US Eastern Daylight Time</option>
-                                    <option value="US Eastern Standard Time">(UTC-05:00) Indiana (East)</option>
-                                    <option value="Turks and Caicos Daylight Time">(UTC-04:00) Turks and Caicos Daylight Time</option>
-                                    <option value="Turks and Caicos Standard Time">(UTC-05:00) Turks and Caicos</option>
-                                    <option value="Paraguay Daylight Time">(UTC-04:00) Paraguay Daylight Time</option>
-                                    <option value="Paraguay Standard Time">(UTC-04:00) Asuncion</option>
-                                    <option value="Atlantic Daylight Time">(UTC-03:00) Atlantic Daylight Time</option>
-                                    <option value="Atlantic Standard Time">(UTC-04:00) Atlantic Time (Canada)</option>
-                                    <option value="Venezuela Daylight Time">(UTC-04:00) Venezuela Daylight Time</option>
-                                    <option value="Venezuela Standard Time">(UTC-04:00) Caracas</option>
-                                    <option value="Central Brazilian Daylight Time">(UTC-04:00) Central Brazilian Daylight Time</option>
-                                    <option value="Central Brazilian Standard Time">(UTC-04:00) Cuiaba</option>
-                                    <option value="SA Western Standard Time">(UTC-04:00) Georgetown, La Paz, Manaus, San Juan</option>
-                                    <option value="Pacific SA Daylight Time">(UTC-04:00) Pacific SA Daylight Time</option>
-                                    <option value="Pacific SA Standard Time">(UTC-04:00) Santiago</option>
-                                    <option value="Newfoundland Daylight Time">(UTC-02:30) Newfoundland Daylight Time</option>
-                                    <option value="Newfoundland Standard Time">(UTC-03:30) Newfoundland</option>
-                                    <option value="Tocantins Daylight Time">(UTC-03:00) Tocantins Daylight Time</option>
-                                    <option value="Tocantins Standard Time">(UTC-03:00) Araguaina</option>
-                                    <option value="E. South America Daylight Time">(UTC-03:00) E. South America Daylight Time</option>
-                                    <option value="E. South America Standard Time">(UTC-03:00) Brasilia</option>
-                                    <option value="SA Eastern Standard Time">(UTC-03:00) Cayenne, Fortaleza</option>
-                                    <option value="Argentina Daylight Time">(UTC-03:00) Argentina Daylight Time</option>
-                                    <option value="Argentina Standard Time">(UTC-03:00) City of Buenos Aires</option>
-                                    <option value="Greenland Daylight Time">(UTC-02:00) Greenland Daylight Time</option>
-                                    <option value="Greenland Standard Time">(UTC-03:00) Greenland</option>
-                                    <option value="Montevideo Daylight Time">(UTC-03:00) Montevideo Daylight Time</option>
-                                    <option value="Montevideo Standard Time">(UTC-03:00) Montevideo</option>
-                                    <option value="Magallanes Daylight Time">(UTC-03:00) Magallanes Daylight Time</option>
-                                    <option value="Magallanes Standard Time">(UTC-03:00) Punta Arenas</option>
-                                    <option value="Saint Pierre Daylight Time">(UTC-02:00) Saint Pierre Daylight Time</option>
-                                    <option value="Saint Pierre Standard Time">(UTC-03:00) Saint Pierre and Miquelon</option>
-                                    <option value="Bahia Daylight Time">(UTC-03:00) Bahia Daylight Time</option>
-                                    <option value="Bahia Standard Time">(UTC-03:00) Salvador</option>
-                                    <option value="UTC-02">(UTC-02:00) Coordinated Universal Time-02</option>
-                                    <option value="Mid-Atlantic Daylight Time">(UTC-01:00) Mid-Atlantic Daylight Time</option>
-                                    <option value="Mid-Atlantic Standard Time">(UTC-02:00) Mid-Atlantic - Old</option>
-                                    <option value="Azores Daylight Time">(UTC+00:00) Azores Daylight Time</option>
-                                    <option value="Azores Standard Time">(UTC-01:00) Azores</option>
-                                    <option value="Cabo Verde Standard Time">(UTC-01:00) Cabo Verde Is.</option>
-                                    <option value="Coordinated Universal Time">(UTC) Coordinated Universal Time</option>
-                                    <option value="GMT Daylight Time">(UTC+01:00) GMT Daylight Time</option>
-                                    <option value="GMT Standard Time">(UTC+00:00) Dublin, Edinburgh, Lisbon, London</option>
-                                    <option value="Greenwich Standard Time">(UTC+00:00) Monrovia, Reykjavik</option>
-                                    <option value="Sao Tome Daylight Time">(UTC+00:00) Sao Tome Daylight Time</option>
-                                    <option value="Sao Tome Standard Time">(UTC+00:00) Sao Tome</option>
-                                    <option value="Morocco Daylight Time">(UTC+01:00) Morocco Daylight Time</option>
-                                    <option value="Morocco Standard Time">(UTC+01:00) Casablanca</option>
-                                    <option value="W. Europe Daylight Time">(UTC+02:00) W. Europe Daylight Time</option>
-                                    <option value="W. Europe Standard Time">(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
-                                    <option value="Central Europe Daylight Time">(UTC+02:00) Central Europe Daylight Time</option>
-                                    <option value="Central Europe Standard Time">(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
-                                    <option value="Romance Daylight Time">(UTC+02:00) Romance Daylight Time</option>
-                                    <option value="Romance Standard Time">(UTC+01:00) Brussels, Copenhagen, Madrid, Paris</option>
-                                    <option value="Central European Daylight Time">(UTC+02:00) Central European Daylight Time</option>
-                                    <option value="Central European Standard Time">(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb</option>
-                                    <option value="W. Central Africa Standard Time">(UTC+01:00) West Central Africa</option>
-                                    <option value="Jordan Daylight Time">(UTC+03:00) Jordan Daylight Time</option>
-                                    <option value="Jordan Standard Time">(UTC+02:00) Amman</option>
-                                    <option value="GTB Daylight Time">(UTC+03:00) GTB Daylight Time</option>
-                                    <option value="GTB Standard Time">(UTC+02:00) Athens, Bucharest</option>
-                                    <option value="Middle East Daylight Time">(UTC+03:00) Middle East Daylight Time</option>
-                                    <option value="Middle East Standard Time">(UTC+02:00) Beirut</option>
-                                    <option value="Egypt Daylight Time">(UTC+02:00) Egypt Daylight Time</option>
-                                    <option value="Egypt Standard Time">(UTC+02:00) Cairo</option>
-                                    <option value="E. Europe Daylight Time">(UTC+03:00) E. Europe Daylight Time</option>
-                                    <option value="E. Europe Standard Time">(UTC+02:00) Chisinau</option>
-                                    <option value="Syria Daylight Time">(UTC+03:00) Syria Daylight Time</option>
-                                    <option value="Syria Standard Time">(UTC+02:00) Damascus</option>
-                                    <option value="West Bank Gaza Daylight Time">(UTC+03:00) West Bank Gaza Daylight Time</option>
-                                    <option value="West Bank Gaza Standard Time">(UTC+02:00) Gaza, Hebron</option>
-                                    <option value="South Africa Standard Time">(UTC+02:00) Harare, Pretoria</option>
-                                    <option value="FLE Daylight Time">(UTC+03:00) FLE Daylight Time</option>
-                                    <option value="FLE Standard Time">(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</option>
-                                    <option value="Jerusalem Daylight Time">(UTC+03:00) Jerusalem Daylight Time</option>
-                                    <option value="Jerusalem Standard Time">(UTC+02:00) Jerusalem</option>
-                                    <option value="South Sudan Daylight Time">(UTC+02:00) South Sudan Daylight Time</option>
-                                    <option value="South Sudan Standard Time">(UTC+02:00) Juba</option>
-                                    <option value="Russia TZ 1 Daylight Time">(UTC+02:00) Russia TZ 1 Daylight Time</option>
-                                    <option value="Russia TZ 1 Standard Time">(UTC+02:00) Kaliningrad</option>
-                                    <option value="Sudan Daylight Time">(UTC+02:00) Sudan Daylight Time</option>
-                                    <option value="Sudan Standard Time">(UTC+02:00) Khartoum</option>
-                                    <option value="Libya Daylight Time">(UTC+02:00) Libya Daylight Time</option>
-                                    <option value="Libya Standard Time">(UTC+02:00) Tripoli</option>
-                                    <option value="Namibia Daylight Time">(UTC+02:00) Namibia Daylight Time</option>
-                                    <option value="Namibia Standard Time">(UTC+02:00) Windhoek</option>
-                                    <option value="Arabic Daylight Time">(UTC+03:00) Arabic Daylight Time</option>
-                                    <option value="Arabic Standard Time">(UTC+03:00) Baghdad</option>
-                                    <option value="Turkey Daylight Time">(UTC+03:00) Turkey Daylight Time</option>
-                                    <option value="Turkey Standard Time">(UTC+03:00) Istanbul</option>
-                                    <option value="Arab Standard Time">(UTC+03:00) Kuwait, Riyadh</option>
-                                    <option value="Belarus Daylight Time">(UTC+03:00) Belarus Daylight Time</option>
-                                    <option value="Belarus Standard Time">(UTC+03:00) Minsk</option>
-                                    <option value="Russia TZ 2 Daylight Time">(UTC+03:00) Russia TZ 2 Daylight Time</option>
-                                    <option value="Russia TZ 2 Standard Time">(UTC+03:00) Moscow, St. Petersburg</option>
-                                    <option value="E. Africa Standard Time">(UTC+03:00) Nairobi</option>
-                                    <option value="Volgograd Daylight Time">(UTC+03:00) Volgograd Daylight Time</option>
-                                    <option value="Volgograd Standard Time">(UTC+03:00) Volgograd</option>
-                                    <option value="Iran Daylight Time">(UTC+04:30) Iran Daylight Time</option>
-                                    <option value="Iran Standard Time">(UTC+03:30) Tehran</option>
-                                    <option value="Arabian Standard Time">(UTC+04:00) Abu Dhabi, Muscat</option>
-                                    <option value="Astrakhan Daylight Time">(UTC+04:00) Astrakhan Daylight Time</option>
-                                    <option value="Astrakhan Standard Time">(UTC+04:00) Astrakhan, Ulyanovsk</option>
-                                    <option value="Azerbaijan Daylight Time">(UTC+04:00) Azerbaijan Daylight Time</option>
-                                    <option value="Azerbaijan Standard Time">(UTC+04:00) Baku</option>
-                                    <option value="Russia TZ 3 Daylight Time">(UTC+04:00) Russia TZ 3 Daylight Time</option>
-                                    <option value="Russia TZ 3 Standard Time">(UTC+04:00) Izhevsk, Samara</option>
-                                    <option value="Mauritius Daylight Time">(UTC+04:00) Mauritius Daylight Time</option>
-                                    <option value="Mauritius Standard Time">(UTC+04:00) Port Louis</option>
-                                    <option value="Saratov Daylight Time">(UTC+04:00) Saratov Daylight Time</option>
-                                    <option value="Saratov Standard Time">(UTC+04:00) Saratov</option>
-                                    <option value="Georgian Standard Time">(UTC+04:00) Tbilisi</option>
-                                    <option value="Caucasus Daylight Time">(UTC+04:00) Caucasus Daylight Time</option>
-                                    <option value="Caucasus Standard Time">(UTC+04:00) Yerevan</option>
-                                    <option value="Afghanistan Standard Time">(UTC+04:30) Kabul</option>
-                                    <option value="West Asia Standard Time">(UTC+05:00) Ashgabat, Tashkent</option>
-                                    <option value="Russia TZ 4 Daylight Time">(UTC+05:00) Russia TZ 4 Daylight Time</option>
-                                    <option value="Russia TZ 4 Standard Time">(UTC+05:00) Ekaterinburg</option>
-                                    <option value="Pakistan Daylight Time">(UTC+05:00) Pakistan Daylight Time</option>
-                                    <option value="Pakistan Standard Time">(UTC+05:00) Islamabad, Karachi</option>
-                                    <option value="Qyzylorda Daylight Time">(UTC+05:00) Qyzylorda Daylight Time</option>
-                                    <option value="Qyzylorda Standard Time">(UTC+05:00) Qyzylorda</option>
-                                    <option value="India Standard Time">(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
-                                    <option value="Sri Lanka Standard Time">(UTC+05:30) Sri Jayawardenepura</option>
-                                    <option value="Nepal Standard Time">(UTC+05:45) Kathmandu</option>
-                                    <option value="Central Asia Standard Time">(UTC+06:00) Astana</option>
-                                    <option value="Bangladesh Daylight Time">(UTC+06:00) Bangladesh Daylight Time</option>
-                                    <option value="Bangladesh Standard Time">(UTC+06:00) Dhaka</option>
-                                    <option value="Omsk Daylight Time">(UTC+06:00) Omsk Daylight Time</option>
-                                    <option value="Omsk Standard Time">(UTC+06:00) Omsk</option>
-                                    <option value="Myanmar Standard Time">(UTC+06:30) Yangon (Rangoon)</option>
-                                    <option value="SE Asia Standard Time">(UTC+07:00) Bangkok, Hanoi, Jakarta</option>
-                                    <option value="Altai Daylight Time">(UTC+07:00) Altai Daylight Time</option>
-                                    <option value="Altai Standard Time">(UTC+07:00) Barnaul, Gorno-Altaysk</option>
-                                    <option value="W. Mongolia Daylight Time">(UTC+07:00) W. Mongolia Daylight Time</option>
-                                    <option value="W. Mongolia Standard Time">(UTC+07:00) Hovd</option>
-                                    <option value="Russia TZ 6 Daylight Time">(UTC+07:00) Russia TZ 6 Daylight Time</option>
-                                    <option value="Russia TZ 6 Standard Time">(UTC+07:00) Krasnoyarsk</option>
-                                    <option value="Novosibirsk Daylight Time">(UTC+07:00) Novosibirsk Daylight Time</option>
-                                    <option value="Novosibirsk Standard Time">(UTC+07:00) Novosibirsk</option>
-                                    <option value="Tomsk Daylight Time">(UTC+07:00) Tomsk Daylight Time</option>
-                                    <option value="Tomsk Standard Time">(UTC+07:00) Tomsk</option>
-                                    <option value="China Standard Time">(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi</option>
-                                    <option value="Russia TZ 7 Daylight Time">(UTC+08:00) Russia TZ 7 Daylight Time</option>
-                                    <option value="Russia TZ 7 Standard Time">(UTC+08:00) Irkutsk</option>
-                                    <option value="Malay Peninsula Standard Time">(UTC+08:00) Kuala Lumpur, Singapore</option>
-                                    <option value="W. Australia Daylight Time">(UTC+08:00) W. Australia Daylight Time</option>
-                                    <option value="W. Australia Standard Time">(UTC+08:00) Perth</option>
-                                    <option value="Taipei Standard Time">(UTC+08:00) Taipei</option>
-                                    <option value="Ulaanbaatar Daylight Time">(UTC+08:00) Ulaanbaatar Daylight Time</option>
-                                    <option value="Ulaanbaatar Standard Time">(UTC+08:00) Ulaanbaatar</option>
-                                    <option value="Aus Central W. Standard Time">(UTC+08:45) Eucla</option>
-                                    <option value="Transbaikal Daylight Time">(UTC+09:00) Transbaikal Daylight Time</option>
-                                    <option value="Transbaikal Standard Time">(UTC+09:00) Chita</option>
-                                    <option value="Tokyo Standard Time">(UTC+09:00) Osaka, Sapporo, Tokyo</option>
-                                    <option value="North Korea Daylight Time">(UTC+09:00) North Korea Daylight Time</option>
-                                    <option value="North Korea Standard Time">(UTC+09:00) Pyongyang</option>
-                                    <option value="Korea Standard Time">(UTC+09:00) Seoul</option>
-                                    <option value="Russia TZ 8 Daylight Time">(UTC+09:00) Russia TZ 8 Daylight Time</option>
-                                    <option value="Russia TZ 8 Standard Time">(UTC+09:00) Yakutsk</option>
-                                    <option value="Cen. Australia Daylight Time">(UTC+09:30) Cen. Australia Daylight Time</option>
-                                    <option value="Cen. Australia Standard Time">(UTC+09:30) Adelaide</option>
-                                    <option value="AUS Central Standard Time">(UTC+09:30) Darwin</option>
-                                    <option value="E. Australia Standard Time">(UTC+10:00) Brisbane</option>
-                                    <option value="AUS Eastern Daylight Time">(UTC+10:00) AUS Eastern Daylight Time</option>
-                                    <option value="AUS Eastern Standard Time">(UTC+10:00) Canberra, Melbourne, Sydney</option>
-                                    <option value="West Pacific Standard Time">(UTC+10:00) Guam, Port Moresby</option>
-                                    <option value="Tasmania Daylight Time">(UTC+10:00) Tasmania Daylight Time</option>
-                                    <option value="Tasmania Standard Time">(UTC+10:00) Hobart</option>
-                                    <option value="Russia TZ 9 Daylight Time">(UTC+10:00) Russia TZ 9 Daylight Time</option>
-                                    <option value="Russia TZ 9 Standard Time">(UTC+10:00) Vladivostok</option>
-                                    <option value="Lord Howe Daylight Time">(UTC+10:30) Lord Howe Daylight Time</option>
-                                    <option value="Lord Howe Standard Time">(UTC+10:30) Lord Howe Island</option>
-                                    <option value="Bougainville Daylight Time">(UTC+11:00) Bougainville Daylight Time</option>
-                                    <option value="Bougainville Standard Time">(UTC+11:00) Bougainville Island</option>
-                                    <option value="Russia TZ 10 Daylight Time">(UTC+11:00) Russia TZ 10 Daylight Time</option>
-                                    <option value="Russia TZ 10 Standard Time">(UTC+11:00) Chokurdakh</option>
-                                    <option value="Magadan Daylight Time">(UTC+11:00) Magadan Daylight Time</option>
-                                    <option value="Magadan Standard Time">(UTC+11:00) Magadan</option>
-                                    <option value="Norfolk Daylight Time">(UTC+11:00) Norfolk Daylight Time</option>
-                                    <option value="Norfolk Standard Time">(UTC+11:00) Norfolk Island</option>
-                                    <option value="Sakhalin Daylight Time">(UTC+11:00) Sakhalin Daylight Time</option>
-                                    <option value="Sakhalin Standard Time">(UTC+11:00) Sakhalin</option>
-                                    <option value="Central Pacific Standard Time">(UTC+11:00) Solomon Is., New Caledonia</option>
-                                    <option value="Russia TZ 11 Daylight Time">(UTC+12:00) Russia TZ 11 Daylight Time</option>
-                                    <option value="Russia TZ 11 Standard Time">(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky</option>
-                                    <option value="New Zealand Daylight Time">(UTC+12:00) New Zealand Daylight Time</option>
-                                    <option value="New Zealand Standard Time">(UTC+12:00) Auckland, Wellington</option>
-                                    <option value="UTC+12">(UTC+12:00) Coordinated Universal Time+12</option>
-                                    <option value="Fiji Daylight Time">(UTC+12:00) Fiji Daylight Time</option>
-                                    <option value="Fiji Standard Time">(UTC+12:00) Fiji</option>
-                                    <option value="Kamchatka Daylight Time">(UTC+13:00) Kamchatka Daylight Time</option>
-                                    <option value="Kamchatka Standard Time">(UTC+12:00) Petropavlovsk-Kamchatsky - Old</option>
-                                    <option value="Chatham Islands Daylight Time">(UTC+12:45) Chatham Islands Daylight Time</option>
-                                    <option value="Chatham Islands Standard Time">(UTC+12:45) Chatham Islands</option>
-                                    <option value="UTC+13">(UTC+13:00) Coordinated Universal Time+13</option>
-                                    <option value="Tonga Daylight Time">(UTC+13:00) Tonga Daylight Time</option>
-                                    <option value="Tonga Standard Time">(UTC+13:00) Nuku'alofa</option>
-                                    <option value="Samoa Daylight Time">(UTC+13:00) Samoa Daylight Time</option>
-                                    <option value="Samoa Standard Time">(UTC+13:00) Samoa</option>
-                                    <option value="Line Islands Standard Time">(UTC+14:00) Kiritimati Island</option>
-                                </select>
-                            </div>
-                            <div class="asterisk-div col-sm-1 col-xs-1 glyphicon glyphicon-asterisk shipping_astrik"></div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-sm-2 col-xs-2 control-label" for="ShipmentDateTime">Order Number</label>
-                            <div class="col-sm-4">
-                                <input class="form-control date datetimepicker valid" data-val="true" data-val-required="Order Number field is required." id="OrderNumber" name="OrderNumber" type="text" >
-                            </div>
-                            <div class="asterisk-div col-sm-1 col-xs-1 glyphicon glyphicon-asterisk shipping_astrik"></div>
-                            <label class="col-xs-12 col-sm-2 shipping_buyer" for="TimeZone"> </label>
-                            <div class="col-xs-12 col-sm-4 shipping_drp">
-                                <button type="Submit" class="btn btn-primary small-button btnAdd" name="Ship" id="btnSave">Ship</button>
-                                <button type="Submit" class="btn btn-primary small-button btnAdd" name="Reset" id="btnSubmit">Reset</button>
-                            </div>
-                           
-                        </div>
-
-
-
-
-
-                    </div>
-
-
-
-
-
-
-
-                </fieldset>
-            </div>
-        </div>
-
-
-
-
-
-    </div>
-    </section>*@
 
     <div class="row">
         <div class="col-lg-12">
@@ -360,6 +13,9 @@ padding-right: 0px!important;">
                 <header class="panel-heading">
                     <div class="panel-actions">
                         <p class="panel-subtitle">@Html.Label("*", new Dictionary<string, object> { { "class", "errormessage" } })</p>
+                    </div>
+                    <div>
+                        <span id="ErrorMessage" >@Html.DisplayFor(m => m.Message)</span><span class="text-info"> </span>
                     </div>
 
                     <h2 class="panel-title"><br />Shipping</h2>
@@ -405,35 +61,26 @@ padding-right: 0px!important;">
                             @Html.Label("Time Zone", new { @class = "col-sm-3 control-label" })
 
                             <div class="col-sm-8" style="float:left">
-                                @*@Html.DropDownList("timezone1", new SelectList(Model.timeZoneList, "Value", "Text"), new { @class = "form-control" })*@
-                                <select class="form-control" id="timezone1" name="timezone1">
-                                    <option value="Dateline Standard Time">(UTC-12:00) International Date Line West</option>
-                                    <option value="UTC-11">(UTC-11:00) Coordinated Universal Time-11</option>
-                                    <option value="Aleutian Daylight Time">(UTC-09:00) Aleutian Daylight Time</option>
-                                    <option value="Aleutian Standard Time">(UTC-10:00) Aleutian Islands</option>
-                                    <option value="Hawaiian Standard Time">(UTC-10:00) Hawaii</option>
-                                    <option value="Marquesas Standard Time">(UTC-09:30) Marquesas Islands</option>
-                                    <option value="Alaskan Daylight Time">(UTC-08:00) Alaskan Daylight Time</option>
-                                    <option value="Alaskan Standard Time">(UTC-09:00) Alaska</option>
-                                    </select>
-</div>
+                                @Html.DropDownList("timezone1", new SelectList(Model.timeZoneList, "Value", "Text"), new { @class = "form-control" })
+                            </div>
 
                         </div>
                     </div>
 
                     <div class="form-group required">
                         <div class="col-sm-6">
-                            @Html.LabelFor(model => model.OrderNumber, new { @class = "col-sm-3 control-label", @id = "lblToCompName" })
+                            @Html.LabelFor(model => model.OrderNumber, new { @class = "col-sm-3 control-label"})
                             <div class="col-sm-8" style="float:left">
-                                @Html.TextBoxFor(model => model.OrderNumber, new { @class = "form-control date datetimepicker" })
+                                @Html.TextBoxFor(model => model.OrderNumber, new { @class = "form-control" })
 
                             </div>
 
                         </div>
-                        <div class="col-sm-6">
-                           <div class="col-sm-3" ></div>
+                        <div class="col-sm-6 form-group" id="divitemLable">
+                            <audio id="xyz" src="~/assets/images/beeps_notification.mp3" preload="auto"></audio>
+                            <div class="col-sm-3"></div>
                             <div class="col-sm-8" style="float:left">
-                                <button type="submit" class="btn btn-primary large-button btnSubmit validate-form" onclick="return checkvalid(this);" id="Save">Ship</button>
+                                <button type="submit" class="btn btn-primary large-button btnSubmit validate-form" name="save" onclick="checkvalid(this);" id="Save">Ship</button>
                             </div>
 
                         </div>
@@ -445,7 +92,7 @@ padding-right: 0px!important;">
 
                     @Html.Hidden("timezone")
                     @*@Html.Hidden("HtmlValue")
-                    @Html.HiddenFor(x => x.IsDropShipment)*@
+                        @Html.HiddenFor(x => x.IsDropShipment)*@
 
 
 
@@ -455,34 +102,264 @@ padding-right: 0px!important;">
 
                 </div>
                 @*@section popup {
-                    @Html.Partial("_ModalPopup", Model.Message)
-                }*@
+                        @Html.Partial("_ModalPopup", Model.Message)
+                    }*@
 
             </section>
         </div>
     </div>
 
-        <style type="text/css">
-            .left-padding {
-            }
-        </style>
-
-        <script type="text/javascript">
-
-            var countLabel = $("#count");
-          //  var countLabel = $("#count");
-
-            var tdCount = $("#pkgList").find("table>tbody tr");
-            var i = tdCount.length;
-            var countLabel = $("#count");
-            countLabel.html(i);
-
-
-            $("#SerialCodes").focusout(function () {
-                var count = checkCount($("#SerialCodes").val());
-                countLabel.html(count);
-            });
-            $("#SerialCodes").focus();
-        </script>
-
+    
+    <style type="text/css">
+        .left-padding {
+        }
+        .bootstrap-datetimepicker-widget {
+            min-width: 400px;
+        }
+    </style>
 }
+<script src="@Url.Content("~/Scripts/bootstrap.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/moment.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/moment-timezone.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/moment-timezone-with-data-2012-2022.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/bootstrap-datetimepicker.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var abbrs = {
+            AST: 'Atlantic Standard Time',
+            EST: 'Eastern Standard Time',
+            EDT: 'Eastern Daylight Time',
+            CST: 'Central Standard Time',
+            CDT: 'Central Daylight Time',
+            MST: 'Mountain Standard Time',
+            MDT: 'Mountain Daylight Time',
+            PST: 'Pacific Standard Time',
+            PDT: 'Pacific Daylight Time',
+            AKST: 'Alaska Time',
+            AKDT: 'Alaska Daylight Time',
+            HST: 'Hawaiian Standard Time',
+            HST: 'Dateline Standard Time',
+            HAST: 'HAWAII-ALEUTIAN STANDARD TIME',
+            HADT: 'HAWAII-ALEUTIAN DAYLIGHT TIME',
+            SST: 'SAMOA STANDARD TIME',
+            SDT: 'SAMOA DAYLIGHT TIME',
+            CHST: 'CHAMORRO STANDARD TIME',
+            IST: 'India Standard Time',
+            MSK: 'Moscow Time',
+            ADT: 'Aleutian Daylight Time',
+            //HDT: 'Hawaii–Aleutian Daylight Time',
+        };
+
+        moment.fn.zoneName = function () {
+            var abbr = this.zoneAbbr();
+            return abbrs[abbr] || abbr;
+        };
+        //SET THE CURRENT DATE IN SHIPMENT DATE
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        var time = new Date();
+        time = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+        var today = mm + '/' + dd + '/' + yyyy + ' ' + time;
+        $("#ShipmentDateTime").val(today);
+        //SET THE CURRENT DATE IN SHIPMENT DATE
+
+
+
+        var objdatetime = new Date();
+        var timezone1 = objdatetime.toTimeString();   // Output like 13:56:48 UTC+0530 , u need to extract UTC+0530 from it
+        var month = objdatetime.getUTCMonth() + 1; //months from 1-12
+        var year = objdatetime.getUTCFullYear(); // Get the year
+        var zone_name = moment.tz.guess(); // Get the zone name
+        var timezone = moment.tz(zone_name).zoneAbbr()
+        //var name = moment.tz([year, month], zone_name).format('zz');
+
+        if (zone_name == "America/New_York") {
+            $("#timezone1").val(moment.tz([year, month], zone_name).format('zz')); // SET the DROPDOWN FOR EST TIME ZONE
+        }
+        else
+            $("#timezone1").val(new Date().toString().match(/\(([^)]+)\)/)[1]); // AND FOR OTHER THIS VALUE IS SET
+
+    });
+    $('#ShipmentDateTime').datetimepicker({
+        sideBySide: true,
+
+    });
+    var Iskeypress = false;
+    var validResult = true;
+    var countLabel = $("#count");
+    var countLabel2 = $("#ErrorMessage");
+    var compAddress = null;
+    var IsSummary = false;
+
+
+    var x;
+    var UPCSNArr = [];
+    var callfun;
+    var twolist;
+
+    var final = [];
+    var finallist;
+    var countLabel = $("#count");
+    //  var countLabel = $("#count");
+
+    var tdCount = $("#pkgList").find("table>tbody tr");
+    var i = tdCount.length;
+    var countLabel = $("#count");
+    countLabel.html(i);
+
+
+
+
+
+
+    function listToMatrix(list, elementsPerSubArray) {
+        var matrix = [], i, k;
+
+        for (i = 0, k = -1; i < list.length; i++) {
+            if (i % elementsPerSubArray === 0) {
+                k++;
+                matrix[k] = [];
+            }
+
+            matrix[k].push(list[i]);
+        }
+
+        return matrix;
+    }
+    
+
+    function isItemInArray(twolist, currentarray) {
+        debugger;
+        console.log("two list length" + twolist.length)
+        for (var i = 0; i < twolist.length; i++) {
+            // This if statement depends on the format of your array
+            console.log("two list value" + twolist[i][1]);
+            if (twolist[i][1] == currentarray[1]) {
+                console.log("Found it");
+                return true;   // Found it
+
+            }
+        }
+        console.log("Not Found it");
+        return false;   // Not found
+    }
+
+    $("#SerialCodes").focusout(function () {
+        var count = checkCount($("#SerialCodes").val());
+        countLabel.html(count);
+       // ValidateSerialCode($("#SerialCodes").val())
+      
+
+    });
+    function checkvalid(e) {
+        debugger;
+
+        var frmValid = true;
+        if ($('#timezone1').val() == null) {
+            frmValid = false;
+        }
+        if (validResult == true) {
+            var tz = $("#timezone1 option:selected").val();
+            $("#timezone").val(tz);
+            //alert('In valid condition');
+            ValidateSerialCode();
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    function ValidateSerialCode()
+    {
+        debugger;
+        var textvalue = $("#SerialCodes").val();
+        
+        $("#ErrorMessage").hide();
+        var numberOfLineBreaks = (textvalue.match(/\n/g) || []).length;
+        var userBatchNumber = $('#SerialCodes').val();
+        var serialnumber;
+        var invalid = false;
+        var str = textvalue.split('8200https:');
+        var UPCSN = str[0].split('\n')
+        var FinalUPC = UPCSN[0];
+        var FinalSN;
+        var TempSN = UPCSN[0];
+        if (FinalUPC.length > 12) {
+            FinalSN = UPCSN[0].substring(2);
+        }
+        else {
+            FinalSN = UPCSN[1].substring(2);
+
+        }
+        if (!textvalue.includes('8200https:')) {
+            FinalSN = UPCSN[1];
+        }
+        var currentarray = [];
+        currentarray.push(FinalUPC, FinalSN)
+        UPCSNArr=(FinalUPC,FinalSN);
+        twolist = listToMatrix(UPCSNArr, 2);
+        console.log("two list values" + twolist);
+        if (FinalSN.length == 12) {
+            invalid = true;
+            document.getElementById('xyz').play();
+            alert("Invalid Serial Number Scan Please Scan Again.")
+            $('#SerialCodes').val("");
+        }
+        var counter = 1; var ProductName; var ErrorMessage = "";
+        if (invalid) {
+            if (ErrorMessage != "") {
+                $(".validsummary").hide();
+                $('.customsummary').empty();
+                $("#myCustomSummary").empty();
+                $(".customsummary").show();
+                $("#myModalLabel").html("");
+                $("#myModalLabel").html('Fail');
+                $("#customdiv").removeClass("SuccessMessage");
+                $("#customdiv").removeClass("validation-summary-errors");
+                $("#customdiv").addClass("validation-summary-errors");
+                $('.customsummary').append(ErrorMessage);
+                $('#myModal').modal('show');
+                $('#myModal button:nth-child(1)').focus();
+            }
+            return false;
+        }
+        currentarray.push(FinalSN)
+        console.log("current array" + currentarray);
+        var result = isItemInArray(twolist, currentarray);
+
+        if (result) {
+            invalid = true;
+            document.getElementById('xyz').play();
+            alert("  Serial Number - " + currentarray[1] + "  Already Scanned.")
+            $('#SerialCodes').val("");
+        }
+        if (userBatchNumber == "") {
+            $("#ErrorMessage").show()
+            ErrorMessage = "Please Scan Again."
+            countLabel2.html(ErrorMessage);
+            invalid = true;
+        }
+        if (!invalid)
+            return true;
+        else
+            return false;
+    }
+    $("#SerialCodes").focus();
+
+</script>
+
+
+
