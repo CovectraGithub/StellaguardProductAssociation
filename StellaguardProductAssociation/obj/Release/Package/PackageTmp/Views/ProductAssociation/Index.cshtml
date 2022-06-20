@@ -66,7 +66,7 @@
                                                 </span>
                                                 <br />
                                                 <button type="Submit" class="btn btn-primary small-button btnAdd" name="Add" id="btnAdd" style="visibility:hidden;" onclick="InsertItemGrid(document.getElementById('UPCSerialNumber').value)">Add</button>
-                                                <span id="ErrorMessage" style="color:red;">0</span><span class="text-info">
+                                                <span id="ErrorMessage" style="color:green;">0</span><span class="text-info">
 
                                                 </span>
 
@@ -178,470 +178,501 @@
 
 
 <script type="text/javascript">
+    debugger;
+    var Iskeypress = false;
+    var validResult = true;
+    var countLabel = $("#count");
+    var countLabel2 = $("#ErrorMessage");
+    var compAddress = null;
+    var IsSummary = false;
+    var htmlvalue;
+    var htmlval1;
+    var htmlval2;
+    var x;
+    var barcodedata = [];
+    // var oldscannedbarcodedata = [];
+    // var deletedscannedbarcodedata=[]
+    var UPCSNArr = [];
+    var callfun;
+    var twolist;
+    var oldbarcodestring;
+    // var deletedbarcodestring;
+    var final=[];
+    var finallist;
+    // var Grid= GetGridValues()
+
+    //$('#UPCSerialNumber').attr('maxlength','68');
+    //$(document).on('change','#UPCSerialNumber',function(e) {
+    //    if ($(this).val().length >= 68) {
+    //        $('#btnAdd').click();
+    //        //InsertItemGrid($('#UPCSerialNumber').val())
+    //    }
+    //});
+    var textboxtext;
+
+    //var Workorederpart1=$("#BatchNumber").val;
+    //var Workorederpart2=$("#TimeStamp").val;
+
+
+    const timeStamp = (new Date()).toISOString().replace(/[^0-9]/g, '').slice(0, -3)
+
+    console.log(timeStamp);
+
+
+
+    //var timestampLabel = $("#TimeStamp");
+    //timestampLabel.html("-"+timeStamp);
+    var wo ="WO";
+    $("#BatchNumber").val(wo);
+    $("#TimeStamp").val("-"+timeStamp);
+    $("#ErrorMessage").hide();
+    // $("#BatchNumber").val("WO-"+$("#BatchNumber").val() + timeStamp);
+
+
+
+        var ScannedList= @Html.Raw(Json.Encode(Model.ScannedBarcodeList));
+
+        console.log(ScannedList);
+    InsertintoGridFromDatabase(ScannedList)
+    $("#UPCSerialNumber").on("input", function() {
+        $("#charcount").text(this.value.length);
+        callfun =this.value.length;
+        if(callfun>=25)
+        {
+            //console.log(2);
+            //console.log($('#UPCSerialNumber').val());
+
+            InsertItemGrid($('#UPCSerialNumber').val());
+        }
+        //else
+        //{
+        //    alert("No enough values to Add.")
+        //    $('#UPCSerialNumber').val("");
+        //}
+
+    });
+
+
+    $(document).ready(function () {
+
+
+        var test = $("#HtmlValue").val();
+        if (test != "") {
+            var div = document.getElementById('pkgList');
+            div.innerHTML = test;
+        }
+        $("#ErrorMessage").hide()
+        $("#pkgList").show();
+        $('#shipping_div_ShipbyLot').addClass('shipping_div_selection');
+
+        $(".btnDelete").click(function () {
             debugger;
-            var Iskeypress = false;
-            var validResult = true;
-            var countLabel = $("#count");
-            var countLabel2 = $("#ErrorMessage");
-            var compAddress = null;
-            var IsSummary = false;
-            var htmlvalue;
-            var htmlval1;
-            var htmlval2;
-            var x;
-            var barcodedata = [];
-            // var oldscannedbarcodedata = [];
-            // var deletedscannedbarcodedata=[]
-            var UPCSNArr = [];
-            var callfun;
-            var twolist;
-            var oldbarcodestring;
-            // var deletedbarcodestring;
-            var final=[];
-            var finallist;
-            // var Grid= GetGridValues()
+            var elements = document.getElementsByName( 'btnDelete' );
+            var id = elements[0].getAttribute( 'id' );
 
-            //$('#UPCSerialNumber').attr('maxlength','68');
-            //$(document).on('change','#UPCSerialNumber',function(e) {
-            //    if ($(this).val().length >= 68) {
-            //        $('#btnAdd').click();
-            //        //InsertItemGrid($('#UPCSerialNumber').val())
-            //    }
-            //});
-            var textboxtext;
-
-            //var Workorederpart1=$("#BatchNumber").val;
-            //var Workorederpart2=$("#TimeStamp").val;
+            // deletedscannedbarcodedata.push(id);
+            // deletedbarcodestring=deletedscannedbarcodedata.join(',');
+            //console.log(deletedscannedbarcodedata);
+            $(this).closest("tr").remove();
+            htmlval1 = $('#pkgList').html();
+            $("#HtmlValue").val(htmlval1);
 
 
-            const timeStamp = (new Date()).toISOString().replace(/[^0-9]/g, '').slice(0, -3)
-
-            console.log(timeStamp);
+        });
+        return true;
+    });
 
 
 
-            //var timestampLabel = $("#TimeStamp");
-            //timestampLabel.html("-"+timeStamp);
-            var wo ="WO";
-            $("#BatchNumber").val(wo);
-            $("#TimeStamp").val("-"+timeStamp);
+    function SaveDataToDataBase()
+    {
+        debugger;
+        if(@Html.Raw(Json.Encode(Model.ScannedBarcodeList))==null)
+        {
+            alert("No enough values to save.")
 
-           // $("#BatchNumber").val("WO-"+$("#BatchNumber").val() + timeStamp);
-
+        }
+        else {
+            var FinarBarcodestring;
             var ScannedList= @Html.Raw(Json.Encode(Model.ScannedBarcodeList));
-            console.log(ScannedList);
-            InsertintoGridFromDatabase(ScannedList)
-            $("#UPCSerialNumber").on("input", function() {
-                $("#charcount").text(this.value.length);
-                callfun =this.value.length;
-                if(callfun>=25)
+            var jsontable =parseHTMLTableElem(document.getElementById('tableid'));
+
+            //Json.Encode(Model.TableList)=jsontable;
+            console.log(jsontable);
+            for(var j=0; j<jsontable.length; j++){
+
+                var RunSerialNumber = jsontable[j].SerialNumber;
+                var RunUPC = jsontable[j].UPC;
+                var RunBarcodeData=RunUPC+"21"+RunSerialNumber;
+                final.push(RunBarcodeData);
+            }
+            FinarBarcodestring=final.join(',');
+            //Model.BarcodeData=FinarBarcodestring;
+            // update BarcodeData string
+            $("#BarcodeData").val(FinarBarcodestring)
+            // console.log(FinarBarcodestring);
+        }
+    }
+
+
+    var isValid = true;
+
+
+    function InsertintoGridFromDatabase(ScannedList)
+    {
+        debugger;
+        var totalItemsInTable1 = $("#pkgList").find("table>tbody tr").length;
+        var invalid = false;
+        var counter = 1;
+        var ProductName;
+        var ErrorMessage = "";
+        $("#ErrorMessage").hide();
+
+        console.log(twolist);
+        for(var j=0; j<ScannedList.length; j++){
+
+            var json1Inner = ScannedList[j].BarcodeData;
+            var produpc = json1Inner.substring(0, 12);
+            var serialnumber = json1Inner.substring(14, 29);
+            //oldscannedbarcodedata.push(json1Inner);
+            //oldbarcodestring=oldscannedbarcodedata.join(',');
+            UPCSNArr.push(produpc, serialnumber);
+
+            if (totalItemsInTable1 == 0 && json1Inner != "0000000000000000000000" && json1Inner!="" && json1Inner!=null && serialnumber!="") {
+                $("#pkgList").find("tbody").append('<tr><td class="col-xs-4 text-center" >' + serialnumber + '</td><td class="col-xs-2 text-center">' + produpc + '</td><td class="col-xs-2 text-center"><button class="btn-image btnDelete" name="btnDelete" id="' + produpc+"21"+serialnumber + '"><img width="20" class="imgDelete" height="20" src="/Content/Images/trash.gif"></button></td></tr>');
+                //<td class="col-xs-2 text-center">' + ProductName + '</td>
+            }
+            else {
+                var lastPackageName = $("#pkgList").find("table>tbody tr").eq(totalItemsInTable1 - 1).find("td").eq(1).text();
+                $(".imgDelete").attr("src", "/Content/Images/trash.gif");
+                $("#pkgList").find("table>tbody tr:last").after('<tr><td class="col-xs-4 text-center" >' +serialnumber+ '</td><td class="col-xs-2 text-center">' +produpc+ '</td><td class="col-xs-1 text-center"><button class="btn-image btnDelete"  name="btnDelete"  id="' + produpc+"21"+serialnumber + '"><img width="20" class="imgDelete" height="20" src="/Content/Images/trash.gif"></button></td></tr>');
+                //<td class="col-xs-2 text-center">' + ProductName + '</td>
+            }
+            //var htmlval1 = $("<div />").append($("#pkgList").clone()).html();
+            htmlval1 = $('#pkgList').html();
+            $("#HtmlValue").val(htmlval1);
+            //$(LotNumberId).val(0);
+        }
+
+        // oldbarcodestring=json1Inner.join(',');
+        twolist =listToMatrix(UPCSNArr,2)
+        console.log(twolist);
+        $(".btnDelete").click(function () {
+            $(this).closest("tr").remove();
+            //var htmlval1 = $("<div />").append($("#pkgList").clone()).html();
+            htmlval1 = $('#pkgList').html();
+            $("#HtmlValue").val(htmlval1);
+            var tdCount = $("#pkgList").find("table>tbody tr");
+            var i = tdCount.length;
+            var countLabel = $("#count");
+            //console.log(countLabel);
+            countLabel.html(i);
+            return false;
+        });
+        var tdCount = $("#pkgList").find("table>tbody tr");
+        var i = tdCount.length;
+        var countLabel = $("#count");
+        countLabel.html(i);
+        //var barcodestring;
+        //if(textvalue!="")
+        //{
+        //    barcodedata.push(textvalue);
+        //    //console.log(barcodedata);
+        //    barcodestring=barcodedata.join(',');
+        //}
+        // console.log(oldbarcodestring);
+
+        $("#BarcodeData").val(oldbarcodestring);
+    }
+
+    function listToMatrix(list, elementsPerSubArray) {
+        var matrix = [], i, k;
+
+        for (i = 0, k = -1; i < list.length; i++) {
+            if (i % elementsPerSubArray === 0) {
+                k++;
+                matrix[k] = [];
+            }
+
+            matrix[k].push(list[i]);
+        }
+
+        return matrix;
+    }
+
+    function InsertItemGrid(textvalue) {
+        debugger;
+        $("#ErrorMessage").hide();
+        var numberOfLineBreaks = (textvalue.match(/\n/g)||[]).length;
+        if (numberOfLineBreaks == 2) {
+            // document.getElementById('tableid')
+            var userBatchNumber = $('#UPCSerialNumber').val();
+            var OldScannedList= @Html.Raw(Json.Encode(Model.ScannedBarcodeList));
+            //var userBatchNumber =textvalue.replace(/\n|\r/g, "");
+            //var userBatchNumber = document.getElementById("txtbox").value;
+            //var produpc= userBatchNumber.substring(0, 12) ;
+            var serialnumber;
+            //var userBatchId = 4;
+            // var palletCount = produpc;
+            var invalid = false;
+            console.log(textvalue);
+            //var ProductUPC= textvalue.substr(0, textvalue.indexOf('\n'));
+            //var SerialNumber= textvalue.substr(0, textvalue.indexOf('8200https://www.covectra.com/sg-apps/'));
+
+            var str = textvalue.split('8200https:');
+            var UPCSN= str[0].split('\n')
+            var FinalUPC=UPCSN[0];
+            var FinalSN;
+            var TempSN=UPCSN[0];
+            if(FinalUPC.length>12)
+            {
+                FinalSN=UPCSN[0].substring(2);
+            }
+                //else if(FinalUPC.length==12)
+                //{
+                //    FinalSN=UPCSN[1];
+                //}
+            else
+            {
+                if(UPCSN[1].length==17)
                 {
-                    //console.log(2);
-                    //console.log($('#UPCSerialNumber').val());
-
-                    InsertItemGrid($('#UPCSerialNumber').val());
-                }
-                //else
-                //{
-                //    alert("No enough values to Add.")
-                //    $('#UPCSerialNumber').val("");
-                //}
-
-            });
-
-
-            $(document).ready(function () {
-
-
-                var test = $("#HtmlValue").val();
-                if (test != "") {
-                    var div = document.getElementById('pkgList');
-                    div.innerHTML = test;
-                }
-                $("#ErrorMessage").hide()
-                $("#pkgList").show();
-                $('#shipping_div_ShipbyLot').addClass('shipping_div_selection');
-
-                $(".btnDelete").click(function () {
-                    debugger;
-                    var elements = document.getElementsByName( 'btnDelete' );
-                    var id = elements[0].getAttribute( 'id' );
-
-                    // deletedscannedbarcodedata.push(id);
-                    // deletedbarcodestring=deletedscannedbarcodedata.join(',');
-                    //console.log(deletedscannedbarcodedata);
-                    $(this).closest("tr").remove();
-                    htmlval1 = $('#pkgList').html();
-                    $("#HtmlValue").val(htmlval1);
-
-
-                });
-                return true;
-            });
-
-
-
-            function SaveDataToDataBase()
-            {
-                debugger;
-                var FinarBarcodestring;
-                var ScannedList= @Html.Raw(Json.Encode(Model.ScannedBarcodeList));
-                var jsontable =parseHTMLTableElem(document.getElementById('tableid'));
-
-                //Json.Encode(Model.TableList)=jsontable;
-                console.log(jsontable);
-                for(var j=0; j<jsontable.length; j++){
-
-                    var RunSerialNumber = jsontable[j].SerialNumber;
-                    var RunUPC = jsontable[j].UPC;
-                    var RunBarcodeData=RunUPC+"21"+RunSerialNumber;
-                    final.push(RunBarcodeData);
-                }
-                FinarBarcodestring=final.join(',');
-                //Model.BarcodeData=FinarBarcodestring;
-                // update BarcodeData string
-                $("#BarcodeData").val(FinarBarcodestring)
-                // console.log(FinarBarcodestring);
-
-            }
-
-
-            var isValid = true;
-
-
-            function InsertintoGridFromDatabase(ScannedList)
-            {
-                debugger;
-                var totalItemsInTable1 = $("#pkgList").find("table>tbody tr").length;
-                var invalid = false;
-                var counter = 1;
-                var ProductName;
-                var ErrorMessage = "";
-                $("#ErrorMessage").hide();
-
-                console.log(twolist);
-                for(var j=0; j<ScannedList.length; j++){
-
-                    var json1Inner = ScannedList[j].BarcodeData;
-                    var produpc = json1Inner.substring(0, 12);
-                    var serialnumber = json1Inner.substring(14, 29);
-                    //oldscannedbarcodedata.push(json1Inner);
-                    //oldbarcodestring=oldscannedbarcodedata.join(',');
-                    UPCSNArr.push(produpc, serialnumber);
-
-                    if (totalItemsInTable1 == 0 && json1Inner != "0000000000000000000000" && json1Inner!="" && json1Inner!=null && serialnumber!="") {
-                        $("#pkgList").find("tbody").append('<tr><td class="col-xs-4 text-center" >' + serialnumber + '</td><td class="col-xs-2 text-center">' + produpc + '</td><td class="col-xs-2 text-center"><button class="btn-image btnDelete" name="btnDelete" id="' + produpc+"21"+serialnumber + '"><img width="20" class="imgDelete" height="20" src="/Content/Images/trash.gif"></button></td></tr>');
-                        //<td class="col-xs-2 text-center">' + ProductName + '</td>
-                    }
-                    else {
-                        var lastPackageName = $("#pkgList").find("table>tbody tr").eq(totalItemsInTable1 - 1).find("td").eq(1).text();
-                        $(".imgDelete").attr("src", "/Content/Images/trash.gif");
-                        $("#pkgList").find("table>tbody tr:last").after('<tr><td class="col-xs-4 text-center" >' +serialnumber+ '</td><td class="col-xs-2 text-center">' +produpc+ '</td><td class="col-xs-1 text-center"><button class="btn-image btnDelete"  name="btnDelete"  id="' + produpc+"21"+serialnumber + '"><img width="20" class="imgDelete" height="20" src="/Content/Images/trash.gif"></button></td></tr>');
-                        //<td class="col-xs-2 text-center">' + ProductName + '</td>
-                    }
-                    //var htmlval1 = $("<div />").append($("#pkgList").clone()).html();
-                    htmlval1 = $('#pkgList').html();
-                    $("#HtmlValue").val(htmlval1);
-                    //$(LotNumberId).val(0);
-                }
-
-                // oldbarcodestring=json1Inner.join(',');
-                twolist =listToMatrix(UPCSNArr,2)
-                console.log(twolist);
-                $(".btnDelete").click(function () {
-                    $(this).closest("tr").remove();
-                    //var htmlval1 = $("<div />").append($("#pkgList").clone()).html();
-                    htmlval1 = $('#pkgList').html();
-                    $("#HtmlValue").val(htmlval1);
-                    var tdCount = $("#pkgList").find("table>tbody tr");
-                    var i = tdCount.length;
-                    var countLabel = $("#count");
-                    //console.log(countLabel);
-                    countLabel.html(i);
-                    return false;
-                });
-                var tdCount = $("#pkgList").find("table>tbody tr");
-                var i = tdCount.length;
-                var countLabel = $("#count");
-                countLabel.html(i);
-                //var barcodestring;
-                //if(textvalue!="")
-                //{
-                //    barcodedata.push(textvalue);
-                //    //console.log(barcodedata);
-                //    barcodestring=barcodedata.join(',');
-                //}
-                // console.log(oldbarcodestring);
-
-                $("#BarcodeData").val(oldbarcodestring);
-            }
-
-            function listToMatrix(list, elementsPerSubArray) {
-                var matrix = [], i, k;
-
-                for (i = 0, k = -1; i < list.length; i++) {
-                    if (i % elementsPerSubArray === 0) {
-                        k++;
-                        matrix[k] = [];
-                    }
-
-                    matrix[k].push(list[i]);
-                }
-
-                return matrix;
-            }
-
-            function InsertItemGrid(textvalue) {
-                debugger;
-                $("#ErrorMessage").hide();
-                var numberOfLineBreaks = (textvalue.match(/\n/g)||[]).length;
-                if (numberOfLineBreaks == 2) {
-                    // document.getElementById('tableid')
-                    var userBatchNumber = $('#UPCSerialNumber').val();
-                    var OldScannedList= @Html.Raw(Json.Encode(Model.ScannedBarcodeList));
-                    //var userBatchNumber =textvalue.replace(/\n|\r/g, "");
-                    //var userBatchNumber = document.getElementById("txtbox").value;
-                    //var produpc= userBatchNumber.substring(0, 12) ;
-                    var serialnumber;
-                    //var userBatchId = 4;
-                    // var palletCount = produpc;
-                    var invalid = false;
-                    console.log(textvalue);
-                    //var ProductUPC= textvalue.substr(0, textvalue.indexOf('\n'));
-                    //var SerialNumber= textvalue.substr(0, textvalue.indexOf('8200https://www.covectra.com/sg-apps/'));
-
-                    var str = textvalue.split('8200https:');
-                    var UPCSN= str[0].split('\n')
-                    var FinalUPC=UPCSN[0];
-                    var FinalSN;
-                    var TempSN=UPCSN[0];
-                    if(FinalUPC.length>12)
-                    {
-                        FinalSN=UPCSN[0].substring(2);
-                    }
-                        //else if(FinalUPC.length==12)
-                        //{
-                        //    FinalSN=UPCSN[1];
-                        //}
-                    else
+                    var check21 = UPCSN[1].substring(0,2);
+                    FinalSN=UPCSN[1].substring(2);
+                    if(check21=="21")
                     {
                         FinalSN=UPCSN[1].substring(2);
-
                     }
-                    if (!textvalue.includes('8200https:'))
-                    {
-                        FinalSN=UPCSN[1];
-
-                        //document.getElementById('xyz').play();
-                        //alert("Invalid Scan.")
-                        //$('#UPCSerialNumber').val("");
-                        //invalid = true;
-                    }
-
-
-                    // console.log(str[0]);
-                    // console.log(FinalUPC+" "+FinalSN);
-
-                    // UPCSNArr.push(FinalUPC, FinalSN);
-                    var currentarray=[];
-                    currentarray.push(FinalUPC,FinalSN)
-                    //UPCSNArr=(FinalUPC,FinalSN);
-                    // console.log(currentarray);
-
-                    twolist =listToMatrix(UPCSNArr,2)
-                    // console.log(twolist);
-
-                    if(FinalUPC.length==FinalSN.length)
-                    {
-                        if(FinalUPC==FinalSN)
-                        {
-                            invalid = true;
-                            document.getElementById('xyz').play();
-                            $('.customsummary').text('');
-                            $('.customsummary').append("Duplicate UPC Scan Please Scan Serial Number.");
-                            $('#myModal').modal('show');
-
-                           // alert("Duplicate UPC Scan Please Scan Serial Number.")
-                            $('#UPCSerialNumber').val("");
-                        }
-
-                        if(FinalUPC!=FinalSN && FinalUPC.length==12 && FinalSN.length==12)
-                        {
-                            invalid = true;
-                            document.getElementById('xyz').play();
-                            alert("Invalid Serial Number Scan Please Scan Again.")
-                            $('#UPCSerialNumber').val("");
-                        }
-                    }
-                    if(FinalUPC.length>= 15)
-                    {
+                    else {
                         invalid = true;
                         document.getElementById('xyz').play();
-                        alert("Invalid Scan, Please Scan Product UPC First.")
+                        alert("Invalid Serial Number Scan Please Scan Again.")
                         $('#UPCSerialNumber').val("");
                     }
-
                 }
-
                 else
 
                 {
-
-                    countLabel2.html(ErrorMessage);
                     invalid = true;
-                    //return false;
+                    document.getElementById('xyz').play();
+                    alert("Invalid Serial Number Scan Please Scan Again.")
+                    $('#UPCSerialNumber').val("");
                 }
 
+            }
+            if (!textvalue.includes('8200https:'))
+            {
+                FinalSN=UPCSN[1];
+
+                //document.getElementById('xyz').play();
+                //alert("Invalid Scan.")
+                //$('#UPCSerialNumber').val("");
+                //invalid = true;
+            }
 
 
-                var totalItemsInTable = $("#pkgList").find("table>tbody tr").length;
-                var counter = 1;
-                var ProductName;
-                var ErrorMessage = "";
+            // console.log(str[0]);
+            // console.log(FinalUPC+" "+FinalSN);
 
-                $("#pkgList").show();
-                if (invalid) {
-                    if (ErrorMessage != "") {
-                        $(".validsummary").hide();
-                        $('.customsummary').empty();
-                        $("#myCustomSummary").empty();
-                        $(".customsummary").show();
-                        $("#myModalLabel").html("");
-                        $("#myModalLabel").html('Fail');
-                        $("#customdiv").removeClass("SuccessMessage");
-                        $("#customdiv").removeClass("validation-summary-errors");
-                        $("#customdiv").addClass("validation-summary-errors");
-                        $('.customsummary').append(ErrorMessage);
-                        $('#myModal').modal('show');
-                        $('#myModal button:nth-child(1)').focus();
-                    }
-                    return false;
-                }
-                console.log(twolist);
-                var result=isItemInArray(twolist,currentarray);
+            // UPCSNArr.push(FinalUPC, FinalSN);
+            var currentarray=[];
+            currentarray.push(FinalUPC,FinalSN)
+            //UPCSNArr=(FinalUPC,FinalSN);
+            // console.log(currentarray);
 
-                if(result)
+            twolist =listToMatrix(UPCSNArr,2)
+            // console.log(twolist);
+
+            if(FinalUPC.length==FinalSN.length)
+            {
+                if(FinalUPC==FinalSN)
                 {
                     invalid = true;
                     document.getElementById('xyz').play();
-                    alert("  Serial Number - "+currentarray[1] +"  Already Scanned.")
+                    //$('.customsummary').text('');
+                    //$('.customsummary').append("Duplicate UPC Scan Please Scan Serial Number.");
+                    //$('#myModal').modal('show');
+
+                     alert("Duplicate UPC Scan Please Scan Serial Number.")
                     $('#UPCSerialNumber').val("");
                 }
-                //htmlval1 = $('#pkgList').html();
 
-
-                if (userBatchNumber=="") {
-                    $("#ErrorMessage").show()
-                    ErrorMessage = "Please Scan Again."
-                    countLabel2.html(ErrorMessage);
-                    invalid = true;
-                }
-                if(!invalid)
+                if(FinalUPC!=FinalSN && FinalUPC.length==12 && FinalSN.length==12)
                 {
-                    if (totalItemsInTable == 0 && userBatchNumber != "0000000000000000000000" && userBatchNumber!="" && userBatchNumber!=null && FinalSN!="") {
-                        $("#pkgList").find("tbody").append('<tr><td class="col-xs-4 text-center" id="'+FinalUPC+FinalSN+'">' +FinalSN+'</td><td class="col-xs-2 text-center">' + FinalUPC + '</td><td class="col-xs-2 text-center"><button class="btn-image btnDelete" name="btnDelete" id="' + FinalUPC+"21"+FinalSN + '"><img width="20" class="imgDelete" height="20" src="/Content/Images/trash.gif"></button></td></tr>');
-                        //<td class="col-xs-2 text-center">' + ProductName + '</td>
-                    }
-                    else {
-                        var lastPackageName = $("#pkgList").find("table>tbody tr").eq(totalItemsInTable - 1).find("td").eq(1).text();
-                        $(".imgDelete").attr("src", "/Content/Images/trash.gif");
-                        $("#pkgList").find("table>tbody tr:first").before('<tr><td class="col-xs-4 text-center" id="' +FinalUPC+FinalSN+ '">' +FinalSN +'</td><td class="col-xs-2 text-center">' + FinalUPC + '</td><td class="col-xs-1 text-center"><button class="btn-image btnDelete"  name="btnDelete"  id="' + FinalUPC+"21"+FinalSN + '"><img width="20" class="imgDelete" height="20" src="/Content/Images/trash.gif"></button></td></tr>');
-                        //<td class="col-xs-2 text-center">' + ProductName + '</td>
-                    }
-                    //var htmlval1 = $("<div />").append($("#pkgList").clone()).html();
-                    htmlval1 = $('#pkgList').html();
-                    $("#HtmlValue").val(htmlval1);
+                    invalid = true;
+                    document.getElementById('xyz').play();
+                    alert("Invalid Serial Number Scan Please Scan Again.")
                     $('#UPCSerialNumber').val("");
-                    UPCSNArr.push(FinalUPC, FinalSN);
-
                 }
-
-                $(".btnDelete").click(function () {
-                    debugger;
-                    $(this).closest("tr").remove();
-                    //var htmlval1 = $("<div />").append($("#pkgList").clone()).html();
-                    htmlval1 = $('#pkgList').html();
-                    $("#HtmlValue").val(htmlval1);
-                    //var totalItemsInTable1 = $("#pkgList").find("table>tbody tr").length;
-                    //if (totalItemsInTable1 == 0) {
-                    //    $("#pkgList").hide();
-                    //}
-                    var tdCount = $("#pkgList").find("table>tbody tr");
-                    var i = tdCount.length;
-                    var countLabel = $("#count");
-                    // console.log(countLabel);
-                    countLabel.html(i);
-                    return false;
-                });
-                var tdCount = $("#pkgList").find("table>tbody tr");
-                var i = tdCount.length;
-                var countLabel = $("#count");
-                countLabel.html(i);
-                var barcodestring;
-                // barcodestring +=userBatchNumber;
-                //var tempscannedbarcode =userBatchNumber.replace(/\n|\r/g, "");
-                //var removestringdata=tempscannedbarcode.replace('8200https://www.covectra.com/sg-apps/','')
-                //if(tempscannedbarcode!="")
-                //{
-                var tempscannedbarcode=FinalUPC+"21"+FinalSN;
-                barcodedata.push(tempscannedbarcode);
-                //console.log(barcodedata);
-                //console.log(oldscannedbarcodedata);
-                //console.log(deletedscannedbarcodedata);
-                barcodestring=barcodedata.join(',');
-                // }
-                //console.log(barcodestring);
-                // $(UPCSerialNumber).val("0");
-                // var tab = GetGridValues();
-                // var tab = html2json();
-
-                // var gridValues = GetGridValues();
-                //console.log(barcodestring);
-                //console.log(deletedbarcodestring);
-                $("#BarcodeData").val(barcodestring);
+            }
+            if(FinalUPC.length>= 15)
+            {
+                invalid = true;
+                document.getElementById('xyz').play();
+                alert("Invalid Scan, Please Scan Product UPC First.")
+                $('#UPCSerialNumber').val("");
             }
 
+        }
 
-            function isItemInArray(twolist, currentarray) {
-                for (var i = 0; i < twolist.length; i++) {
-                    // This if statement depends on the format of your array
-                    if (twolist[i][1] == currentarray[1]) {
-                        console.log("Found it");
-                        return true;   // Found it
+        else
 
-                    }
-                }
-                console.log("Not Found it");
-                return false;   // Not found
+        {
+
+            countLabel2.html(ErrorMessage);
+            invalid = true;
+            //return false;
+        }
+
+
+
+        var totalItemsInTable = $("#pkgList").find("table>tbody tr").length;
+        var counter = 1;
+        var ProductName;
+        var ErrorMessage = "";
+
+        $("#pkgList").show();
+        if (invalid) {
+            if (ErrorMessage != "") {
+                $(".validsummary").hide();
+                $('.customsummary').empty();
+                $("#myCustomSummary").empty();
+                $(".customsummary").show();
+                $("#myModalLabel").html("");
+                $("#myModalLabel").html('Fail');
+                $("#customdiv").removeClass("SuccessMessage");
+                $("#customdiv").removeClass("validation-summary-errors");
+                $("#customdiv").addClass("validation-summary-errors");
+                $('.customsummary').append(ErrorMessage);
+                $('#myModal').modal('show');
+                $('#myModal button:nth-child(1)').focus();
             }
+            return false;
+        }
+        console.log(twolist);
+        var result=isItemInArray(twolist,currentarray);
+
+        if(result)
+        {
+            invalid = true;
+            document.getElementById('xyz').play();
+            alert("  Serial Number - "+currentarray[1] +"  Already Scanned.")
+            $('#UPCSerialNumber').val("");
+        }
+        //htmlval1 = $('#pkgList').html();
 
 
-
-            function parseHTMLTableElem(tableEl) {
-                debugger;
-                const columns = Array.from(tableEl.querySelectorAll('th')).map(it => it.textContent)
-                const rows = tableEl.querySelectorAll('tbody > tr')
-                return Array.from(rows).map(row => {
-                    const cells = Array.from(row.querySelectorAll('td'))
-                    return columns.reduce((obj, col, idx) => {
-                        obj[col] = cells[idx].textContent
-                        return obj
-                    }, {})
-                })
+        if (userBatchNumber=="") {
+            $("#ErrorMessage").show()
+            ErrorMessage = "Please Scan Again."
+            countLabel2.html(ErrorMessage);
+            invalid = true;
+        }
+        if(!invalid)
+        {
+            if (totalItemsInTable == 0 && userBatchNumber != "0000000000000000000000" && userBatchNumber!="" && userBatchNumber!=null && FinalSN!="") {
+                $("#pkgList").find("tbody").append('<tr><td class="col-xs-4 text-center" id="'+FinalUPC+FinalSN+'">' +FinalSN+'</td><td class="col-xs-2 text-center">' + FinalUPC + '</td><td class="col-xs-2 text-center"><button class="btn-image btnDelete" name="btnDelete" id="' + FinalUPC+"21"+FinalSN + '"><img width="20" class="imgDelete" height="20" src="/Content/Images/trash.gif"></button></td></tr>');
+                //<td class="col-xs-2 text-center">' + ProductName + '</td>
             }
-
-            function tableToJson(table) {
-                var data = [];
-                for (var i=1; i<table.rows.length; i++) {
-                    var tableRow = table.rows[i];
-                    var rowData = [];
-                    for (var j=0; j<tableRow.cells.length-1; j++) {
-                        rowData.push(tableRow.cells[j].innerHTML);;
-                    }
-                    data.push(rowData);
-                }
-                return data;
+            else {
+                var lastPackageName = $("#pkgList").find("table>tbody tr").eq(totalItemsInTable - 1).find("td").eq(1).text();
+                $(".imgDelete").attr("src", "/Content/Images/trash.gif");
+                $("#pkgList").find("table>tbody tr:first").before('<tr><td class="col-xs-4 text-center" id="' +FinalUPC+FinalSN+ '">' +FinalSN +'</td><td class="col-xs-2 text-center">' + FinalUPC + '</td><td class="col-xs-1 text-center"><button class="btn-image btnDelete"  name="btnDelete"  id="' + FinalUPC+"21"+FinalSN + '"><img width="20" class="imgDelete" height="20" src="/Content/Images/trash.gif"></button></td></tr>');
+                //<td class="col-xs-2 text-center">' + ProductName + '</td>
             }
+            //var htmlval1 = $("<div />").append($("#pkgList").clone()).html();
+            htmlval1 = $('#pkgList').html();
+            $("#HtmlValue").val(htmlval1);
+            $('#UPCSerialNumber').val("");
+            UPCSNArr.push(FinalUPC, FinalSN);
+
+        }
+
+        $(".btnDelete").click(function () {
+            debugger;
+            $(this).closest("tr").remove();
+            //var htmlval1 = $("<div />").append($("#pkgList").clone()).html();
+            htmlval1 = $('#pkgList').html();
+            $("#HtmlValue").val(htmlval1);
+            //var totalItemsInTable1 = $("#pkgList").find("table>tbody tr").length;
+            //if (totalItemsInTable1 == 0) {
+            //    $("#pkgList").hide();
+            //}
+            var tdCount = $("#pkgList").find("table>tbody tr");
+            var i = tdCount.length;
+            var countLabel = $("#count");
+            // console.log(countLabel);
+            countLabel.html(i);
+            return false;
+        });
+        var tdCount = $("#pkgList").find("table>tbody tr");
+        var i = tdCount.length;
+        var countLabel = $("#count");
+        countLabel.html(i);
+        var barcodestring;
+        // barcodestring +=userBatchNumber;
+        //var tempscannedbarcode =userBatchNumber.replace(/\n|\r/g, "");
+        //var removestringdata=tempscannedbarcode.replace('8200https://www.covectra.com/sg-apps/','')
+        //if(tempscannedbarcode!="")
+        //{
+        var tempscannedbarcode=FinalUPC+"21"+FinalSN;
+        barcodedata.push(tempscannedbarcode);
+        //console.log(barcodedata);
+        //console.log(oldscannedbarcodedata);
+        //console.log(deletedscannedbarcodedata);
+        barcodestring=barcodedata.join(',');
+        // }
+        //console.log(barcodestring);
+        // $(UPCSerialNumber).val("0");
+        // var tab = GetGridValues();
+        // var tab = html2json();
+
+        // var gridValues = GetGridValues();
+        //console.log(barcodestring);
+        //console.log(deletedbarcodestring);
+        $("#BarcodeData").val(barcodestring);
+    }
+
+
+    function isItemInArray(twolist, currentarray) {
+        for (var i = 0; i < twolist.length; i++) {
+            // This if statement depends on the format of your array
+            if (twolist[i][1] == currentarray[1]) {
+                console.log("Found it");
+                return true;   // Found it
+
+            }
+        }
+        console.log("Not Found it");
+        return false;   // Not found
+    }
+
+
+
+    function parseHTMLTableElem(tableEl) {
+        debugger;
+        const columns = Array.from(tableEl.querySelectorAll('th')).map(it => it.textContent)
+        const rows = tableEl.querySelectorAll('tbody > tr')
+        return Array.from(rows).map(row => {
+            const cells = Array.from(row.querySelectorAll('td'))
+            return columns.reduce((obj, col, idx) => {
+                obj[col] = cells[idx].textContent
+                return obj
+            }, {})
+        })
+    }
+
+    function tableToJson(table) {
+        var data = [];
+        for (var i=1; i<table.rows.length; i++) {
+            var tableRow = table.rows[i];
+            var rowData = [];
+            for (var j=0; j<tableRow.cells.length-1; j++) {
+                rowData.push(tableRow.cells[j].innerHTML);;
+            }
+            data.push(rowData);
+        }
+        return data;
+    }
 
 </script>
 

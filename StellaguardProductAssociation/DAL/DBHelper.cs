@@ -69,8 +69,12 @@ namespace StellaguardProductAssociation.DAL
 
       public DataSet ExecuteDataSet(CommandType commandType, string commandText, params SqlParameter[] commandParameters)
       {
-          SqlCommand command = new SqlCommand();
-          command.Connection = Connection;
+            DataSet ds = new DataSet();
+           try
+           {
+           SqlCommand command = new SqlCommand();
+
+           command.Connection = Connection;
           command.CommandTimeout = CommandTimeout;
           command.CommandText = commandText;
           command.CommandType = commandType;
@@ -81,16 +85,30 @@ namespace StellaguardProductAssociation.DAL
           OpenConnection();
           using (SqlDataAdapter da = new SqlDataAdapter(command))
             {
-                DataSet ds = new DataSet();
+               
                 da.Fill(ds);
                 command.Parameters.Clear();
                 CloseConnection();
-                return ds;
+                
             }
-      }
+            }
+            catch (Exception ex)
+            {
+                //Log exception in Exception Logger.
+               // ex.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return ds;
+        }
        public object ExecuteNonQuery(CommandType commandType, string commandText, params SqlParameter[] commandParameters)
       {
-          SqlCommand command = new SqlCommand();
+            object result;
+           try
+           {
+           SqlCommand command = new SqlCommand();
           command.Connection = Connection;
           command.CommandTimeout = CommandTimeout;
           command.CommandText = commandText;
@@ -100,21 +118,46 @@ namespace StellaguardProductAssociation.DAL
               AttachParameters(command, commandParameters);
           }
           OpenConnection();
-          object result = command.ExecuteNonQuery();
+             result = command.ExecuteNonQuery();
           CloseConnection();
-          return result;
+            }
+            catch (Exception ex)
+            {
+                //Log exception in Exception Logger.
+                //ex.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return result;
       }
        public object ExecuteNonQuery(CommandType commandType, string commandText)
        {
-           SqlCommand command = new SqlCommand();
+            object result;
+            try
+            {
+            SqlCommand command = new SqlCommand();
            command.Connection = Connection;
            command.CommandTimeout = CommandTimeout;
            command.CommandText = commandText;
            command.CommandType = commandType;
            OpenConnection();
-           object result = command.ExecuteNonQuery();
+                result = command.ExecuteNonQuery();
            CloseConnection();
-           return result;
+            }
+            catch (Exception ex)
+            {
+                //Log exception in Exception Logger.
+                //ex.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return result;
        }
       private void AttachParameters(SqlCommand command, SqlParameter[] commandParameters)
       {

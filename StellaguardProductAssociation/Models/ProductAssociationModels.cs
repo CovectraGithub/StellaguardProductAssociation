@@ -9,23 +9,13 @@ namespace StellaguardProductAssociation.Models
 {
     public class ProductAssociationModels
     {
-       // [Display(Name = "Product UPC")]
-       // //[Required(ErrorMessage = "Product UDC is required.")]
 
-       // public string ProductUDC { get; set; }
-
-
-       // [Display(Name = "Serial Number")]
-       //// [Required(ErrorMessage = "Serial Number is required.")]
+        public MessageDisplay Message { get; set; }
         public string BarcodeData { get; set; }
 
+        public string Messages { get; set; }
 
-
-
-
-        public string Message { get; set; }
-
-        public List<ProductClass> _Lotlist { get; set; }
+       // public List<ProductClass> _Lotlist { get; set; }
 
         [Display(Name = "UPC + SerialNumber")]
         public string UPCSerialNumber { get; set; }
@@ -35,13 +25,12 @@ namespace StellaguardProductAssociation.Models
 
         public string TimeStamp { get; set; }
 
-        // public int LotNumberId1 { get; set; }
+
         public List<ProductClass> ProductList { get; set; }
-        public List<ScanTableData> TableList { get; set; }
-        //[JsonProperty("UpcList")]
-        //public List<ProductUpcClass> UpcList { get; set; }
-        public string JsonLotList { get; set; }
-        // public string HtmlValue { get; set; }
+       // public List<ScanTableData> TableList { get; set; }
+
+       // public string JsonLotList { get; set; }
+
         public List<ScannedBarcode> ScannedBarcodeList { get; set; }
 
         public ProductAssociationFilter FilterParameters { get; set; }
@@ -68,8 +57,8 @@ namespace StellaguardProductAssociation.Models
         public string Upc { get; set; }
         public Nullable <int> Id { get; set; }
         public string WorkOrder { get; set; }
-        public Nullable<System.DateTime> FromDate { get; set; }
-        public Nullable<System.DateTime> ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
 
     }
     public class ScannedBarcode

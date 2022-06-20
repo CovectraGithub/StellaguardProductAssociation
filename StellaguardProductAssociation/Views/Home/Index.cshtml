@@ -1,50 +1,24 @@
 ﻿@model  StellaguardProductAssociation.Models.ProductAssociationLogin
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "frmlogin" }))
-{
-    @Html.AntiForgeryToken();
     <style type="text/css">
         .left-padding {
         }
     </style>
     <br />
     <div class="form-horizontal no-margin col-lg-12 form-padding">
-        <header class="panel-heading">
-            <div class="panel-actions">
-                <p class="panel-subtitle">@Html.Label("Fields marked with (*) are mandatory", new Dictionary<string, object> { { "class", "errormessage" } })</p>
-            </div>
-            <h2 class="panel-title">Login</h2>
-        </header>
-        <div class="layoutBody">
-            <div class="panel-body">
-                <div class="col-xs-12 col-sm-12">
-                    <div id="login-form" class="col-xs-12 col-sm-12">
-                        <fieldset>
-                            <div style="color:red;">
-                                @Html.ValidationSummary()
-                            </div>
-                            <div class="form-group required">
-                                @Html.LabelFor(model => model.Username, new { @class = "col-lg-3 control-label", @style = "padding:0px;" })
-                                <div class="col-lg-6">
-                                    @Html.TextBoxFor(model => model.Username, new { @class = "login-form-field form-control" })
-                                </div>
-                            </div>
-                            <div class="form-group required">
-                                @Html.LabelFor(model => model.Password, new { @class = "col-lg-3 control-label", @style = "padding:0px;" })
-                                <div class="col-lg-6">
-                                    @Html.TextBoxFor(model => model.Password, new { @type = "password", @class = "login-form-field form-control" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-6 col-lg-offset-3">
-                                    <button type="submit" class="btn btn-primary large-button validate-form">Login</button>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("_Login", Model)
+  
+
+        
+
     </div>
-}
+@*@section popup {
+    @Html.Partial("~/Views/Shared/_ModalPopup.cshtml", Model.Message)
+}*@                        
+
+@section scripts{
+    <script src="~/Scripts/Common/commonjs.js"></script>
+    }
+
+
 

@@ -64,7 +64,7 @@ if (c == culture)
                 @if (Session["Username"] != null)
                 {
                     <div id="userbox" class="userbox">
-                        <a href="#" data-toggle="dropdown">
+                        @*<a href="#" data-toggle="dropdown">*@
                             <figure class="profile-picture">
                             </figure>
                             <div class="profile-info">
@@ -72,7 +72,7 @@ if (c == culture)
                             </div>
 
                             @*<i class="fa custom-caret"></i>*@
-                        </a>
+                        @*</a>*@
                         @Html.ActionLink("Logout", "Logout", "Home")
 
                         @*<div class="dropdown-menu">

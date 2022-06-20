@@ -145,7 +145,7 @@ namespace StellaguardProductAssociation.Controllers
             // DataSet dsinsert = GetDataSet(sqlQuery, "tblProducts");
             string username = Session["Username"].ToString();
             SqlParameter[] param = null;
-            param = new SqlParameter[9];
+            param = new SqlParameter[11];
 
             param[0] = new SqlParameter("Id", filterCriteriaDTO.Id);
             param[1] = new SqlParameter("UserName", username);
@@ -157,8 +157,10 @@ namespace StellaguardProductAssociation.Controllers
             param[6].Direction = ParameterDirection.Output;
             param[7] = new SqlParameter("SortBy", sortBy);
             param[8] = new SqlParameter("SortDir", sortDir);
-           // param[7] = new SqlParameter("RowCount", rowCount);
-            
+            param[9] = new SqlParameter("FromDate", filterCriteriaDTO.FromDate);
+            param[10] = new SqlParameter("ToDate", filterCriteriaDTO.ToDate);
+            // param[7] = new SqlParameter("RowCount", rowCount);
+
             helper = new DBHelper(mustCloseConnection: false);
             DataSet dsinsert = helper.ExecuteDataSet(CommandType.StoredProcedure, "GetProductAssociationList_New", param);
 

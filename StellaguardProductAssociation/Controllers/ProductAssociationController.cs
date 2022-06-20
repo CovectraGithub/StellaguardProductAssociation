@@ -32,11 +32,11 @@ namespace StellaguardProductAssociation.Controllers
 
 
                 ProductAssociationModels objProductView = new ProductAssociationModels();
-                objProductView._Lotlist = new List<Models.ProductClass>();
-                if (objProductView.Message != null)
-                {
-                    objProductView.Message = objProductView.Message;
-                }
+                //objProductView._Lotlist = new List<Models.ProductClass>();
+                //if (objProductView.Message != null)
+                //{
+                //   // objProductView.Message = objProductView.Message;
+                //}
                 objProductView.BatchNumber = "Wo-" + DateTime.Now.ToString("yyyy-MM-ddTHH':'mm':'sszzz");
                 objProductView.TimeStamp = DateTime.Now.ToString("yyyy-MM-ddTHH':'mm':'sszzz");
 
@@ -44,14 +44,14 @@ namespace StellaguardProductAssociation.Controllers
                 objProductView = GetScannedBarcodeListByUser(userid);
                 objProductView.ProductList = new List<Models.ProductClass>();
                 objProductView.ProductList = this.GetProductList();
-                objProductView._Lotlist = this.GetProductList();
+               // objProductView._Lotlist = this.GetProductList();
 
 
                 return View(objProductView);
             }
             else
             {
-                return RedirectToAction("Login", "ProductAssociation", new { area = "" });
+                return RedirectToAction("Login", "ProductAssociation");
             }
         }
         //POST: ProductAssociation
@@ -68,7 +68,7 @@ namespace StellaguardProductAssociation.Controllers
             if (Request.Form["Save"] != null)
             {
                 // productAssociationModel.BarcodeData = productAssociationModel.BarcodeData.Replace("\r\n", string.Empty);
-                return (Save((productAssociationModel)));
+                return (Save(productAssociationModel));
 
             }
             else if (Request.Form["Submit"] != null)
@@ -91,17 +91,28 @@ namespace StellaguardProductAssociation.Controllers
 
         private ActionResult Submit(ProductAssociationModels productAssociationModel1)
         {
+           // bool isGoodMessage;
             ProductAssociationModels objProductView = new ProductAssociationModels();
             if (Session["Username"] != null)
             {
 
+
                 string result1 = Regex.Replace(productAssociationModel1.BatchNumber, @"_", "");
                 productAssociationModel1.BatchNumber = result1;
+
+                if (productAssociationModel1.ScannedBarcodeList == null && productAssociationModel1.BarcodeData == null)
+
+                {
+                    //isGoodMessage = true;
+                    //  objProductView.Message = new MessageDisplay { IsGoodMessage = isGoodMessage, Message = "No Values to save.", MessageVisible = true };
+                    //objProductView.Messages = "<script language='javascript' type='text/javascript'>alert  ('No Values to save.');</script>";
+                    return View(objProductView);
+                }
 
                 string username = Session["Username"].ToString();
                 var result = string.Empty;
                 SqlParameter[] param = null;
-                string message;
+               // string message;
                 param = new SqlParameter[5];
                 param[0] = new SqlParameter("BarcodeList", productAssociationModel1.BarcodeData);
                 param[1] = new SqlParameter("UserName", username);
@@ -115,25 +126,22 @@ namespace StellaguardProductAssociation.Controllers
                 helper = new DBHelper(mustCloseConnection: false);
                 DataSet dsResult = helper.ExecuteDataSet(CommandType.StoredProcedure, "ProductAssociationSerialNumber_New", param);
 
-                //if (param[3].Value.ToString() == "Product Associated Successfully.")
-                //{
-                //    //countLabel2.te
-                //    // objProductView.Message = param[3].Value.ToString();
-                //    // objProductView.Message = "<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>";
-                //    message = param[3].Value.ToString();
-                //    objProductView.Message = param[3].Value.ToString();
-                //   // objProductView.Message = new MessageDisplay { IsGoodMessage = true, MessageVisible = true, Message = message };
+                if (param[3].Value.ToString() == "Product Associated Successfully.")
+                {
+                    objProductView.Messages = "<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>";
+                }
+                if (param[3].Value.ToString() == "Invalid Serial Number & Product UPC Scanned.")
+                {
+                    objProductView.Messages = "<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>";
 
-                //    //return Content("<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>");
-                //    return View("Index", objProductView);
-                //}
-                //if (param[3].Value.ToString() == "Invalid Serial Number & Product UPC Scanned.")
-                //{
-                    // objProductView.Message = "<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>";
-                    // return Content("<script language='javascript' type='text/javascript'>alert ('" + param[3].Value.ToString() + "');</script>");
-                    // objProductView.Message = param[3].Value.ToString();
-                    objProductView.Message = param[3].Value.ToString();
-                     return View("Index", objProductView);
+                }
+
+                    //isGoodMessage = true;
+                    //objProductView.Message = new MessageDisplay { IsGoodMessage = isGoodMessage, Message = param[3].Value.ToString(), MessageVisible = true };
+
+                    //objProductView.Messages = param[3].Value.ToString();
+
+                    return View("Index", objProductView);
                // }
 
             }
@@ -144,10 +152,19 @@ namespace StellaguardProductAssociation.Controllers
 
         private ActionResult Save(ProductAssociationModels productAssociationModel2)
         {
+           // bool isGoodMessage;
             ProductAssociationModels objProductView = new ProductAssociationModels();
             if (Session["Username"] != null)
             {
 
+                if (productAssociationModel2.ScannedBarcodeList==null && productAssociationModel2.BarcodeData==null)
+
+                {
+                    //isGoodMessage = true;
+                  //  objProductView.Message = new MessageDisplay { IsGoodMessage = isGoodMessage, Message = "No Values to save.", MessageVisible = true };
+                    //objProductView.Messages = "<script language='javascript' type='text/javascript'>alert  ('No Values to save.');</script>";
+                    return View(objProductView);
+                }
 
                 string username = Session["Username"].ToString();
                 string msg = "";
@@ -163,27 +180,35 @@ namespace StellaguardProductAssociation.Controllers
 
                 helper = new DBHelper(mustCloseConnection: false);
                 DataSet dsResult = helper.ExecuteDataSet(CommandType.StoredProcedure, "AddTempScannedBarcodeData", param);
-                if (dsResult != null && dsResult.Tables[0].Rows.Count > 0)
+                if (dsResult != null )
                 {
                     result = dsResult.Tables[0].Rows[0]["Message"].ToString();
                 }
-                // msg = dsResult.ToString();
-                objProductView.Message = result;
 
-           //     objProductView.Message = "<script language='javascript' type='text/javascript'>alert  ('Scanned Details Saved Successfully ');</script>";
-           //     ScriptManager.RegisterStartupScript(Index, this.GetType(), "redirect",
-           //"alert('Time OutAlert'); window.location='" +
-           //Request.ApplicationPath + "Index';", true);
+
+                objProductView.Messages = "<script language='javascript' type='text/javascript'>alert  ('"+ result + " ');</script>";
+
 
 
             }
-            return RedirectToAction("Index");
-            // return View(objProductView);
+
+             return View(objProductView);
         }
         // GET: ProductAssociation
+
         public ActionResult Login()
         {
-            return View();
+            // return View();
+            //return View("Index");
+            if (Session["Username"] != null)
+            {
+                
+                return RedirectToAction("Index", "ProductAssociation");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -222,20 +247,6 @@ namespace StellaguardProductAssociation.Controllers
             return View();
 
         }
-
-
-        //[HttpPost]
-        //[MultipleButton(Name = "action", Argument = "Save")]
-        //public ActionResult Add(ProductAssociationModels productAssociationModel)//AddProductViewModel addProductViewModel
-        //{
-
-        //    bool isGoodMessage = true;
-        //    string message;
-        //    bool isSent = false;
-
-
-        //    return View(productAssociationModel);
-        //}
 
         public ActionResult Logout()
         {

@@ -24,8 +24,10 @@ namespace StellaguardProductAssociation.Controllers
 
         public ActionResult Index(ProductAssociationLogin objUser)
         {
+            bool isGoodMessage;
             if (ModelState.IsValid)
             {
+                
                 var result = string.Empty;
                 SqlParameter[] param = null;
                 try
@@ -50,13 +52,29 @@ namespace StellaguardProductAssociation.Controllers
                             Session["RoleName"] = dsResult.Tables[0].Rows[0]["RoleName"].ToString();
                         return RedirectToAction("Index", "ProductAssociation");
                     }
-                    ModelState.AddModelError("Result", result);
+                    else {
+                    isGoodMessage = false;
+                    if (isGoodMessage == false)
+                    {
+                        /*** removing model error for register partial view ****/
+                        /*** starts ***/
+                        ModelState.Clear();
+                        /*** ends ***/
+                        return View(new ProductAssociationLogin { Username = objUser.Username, Password = String.Empty, Message = new MessageDisplay { MessageVisible = true, IsGoodMessage = isGoodMessage, Message = result } });
+
+                    }
+                    }
+                    //ModelState.AddModelError("Result", result);
                 }
                 catch (Exception ex)
                 {
                     throw ex;
                 }
             }
+            //objUser.Message = new MessageDisplay();
+            //objUser.Message.Message = "Message";
+            //objUser.Message.IsGoodMessage = true;
+            //objUser.Message.MessageVisible = true;
             return View();
         }
 

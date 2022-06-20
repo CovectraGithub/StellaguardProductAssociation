@@ -9,7 +9,7 @@ namespace StellaguardProductAssociation.Models
 {
     public class ProductAssociationLogin
     {
-
+        public MessageDisplay Message { get; set; }
         [Required(ErrorMessage = "User name is required")]
         public string Username { get; set; }
 

@@ -1,0 +1,27 @@
+﻿@model StellaguardProductAssociation.Models.MessageDisplay
+
+@{
+    if (Model.MessageVisible)
+    {
+        if (Model.IsGoodMessage)
+        {
+            // Display message in green
+            @*<div class="alert alert-dismissable alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <div style="width:100%;">*@
+                   @Html.Raw( Model.Message)
+                @*</div>
+            </div>*@
+        }
+        else
+        {
+            // Display message in red
+            @*<div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <div style="width:100%;">*@
+                    @Html.Raw(Model.Message)
+                @*</div>
+            </div>*@
+        }
+    }
+}
