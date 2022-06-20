@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/StellaguardProductAssociation/bin/Microsoft.Web.Administration.dll
+StellaguardProductAssociation/Controllers/ProductAssociationController.cs
+StellaguardProductAssociation/bin/StellaguardProductAssociation.pdb
+StellaguardProductAssociation/bin/StellaguardProductAssociation.pdb
+StellaguardProductAssociation/bin/StellaguardProductAssociation.dll.config
+StellaguardProductAssociation/bin/StellaguardProductAssociation.dll
+StellaguardProductAssociation/bin/StellaguardProductAssociation.dll
+StellaguardProductAssociation/bin/StellaguardProductAssociation.dll.config
+StellaguardProductAssociation/bin/StellaguardProductAssociation.pdb
+StellaguardProductAssociation/Controllers/ProductAssociationController.cs
