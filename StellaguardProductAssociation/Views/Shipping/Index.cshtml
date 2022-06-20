@@ -237,14 +237,15 @@
 
         return matrix;
     }
-    }
+    
 
-    function isItemInArray(twolist, currentarray) {
+    function isItemInArray(twolist, currentarray)
+    {
         debugger;
-        console.log("two list length" + twolist.length)
+        
         for (var i = 0; i < twolist.length; i++) {
             // This if statement depends on the format of your array
-            console.log("two list value" + twolist[i][1]);
+          
             if (twolist[i][1] == currentarray[1]) {
                 console.log("Found it");
                 return true;   // Found it
@@ -304,7 +305,8 @@
             FinalSN = UPCSN[1].substring(2);
 
         }
-        if (!textvalue.includes('8200https:')) {
+        if (!textvalue.includes('8200https:'))
+        {
             FinalSN = UPCSN[1];
         }
         var currentarray = [];
@@ -336,7 +338,7 @@
             }
             return false;
         }
-        currentarray.push(FinalSN)
+        currentarray.push(FinalSN);
         console.log("current array" + currentarray);
         var result = isItemInArray(twolist, currentarray);
 
