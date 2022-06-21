@@ -15,7 +15,7 @@
                         <p class="panel-subtitle">@Html.Label("*", new Dictionary<string, object> { { "class", "errormessage" } })</p>
                     </div>
                     <div>
-                        <span id="ErrorMessage" >@Html.DisplayFor(m => m.Message)</span><span class="text-info"> </span>
+                        <span id="ErrorMessage">@Html.DisplayFor(m => m.Message)</span><span class="text-info"> </span>
                     </div>
 
                     <h2 class="panel-title"><br />Shipping</h2>
@@ -69,7 +69,7 @@
 
                     <div class="form-group required">
                         <div class="col-sm-6">
-                            @Html.LabelFor(model => model.OrderNumber, new { @class = "col-sm-3 control-label"})
+                            @Html.LabelFor(model => model.OrderNumber, new { @class = "col-sm-3 control-label" })
                             <div class="col-sm-8" style="float:left">
                                 @Html.TextBoxFor(model => model.OrderNumber, new { @class = "form-control" })
 
@@ -80,7 +80,7 @@
                             <audio id="xyz" src="~/assets/images/beeps_notification.mp3" preload="auto"></audio>
                             <div class="col-sm-3"></div>
                             <div class="col-sm-8" style="float:left">
-                                <button type="submit" class="btn btn-primary large-button btnSubmit validate-form" name="save" onclick="checkvalid(this);" id="Save">Ship</button>
+                                <button type="submit" class="btn btn-primary large-button btnSubmit validate-form" name="save" onclick="return checkvalid(this);" id="Save">Ship</button>
                             </div>
 
                         </div>
@@ -109,10 +109,11 @@
         </div>
     </div>
 
-    
+
     <style type="text/css">
         .left-padding {
         }
+
         .bootstrap-datetimepicker-widget {
             min-width: 400px;
         }
@@ -191,6 +192,7 @@
             $("#timezone1").val(new Date().toString().match(/\(([^)]+)\)/)[1]); // AND FOR OTHER THIS VALUE IS SET
 
     });
+
     $('#ShipmentDateTime').datetimepicker({
         sideBySide: true,
 
@@ -203,163 +205,158 @@
     var IsSummary = false;
 
 
-    var x;
-    var UPCSNArr = [];
-    var callfun;
-    var twolist;
-
-    var final = [];
-    var finallist;
-    var countLabel = $("#count");
-    //  var countLabel = $("#count");
-
-    var tdCount = $("#pkgList").find("table>tbody tr");
-    var i = tdCount.length;
-    var countLabel = $("#count");
-    countLabel.html(i);
-
-
-
-
-
-
-    function listToMatrix(list, elementsPerSubArray) {
-        var matrix = [], i, k;
-
-        for (i = 0, k = -1; i < list.length; i++) {
-            if (i % elementsPerSubArray === 0) {
-                k++;
-                matrix[k] = [];
-            }
-
-            matrix[k].push(list[i]);
-        }
-
-        return matrix;
-    }
-    
-
-    function isItemInArray(twolist, currentarray)
-    {
-        debugger;
-        
-        for (var i = 0; i < twolist.length; i++) {
-            // This if statement depends on the format of your array
-          
-            if (twolist[i][1] == currentarray[1]) {
-                console.log("Found it");
-                return true;   // Found it
-
-            }
-        }
-        console.log("Not Found it");
-        return false;   // Not found
-    }
 
     $("#SerialCodes").focusout(function () {
         var count = checkCount($("#SerialCodes").val());
         countLabel.html(count);
-       // ValidateSerialCode($("#SerialCodes").val())
-      
+        // ValidateSerialCode($("#SerialCodes").val())
+
 
     });
-    function checkvalid(e) {
-        debugger;
 
+    function checkvalid(e) {
         var frmValid = true;
+        var isValid = true;
         if ($('#timezone1').val() == null) {
             frmValid = false;
         }
-        if (validResult == true) {
-            var tz = $("#timezone1 option:selected").val();
-            $("#timezone").val(tz);
-            //alert('In valid condition');
-            //ValidateSerialCode();
-            return true;
-        }
-        else {
-            return false;
-        }
+        isValid = ValidateSerialCode($("#SerialCodes").val());
 
-    }
+        console.log("isValid value " + isValid);
+        if (isValid == true) {
 
-    function ValidateSerialCode()
-    {
-        debugger;
-        var textvalue = $("#SerialCodes").val();
-        
-        $("#ErrorMessage").hide();
-        var numberOfLineBreaks = (textvalue.match(/\n/g) || []).length;
-        var userBatchNumber = $('#SerialCodes').val();
-        var serialnumber;
-        var invalid = false;
-        var str = textvalue.split('8200https:');
-        var UPCSN = str[0].split('\n')
-        var FinalUPC = UPCSN[0];
-        var FinalSN;
-        var TempSN = UPCSN[0];
-        if (FinalUPC.length > 12) {
-            FinalSN = UPCSN[0].substring(2);
-        }
-        else {
-            FinalSN = UPCSN[1].substring(2);
-
-        }
-        if (!textvalue.includes('8200https:'))
-        {
-            FinalSN = UPCSN[1];
-        }
-        var currentarray = [];
-        currentarray.push(FinalUPC, FinalSN)
-        UPCSNArr=(FinalUPC,FinalSN);
-        twolist = listToMatrix(UPCSNArr, 2);
-        console.log("two list values" + twolist);
-        if (FinalSN.length == 12) {
-            invalid = true;
-            document.getElementById('xyz').play();
-            alert("Invalid Serial Number Scan Please Scan Again.")
-            $('#SerialCodes').val("");
-        }
-        var counter = 1; var ProductName; var ErrorMessage = "";
-        if (invalid) {
-            if (ErrorMessage != "") {
-                $(".validsummary").hide();
-                $('.customsummary').empty();
-                $("#myCustomSummary").empty();
-                $(".customsummary").show();
-                $("#myModalLabel").html("");
-                $("#myModalLabel").html('Fail');
-                $("#customdiv").removeClass("SuccessMessage");
-                $("#customdiv").removeClass("validation-summary-errors");
-                $("#customdiv").addClass("validation-summary-errors");
-                $('.customsummary').append(ErrorMessage);
-                $('#myModal').modal('show');
-                $('#myModal button:nth-child(1)').focus();
+            if (validResult == true) {
+                var tz = $("#timezone1 option:selected").val();
+                $("#timezone").val(tz);
+                //alert('In valid condition');
+                return true;
             }
+            else {
+                return false;
+            }
+        }
+        else {
+            console.log("false");
             return false;
         }
-        currentarray.push(FinalSN);
-        console.log("current array" + currentarray);
-        var result = isItemInArray(twolist, currentarray);
-
-        if (result) {
-            invalid = true;
-            document.getElementById('xyz').play();
-            alert("  Serial Number - " + currentarray[1] + "  Already Scanned.")
-            $('#SerialCodes').val("");
-        }
-        if (userBatchNumber == "") {
-            $("#ErrorMessage").show()
-            ErrorMessage = "Please Scan Again."
-            countLabel2.html(ErrorMessage);
-            invalid = true;
-        }
-        if (!invalid)
-            return true;
-        else
-            return false;
     }
-    $("#SerialCodes").focus();
+
+    function ValidateSerialCode(serialNumbersStr) {
+
+        debugger;
+        var currentarray = [];
+        var isValid = false;
+        // console.log(serialNumbersStr);
+        var strSerial = serialNumbersStr.split("\n")
+        if (strSerial != null && strSerial.length > 0) {
+
+            for (let j = 0; j < strSerial.length; j++) {
+                //console.log("value of strSerial" + j + "string value " + strSerial[j]);
+                var str = strSerial[j].split('8200https:');
+                for (let i = 0; i < str.length; i++) {
+
+                    //  console.log("value of i" + i + "string value " + str[i]);
+                    if (str[i].toLowerCase().startsWith('21')) {
+                        var FinalSN = str[i].substring(2);
+
+                        //var FinalSN;
+                        //var TempSN = UPCSN[0];
+                        //console.log("FinalUPC" + FinalUPC);
+                        //if (FinalUPC.length > 12) {
+                        //    FinalSN = UPCSN[0].substring(2);
+                        //}
+                        //else {
+                        //    FinalSN = UPCSN[1].substring(2);
+
+                        //}
+                        console.log("final SN" + FinalSN);
+                        currentarray.push(FinalSN)
+                    }
+
+
+                }
+            }
+        }
+        //console.log("currentarray" + currentarray);
+
+        var i;
+        var len = currentarray.length;
+        var obj = {};
+        var duplicates = [];
+
+
+
+        for (i = 0; i < len; i++) {
+
+            if (!obj[currentarray[i]]) {
+
+                obj[currentarray[i]] = 1;
+
+            }
+
+            else {
+                obj[currentarray[i]]++;
+
+                if (obj[currentarray[i]] == 2) {
+                    duplicates.push(currentarray[i]);
+                }
+            }
+
+        }
+
+        if (duplicates.length > 0) {
+
+            var duplicatelen = duplicates.length, j = 0;
+            for (j; j < duplicatelen; j++) {
+                if (ErrorMessage.length > 0) {
+                    ErrorMessage = "<br/><br/>" + duplicates[j];
+                }
+                else {
+
+                    ErrorMessage = "Duplicate serial # found" + "<br/>" + duplicates[j];
+                }
+
+            }
+            document.getElementById('xyz').play();
+            alert(ErrorMessage);
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function CheckValidSerialNumber(serialNumberarray) {
+        var pattern = '^(\\d{' + length + '}$)';
+        var patt = new RegExp(pattern);
+        ErrorMessage = "";
+        var len = serialNumberarray.length, i = 0;
+        for (i; i < len; i++) {
+            var strlen = serialNumberarray[i];
+
+            if (strlen != "") {
+                if (strlen.match(regex, 'm') == null) {
+                    if (ErrorMessage != "") {
+                        ErrorMessage = ErrorMessage + "<br/>" + serialNumberarray[i];
+                    }
+                    else {
+                        ErrorMessage = "<br/><br/>" + serialNumberarray[i];
+                    }
+
+                }
+            }
+        }
+
+        if (ErrorMessage != "") {
+            document.getElementById('xyz').play();
+            alert(ErrorMessage);
+            return false;
+        }
+        else
+            return true;
+    }
+
+
 
 </script>
 
