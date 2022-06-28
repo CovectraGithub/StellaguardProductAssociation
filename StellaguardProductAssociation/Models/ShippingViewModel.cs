@@ -8,7 +8,8 @@ namespace StellaguardProductAssociation.Models
 {
     public class ShippingViewModel
     {
-        [Required]
+
+        [Required(ErrorMessage = "Serial Codes is required")]
         [Display(Name = "Serial Codes")]
         public string SerialCodes { get; set; }
 
@@ -17,14 +18,15 @@ namespace StellaguardProductAssociation.Models
         [Display(Name = "Shipment Date")]
         public DateTime ShipmentDateTime { get; set; }
 
-        [Required]
+
         [StringLength(256, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         //[DataType(DataType.Password)]
+        [Required(ErrorMessage = "Order Number is required")]
         [Display(Name = "Order Number")]
         public string OrderNumber { get; set; }
         public List<TimeZoneClass> timeZoneList { get; set; }
-
-        public string Message { get; set; }
+        public MessageDisplay Message { get; set; }
+        public string Messages { get; set; }
 
     }
 

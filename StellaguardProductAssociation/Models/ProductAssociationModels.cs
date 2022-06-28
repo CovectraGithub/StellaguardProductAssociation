@@ -17,7 +17,7 @@ namespace StellaguardProductAssociation.Models
 
        // public List<ProductClass> _Lotlist { get; set; }
 
-        [Display(Name = "UPC + SerialNumber")]
+        [Display(Name = "UPC + Serial Codes")]
         public string UPCSerialNumber { get; set; }
 
         [Display(Name = "Work Order No.")]

@@ -18,11 +18,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.css" />
-    @*@Styles.Render("~/bundles/NewDesignCSS");*@
 
     <link rel="stylesheet" href="~/assets/stylesheets/theme.css" />
 
     <script src="~/assets/vendor/modernizr/modernizr.js"></script>
+    <!--  jquery script  -->
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--  validation script  -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.0/jquery.validate.min.js"></script>
+
+    <!--  jsrender script  -->
+    <script src="http://cdn.syncfusion.com/js/assets/external/jsrender.min.js"></script>
+
+    <!-- Essential JS UI widget -->
+    <script src="http://cdn.syncfusion.com/16.4.0.52/js/web/ej.web.all.min.js"></script>
+
+    <!--Add custom scripts here -->
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
@@ -32,6 +43,7 @@
     @{
         var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
     }
+
 
     @helper selected(string c, string culture)
     {
@@ -64,32 +76,32 @@ if (c == culture)
                 @if (Session["Username"] != null)
                 {
                     <div id="userbox" class="userbox">
-                        <a href="#" data-toggle="dropdown">
-                            <figure class="profile-picture">
-                            </figure>
-                            <div class="profile-info">
-                                <span class="name" style="text-align:right">Welcome &nbsp;  @Session["Username"]  </span>
-                            </div>
+                        @*<a href="#" data-toggle="dropdown">*@
+                        <figure class="profile-picture">
+                        </figure>
+                        <div class="profile-info">
+                            <span class="name" style="text-align:right">Welcome &nbsp;  @Session["Username"]  </span>
+                        </div>
 
-                            @*<i class="fa custom-caret"></i>*@
-                        </a>
+                        @*<i class="fa custom-caret"></i>*@
+                        @*</a>*@
                         @Html.ActionLink("Logout", "Logout", "Home")
 
                         @*<div class="dropdown-menu">
-                            <ul class="list-unstyled">
-                                <li class="divider"></li>
+                                <ul class="list-unstyled">
+                                    <li class="divider"></li>
 
-                                <li>
-                                    @Html.ActionLink("Logout", "Logout", "Home", new { area = "", @class = "fa fa-user fa-power-off", role = "Admin" }, new { @id = "logout_link" })
-                                </li>
-                            </ul>
-                        </div>*@
+                                    <li>
+                                        @Html.ActionLink("Logout", "Logout", "Home", new { area = "", @class = "fa fa-user fa-power-off", role = "Admin" }, new { @id = "logout_link" })
+                                    </li>
+                                </ul>
+                            </div>*@
                     </div>
                 }
 
 
 
-                
+
 
             </div>
 
@@ -126,13 +138,13 @@ if (c == culture)
                                         </li>*@
                                     <li class="nav-active ">
                                         <a href="~/ProductAssociation/Index">
-                                            <i  aria-hidden="true"></i>
+                                            <i aria-hidden="true"></i>
                                             <span>Product Association</span>
                                         </a>
                                     </li>
                                     <li class="nav-active ">
                                         <a href="~/ProductAssociationHistory/Index">
-                                            <i  aria-hidden="true"></i>
+                                            <i aria-hidden="true"></i>
                                             <span>Product Association History</span>
                                         </a>
                                     </li>
@@ -235,16 +247,21 @@ if (c == culture)
 
                 </footer>
                 <!-- Footer -->
-            
+                <div id="popup">
+                    @RenderSection("popup", required: false)
+                </div>
+
                 <!-- end: page -->
             </section>
         </div>
 
-        <div id="popup">
-            @RenderSection("popup", required: false)
-        </div>
+
     </section>
 
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <!-- Vendor -->
     <script src="~/Scripts/CustomValidation.js"></script>
     <script src="~/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
@@ -294,7 +311,6 @@ if (c == culture)
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    <!-- Examples -->
-    @*<script src="~/assets/javascripts/dashboard/examples.dashboard.js"></script>*@
+
 </body>
 </html>

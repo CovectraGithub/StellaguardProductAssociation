@@ -47,7 +47,7 @@
                                             <div class="col-md-9 shipping_LotNo">
                                                 @Html.TextBoxFor(model => model.BatchNumber, new { rows = 1, cols = 20, Style = "Width:231px;padding: 8px 12px;font-size:14px;line-height:1.42857143;color:#666666;background-color: #ffffff;background-image:none; border:1px solid #cccccc; border-radius:4px;", @maxlength = "50" })
 
-                                                @Html.TextBoxFor(model => model.TimeStamp, new { Id = "TimeStamp", @maxlength = "50", style = "background:#eeeeee52; border-width: 0px" }) &nbsp;&nbsp;
+                                                @Html.TextBoxFor(model => model.TimeStamp, new { Id = "TimeStamp", @maxlength = "50", disabled=true, style = "background:#eeeeee52; border-width: 0px" }) &nbsp;&nbsp;
 
                                                 @*@Html.LabelFor(model => model.TimeStamp,new {Id= "timestamp"})*@
                                                 @*<span id="timestamp">0</span>*@
@@ -60,7 +60,6 @@
                                             <div class="col-md-9 shipping_LotNo">
                                                 @Html.TextAreaFor(model => model.UPCSerialNumber, new { rows = 3, cols = 22, @class = "form-control", autofocus = "autofocus" })
                                             </div>
-
                                             <div class="col-sm-offset-2 col-sm-8 col-xs-12">
 
                                                 <br />
@@ -69,9 +68,9 @@
 
                                                 </span>
 
-                                                @*<span id="ErrorMessage" style="color:red;">@Html.DisplayFor(m => m.Messages)</span><span class="text-info">
+                                                <span id="ErrorMessage" style="color:red;">@Html.DisplayFor(m => m.Messages)</span><span class="text-info">
 
-                                                </span>*@
+                                                </span>
 
                                             </div>
 
@@ -102,7 +101,9 @@
                                                                             </thead>
                                                                             <tbody></tbody>
                                                                         </table>
-
+                                                                        <span id="count"  style="margin-left: 199px;"class="label label-info count-label">0</span><span class="text-info">
+                                                                            ItemsScanned
+                                                                        </span>
                                                                     </div>
 
 
@@ -112,9 +113,7 @@
                                                                             }
 
                                             </div>
-                                            <span id="count" style="margin-left: 213px;" class="label label-info count-label">0</span><span class="text-info">
-                                                ItemsScanned
-                                            </span>
+
                                             <br />
                                             <br />
                                             <div class="form-group" id="divitemLable">
@@ -128,7 +127,7 @@
                                         </div>
 
 
-                                        @Html.HiddenFor(m => m.TimeStamp)
+                                        @*@Html.HiddenFor(m => m.JsonLotList)*@
                                     </div>
                                 </section>
                                 @Html.HiddenFor(m => m.BarcodeData)
@@ -157,9 +156,6 @@
                 @Html.Partial("~/Views/Shared/_ModalPopup.cshtml", Model.Message)
 
                 }*@
-                @section popup {
-                    @Html.Partial("_ModalPopup", Model.Message)
-                }
                
 </section>
 
@@ -186,7 +182,7 @@
 
 
 <script type="text/javascript">
-    //debugger;
+    debugger;
     var Iskeypress = false;
     var validResult = true;
     var countLabel = $("#count");
@@ -227,27 +223,21 @@
     console.log(timeStamp);
 
 
+
     //var timestampLabel = $("#TimeStamp");
     //timestampLabel.html("-"+timeStamp);
     var wo ="WO";
     $("#BatchNumber").val(wo);
     $("#TimeStamp").val("-"+timeStamp);
     $("#ErrorMessage").hide();
-   // $("#BarcodeData").val(oldbarcodestring);
     // $("#BatchNumber").val("WO-"+$("#BatchNumber").val() + timeStamp);
 
 
 
         var ScannedList= @Html.Raw(Json.Encode(Model.ScannedBarcodeList));
-    if(ScannedList != null)
-    {
+
         console.log(ScannedList);
-        InsertintoGridFromDatabase(ScannedList)
-        
-        //var tdCount = $("#pkgList").find("table>tbody tr");
-        //var i = tdCount.length;
-        //var countLabel = $("#count");
-        //countLabel.html(i);
+    InsertintoGridFromDatabase(ScannedList)
     $("#UPCSerialNumber").on("input", function() {
         $("#charcount").text(this.value.length);
         callfun =this.value.length;
@@ -265,7 +255,7 @@
         //}
 
     });
-    }
+
 
     $(document).ready(function () {
 
@@ -280,7 +270,7 @@
         $('#shipping_div_ShipbyLot').addClass('shipping_div_selection');
 
         $(".btnDelete").click(function () {
-            //debugger;
+            debugger;
             var elements = document.getElementsByName( 'btnDelete' );
             var id = elements[0].getAttribute( 'id' );
 
@@ -294,24 +284,7 @@
 
         });
 
-        if ('@Model.Message.MessageVisible.ToString().ToLower()' == 'true') {
-            //debugger;
-            var message = '@Model.Message.Message.Trim()';
-            if (message != '') {
-                $('#myModal').modal('show');
-                $('#myModal button:nth-child(1)').focus();
-            }
-        }
-        $('.closePopup').click(function () {
-            if ('@Model.Message.IsGoodMessage.ToString().ToLower()' == 'true') {
-                //debugger;
-                var url = '@Url.Action("Index", "ProductAssociation")';
-                window.location.href = url;
-            }
-            else {
-                $("#myModal").hide();
-            }
-        });
+
 
         return true;
     });
@@ -320,13 +293,12 @@
 
     function SaveDataToDataBase()
     {
-        //debugger;
+        debugger;
         var userBatchNumber = $('#UPCSerialNumber').val();
         var totalItemsInTable2 = $("#pkgList").find("table>tbody tr").length;
-        $("#TimeStamp").val("-"+timeStamp);
         if(userBatchNumber==null || userBatchNumber =="" && totalItemsInTable2==0)
         {
-           // alert("No enough values to save.")
+            alert("No enough values to save.")
             invalid = true;
            
         }
@@ -358,7 +330,7 @@
 
     function InsertintoGridFromDatabase(ScannedList)
     {
-        //debugger;
+        debugger;
         var totalItemsInTable1 = $("#pkgList").find("table>tbody tr").length;
         var invalid = false;
         var counter = 1;
@@ -439,7 +411,7 @@
     }
 
     function InsertItemGrid(textvalue) {
-        //debugger;
+        debugger;
         $("#ErrorMessage").hide();
         var numberOfLineBreaks = (textvalue.match(/\n/g)||[]).length;
         if (numberOfLineBreaks == 2) {
@@ -483,14 +455,8 @@
                     else {
                         invalid = true;
                         document.getElementById('xyz').play();
-                        //alert("Invalid Serial Number Scan Please Scan Again.")
-                        //$('#UPCSerialNumber').val("");
-                        $('.customsummary').text('');
-                        $('.customsummary').append("Invalid Serial Number Scan Please Scan Again.");
+                        alert("Invalid Serial Number Scan Please Scan Again.")
                         $('#UPCSerialNumber').val("");
-                        $('#myModal').modal('show');
-
-                        return false;
                     }
                 }
                 else
@@ -498,14 +464,8 @@
                 {
                     invalid = true;
                     document.getElementById('xyz').play();
-                    //alert("Invalid Serial Number Scan Please Scan Again.")
-                    //$('#UPCSerialNumber').val("");
-                    $('.customsummary').text('');
-                    $('.customsummary').append("Invalid Serial Number Scan Please Scan Again.");
+                    alert("Invalid Serial Number Scan Please Scan Again.")
                     $('#UPCSerialNumber').val("");
-                    $('#myModal').modal('show');
-                    $('#UPCSerialNumber').val("");
-                    return false;
                 }
 
             }
@@ -542,42 +502,24 @@
                     //$('.customsummary').append("Duplicate UPC Scan Please Scan Serial Number.");
                     //$('#myModal').modal('show');
 
-                    // alert("Duplicate UPC Scan Please Scan Serial Number.")
-                    //$('#UPCSerialNumber').val("");
-                    $('.customsummary').text('');
-                    $('.customsummary').append("Duplicate UPC Scan Please Scan Serial Number.");
+                     alert("Duplicate UPC Scan Please Scan Serial Number.")
                     $('#UPCSerialNumber').val("");
-                    $('#myModal').modal('show');
-                    $('#UPCSerialNumber').val("");
-                    return false;
                 }
 
                 if(FinalUPC!=FinalSN && FinalUPC.length==12 && FinalSN.length==12)
                 {
                     invalid = true;
                     document.getElementById('xyz').play();
-                    //alert("Invalid Serial Number Scan Please Scan Again.")
-                    //$('#UPCSerialNumber').val("");
-                    $('.customsummary').text('');
-                    $('.customsummary').append("Invalid Serial Number Scan Please Scan Again.");
+                    alert("Invalid Serial Number Scan Please Scan Again.")
                     $('#UPCSerialNumber').val("");
-                    $('#myModal').modal('show');
-                    $('#UPCSerialNumber').val("");
-                    return false;
                 }
             }
             if(FinalUPC.length>= 15)
             {
                 invalid = true;
                 document.getElementById('xyz').play();
-               // alert("Invalid Scan, Please Scan Product UPC First.")
-
-                $('.customsummary').text('');
-                $('.customsummary').append("Invalid Scan, Please Scan Product UPC First.");
+                alert("Invalid Scan, Please Scan Product UPC First.")
                 $('#UPCSerialNumber').val("");
-                $('#myModal').modal('show');
-                $('#UPCSerialNumber').val("");
-                return false;
             }
 
         }
@@ -623,13 +565,8 @@
         {
             invalid = true;
             document.getElementById('xyz').play();
-            $('.customsummary').text('');
-            $('.customsummary').append("  Serial Number - "+currentarray[1] +"  Already Scanned.");
+            alert("  Serial Number - "+currentarray[1] +"  Already Scanned.")
             $('#UPCSerialNumber').val("");
-            $('#myModal').modal('show');
-            return false;
-            //alert("  Serial Number - "+currentarray[1] +"  Already Scanned.")
-
         }
         //htmlval1 = $('#pkgList').html();
 
@@ -661,7 +598,7 @@
         }
 
         $(".btnDelete").click(function () {
-            //debugger;
+            debugger;
             $(this).closest("tr").remove();
             //var htmlval1 = $("<div />").append($("#pkgList").clone()).html();
             htmlval1 = $('#pkgList').html();
@@ -722,7 +659,7 @@
 
 
     function parseHTMLTableElem(tableEl) {
-        //debugger;
+        debugger;
         const columns = Array.from(tableEl.querySelectorAll('th')).map(it => it.textContent)
         const rows = tableEl.querySelectorAll('tbody > tr')
         return Array.from(rows).map(row => {

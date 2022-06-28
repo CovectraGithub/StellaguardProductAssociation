@@ -187,84 +187,100 @@ namespace StellaguardProductAssociation.Controllers
         [HttpGet]
         public ActionResult Index(int? page, string Type, ProductAssociationHistoryModels model, string sort, string sortDir)
         {
-              ProductAssociationHistoryModels ListSupplierChainModel = new ProductAssociationHistoryModels();
-
-            ListSupplierChainModel = new ProductAssociationHistoryModels { Message = new MessageDisplay { MessageVisible = false, IsGoodMessage = true, Message = String.Empty } };
-
-            
-            if (page == null && sort == null && sortDir == null)
+            if (Session["Username"] != null)
             {
-                TempData.Remove("Filter");
-            }
-            if (model.FilterParameters == null)
-            {
-                model.FilterParameters = (ProductAssociationFilter)TempData["Filter"];
-                ListSupplierChainModel.FilterParameters = (ProductAssociationFilter)TempData["Filter"];
-                TempData.Keep();
-            }
+                ProductAssociationHistoryModels ListSupplierChainModel = new ProductAssociationHistoryModels();
 
-            if (Type == "Reset")
-            { TempData.Remove("Filter"); }
+                ListSupplierChainModel = new ProductAssociationHistoryModels { Message = new MessageDisplay { MessageVisible = false, IsGoodMessage = true, Message = String.Empty } };
 
-            int pageSize = 10;
-            ViewBag.PageSize = pageSize;
 
-            int offset = ((page ?? 1) - 1) * pageSize;
-            string sortBy = sort;
-            if (!string.IsNullOrEmpty(Type))
-            {
-                ListSupplierChainModel.FilterParameters = null;
-                model.FilterParameters = new ProductAssociationFilter();
-                ListSupplierChainModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
-
-            }
-            else
-            {
-                if (model.FilterParameters != null)
+                if (page == null && sort == null && sortDir == null)
                 {
+                    TempData.Remove("Filter");
+                }
+                if (model.FilterParameters == null)
+                {
+                    model.FilterParameters = (ProductAssociationFilter)TempData["Filter"];
+                    ListSupplierChainModel.FilterParameters = (ProductAssociationFilter)TempData["Filter"];
+                    TempData.Keep();
+                }
+
+                if (Type == "Reset")
+                { TempData.Remove("Filter"); }
+
+                int pageSize = 10;
+                ViewBag.PageSize = pageSize;
+
+                int offset = ((page ?? 1) - 1) * pageSize;
+                string sortBy = sort;
+                if (!string.IsNullOrEmpty(Type))
+                {
+                    ListSupplierChainModel.FilterParameters = null;
+                    model.FilterParameters = new ProductAssociationFilter();
                     ListSupplierChainModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
-                    ListSupplierChainModel.FilterParameters = model.FilterParameters;
+
                 }
                 else
                 {
-                    ListSupplierChainModel.Users = GetAllUsers();
-                    model.FilterParameters = new ProductAssociationFilter();
-                    ListSupplierChainModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
-                   
+                    if (model.FilterParameters != null)
+                    {
+                        ListSupplierChainModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
+                        ListSupplierChainModel.FilterParameters = model.FilterParameters;
+                    }
+                    else
+                    {
+                        ListSupplierChainModel.Users = GetAllUsers();
+                        model.FilterParameters = new ProductAssociationFilter();
+                        ListSupplierChainModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
 
 
+
+                    }
                 }
+                return View(ListSupplierChainModel);
             }
-            return View(ListSupplierChainModel);
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
 
         [HttpPost]
         public ActionResult Index(ProductAssociationHistoryModels model, int? page, string sort, string sortDir)
         {
-            ProductAssociationHistoryModels productassociationListViewModel = new ProductAssociationHistoryModels { Message = new MessageDisplay { MessageVisible = false, IsGoodMessage = true, Message = String.Empty } };
+            if (Session["Username"] != null)
+            {
+                ProductAssociationHistoryModels productassociationListViewModel = new ProductAssociationHistoryModels { Message = new MessageDisplay { MessageVisible = false, IsGoodMessage = true, Message = String.Empty } };
 
-            int pageSize = 10;
-            ViewBag.PageSize = pageSize;
+                int pageSize = 10;
+                ViewBag.PageSize = pageSize;
 
-            int offset = ((page ?? 1) - 1) * pageSize;
-            string sortBy = sort;
-            //productListViewModel = GetProductListWithFilters(pageSize, offset, model.FilterParameters, sortBy, sortDir);
-            productassociationListViewModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
-            TempData["Filter"] = model.FilterParameters;
-            TempData.Keep();
-            // productassociationListViewModel.FilterParameters.UserName=
+                int offset = ((page ?? 1) - 1) * pageSize;
+                string sortBy = sort;
+                //productListViewModel = GetProductListWithFilters(pageSize, offset, model.FilterParameters, sortBy, sortDir);
+                productassociationListViewModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
+                TempData["Filter"] = model.FilterParameters;
+                TempData.Keep();
+                // productassociationListViewModel.FilterParameters.UserName=
 
-            // productassociationListViewModel.FilterParameters.UserName.Insert(0, new UserDetails() { Id = 0, UserName = "---Select EPCIS Trigger---" });
-            //Obtain permissions
-            /// ModulePermissionsModel permissions = GetModulePermissionsForCurrentUser(AuthentiTrack.Utility.Modules.PRODUCT_MODULE);
+                // productassociationListViewModel.FilterParameters.UserName.Insert(0, new UserDetails() { Id = 0, UserName = "---Select EPCIS Trigger---" });
+                //Obtain permissions
+                /// ModulePermissionsModel permissions = GetModulePermissionsForCurrentUser(AuthentiTrack.Utility.Modules.PRODUCT_MODULE);
 
-            //productListViewModel.Permissions = permissions;
-            //productListViewModel.TotalRecords = productListViewModel.ProductList.Count;
-            //productListViewModel.Message = new UI.Models.MessageDisplay();
-            productassociationListViewModel.Users = GetAllUsers();
-            return View(productassociationListViewModel);
+                //productListViewModel.Permissions = permissions;
+                //productListViewModel.TotalRecords = productListViewModel.ProductList.Count;
+                //productListViewModel.Message = new UI.Models.MessageDisplay();
+                productassociationListViewModel.Users = GetAllUsers();
+                return View(productassociationListViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
         }
-
     }
 }
+

@@ -22,17 +22,27 @@ namespace StellaguardProductAssociation.Controllers
         private DBHelper helper = null;
         public ActionResult Index()
         {
-
-            ShippingViewModel objShippingView = new ShippingViewModel();
-
-            AssignTimeZoneList(objShippingView);
-
-            if (objShippingView.Message != null)
+            if (Session["Username"] != null)
             {
-                objShippingView.Message = objShippingView.Message;
-            }
+                ShippingViewModel objShippingView = new ShippingViewModel();
 
-            return View(objShippingView);
+                AssignTimeZoneList(objShippingView);
+
+                if (objShippingView.Message != null)
+                {
+                    // objShippingView.Message = objShippingView.Message;
+                    objShippingView.Message = new MessageDisplay { MessageVisible = false, IsGoodMessage = false, Message = "" };
+                    return View(objShippingView);
+                }
+
+                // return View(objShippingView);
+                objShippingView.Message = new MessageDisplay { MessageVisible = false, IsGoodMessage = false, Message = "test" };
+                return View(objShippingView);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
         }
 
         [HttpPost, ValidateInput(false)]
@@ -58,14 +68,14 @@ namespace StellaguardProductAssociation.Controllers
         {
             ShippingViewModel objshippingviewmodel = new ShippingViewModel();
 
-
+            bool isGoodMessage;
             if (Session["Username"] != null)
             {
 
                 // string serialcodes = GetSerialNumber(objshippingviewmodel.SerialCodes);
                 string username = Session["Username"].ToString();
                 string msg = "";
-                var result = string.Empty;
+                string result = string.Empty;
                 string SerialCodeList = GetSerialNumberList(shippingviewmodel.SerialCodes);
 
                 if (string.IsNullOrEmpty(SerialCodeList))
@@ -91,11 +101,27 @@ namespace StellaguardProductAssociation.Controllers
                     {
                         result = dsResult.Tables[0].Rows[0]["Message"].ToString();
                     }
+                    else
+                    {
+                        result = null;
+                    }
                     // msg = dsResult.ToString();
                 }
-                objshippingviewmodel.Message = result;
+                objshippingviewmodel.Messages = result;
                 AssignTimeZoneList(objshippingviewmodel);
-                return View("Index", objshippingviewmodel);
+                if (result != null || result != "")
+                {
+                    isGoodMessage = true;
+                    return View(new ShippingViewModel { Message = new MessageDisplay { MessageVisible = true, IsGoodMessage = isGoodMessage, Message = result.ToString() } });
+                }
+
+                if (result == null )
+                {
+                    isGoodMessage = true;
+                    return View(new ShippingViewModel { Message = new MessageDisplay { MessageVisible = true, IsGoodMessage = isGoodMessage, Message = "Something Went Wrong Scan again.." } });
+                }
+
+                return View(objshippingviewmodel);
             }
             else
             {

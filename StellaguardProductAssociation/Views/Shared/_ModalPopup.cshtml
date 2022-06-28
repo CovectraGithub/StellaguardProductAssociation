@@ -1,21 +1,20 @@
 ﻿@model StellaguardProductAssociation.Models.MessageDisplay
 
-
 <section id="myModal" class="modal popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="panel panel-primary modal-panel col-sm-offset-3 col-sm-6 col-sm-offset-3" style="height:auto">
-        <header class="modal-header panel-heading" >
+        <header class="modal-header panel-heading">
             <span class="close closePopup popupcross" data-dismiss="modal">×</span>
             @if (Model.IsGoodMessage && Model.MessageVisible)
             {
                 <p id="myModalLabel">
-                    &nbsp;  SUCCESS
+                    &nbsp; Request proceed
 
                 </p>
             }
             else
             {
                 <p id="myModalLabel">
-                    &nbsp;  FAILURE
+                    &nbsp;  Cannot proceed
 
                 </p>
             }
@@ -34,4 +33,77 @@
 
         </div>
     </div>
-</section>
+    </section>
+    @*<div id="myModal" class="modal popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header" style="background-color:#395C82;">
+                <span class="close closePopup popupcross" data-dismiss="modal">×</span>
+                @if (Model.IsGoodMessage && Model.MessageVisible)
+                {
+                    <p id="myModalLabel">
+                        'SUCCESS'
+
+                    </p>
+                }
+                else
+                {
+                    <p id="myModalLabel">
+                        'FAILURE'
+
+                    </p>
+                }
+            </div>
+            <div class="modal-body" style="background-color:white;">
+                <div id="myCustomSummary" class="validation-summary-errors"></div>
+                <div class="customsummary @((Model.IsGoodMessage && Model.MessageVisible) ? "SuccessMessage" : "validation-summary-errors")">
+
+                    @{
+                        Html.RenderPartial("_MessageDisplay", Model);
+                    }
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:white;">
+                <button class="closePopup btn btn-primary" data-dismiss="modal" aria-hidden="true">OK</button>
+
+            </div>
+        </div>*@
+
+
+
+
+    @*@model StellaguardProductAssociation.Models.MessageDisplay
+
+
+        <section id="myModal" class="modal popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="panel panel-primary modal-panel col-sm-offset-3 col-sm-6 col-sm-offset-3" style="height:auto">
+                <header class="modal-header panel-heading" >
+                    <span class="close closePopup popupcross" data-dismiss="modal">×</span>
+                    @if (Model.IsGoodMessage && Model.MessageVisible)
+                    {
+                        <p id="myModalLabel">
+                            &nbsp;  SUCCESS
+
+                        </p>
+                    }
+                    else
+                    {
+                        <p id="myModalLabel">
+                            &nbsp;  FAILURE
+
+                        </p>
+                    }
+                </header>
+                <div class="modal-body" style="background-color:white;">
+                    <div id="myCustomSummary" class="validation-summary-errors"></div>
+                    <div class="customsummary @((Model.IsGoodMessage && Model.MessageVisible) ? "SuccessMessage" : "validation-summary-errors")">
+
+                        @{
+                            Html.RenderPartial("_MessageDisplay", Model);
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color:white;">
+                    <button class="closePopup btn btn-primary" data-dismiss="modal" aria-hidden="true">&nbsp; OK &nbsp;</button>
+
+                </div>
+            </div>
+        </section>*@

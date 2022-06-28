@@ -1,10 +1,110 @@
 ﻿@model  StellaguardProductAssociation.Models.ProductAssociationLogin
 
-    <style type="text/css">
-        .left-padding {
+<style type="text/css">
+    .left-padding {
+    }
+</style>
+<br />
+<div class="form-horizontal no-margin col-lg-12 form-padding">
+    @Html.Partial("_Login", Model)
+    @*@Html.Partial("~/Views/Shared/_ModalPopup.cshtml", Model.Message)*@
+
+
+
+
+</div>
+
+@section popup {
+    @Html.Partial("_ModalPopup", Model.Message)
+}
+
+
+@section scripts{
+    <script src="~/Scripts/Common/commonjs.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            //$(".btnlogin").click(function () {
+            //    debugger;
+
+
+            //    var Username = $('#Username').val();
+            //    var Password = $('#Password').val();
+
+            //    if (Username == null || Username == '') {
+            //        $('.customsummary').text('');
+            //        $('.customsummary').append("Username Required.");
+
+            //        $('#myModal').modal('show');
+
+            //        return false;
+            //    }
+            //    if (Password == null || Password == '') {
+            //        $('.customsummary').text('');
+            //        $('.customsummary').append("Password Required.");
+
+            //        $('#myModal').modal('show');
+
+            //        return false;
+            //    }
+            //});
+
+            if ('@Model.Message.IsGoodMessage.ToString().ToLower()' == 'false') {
+            //debugger;
+            var message = '@Model.Message.Message.Trim()';
+            if (message != '') {
+                $('#myModal').modal('show');
+                $('#myModal button:nth-child(1)').focus();
+            }
         }
-    </style>
-    <br />
+
+            $('.closePopup').click(function () {
+                if ('@Model.Message.IsGoodMessage' == 'True') {
+                    var url = '@Url.Action("Index", "Home")';
+                    window.location.href = url;
+                }
+                else {
+                    $("#myModal").hide();
+                }
+            });
+            return true;
+        });
+
+            function ValidateLogin() {
+
+                //debugger;
+                var Username = $('#Username').val();
+                var Password = $('#Password').val();
+
+                if (Username == null || Username == '') {
+                    $('.customsummary').text('');
+                    $('.customsummary').append("Username Required.");
+
+                    $('#myModal').modal('show');
+
+                    return true;
+                }
+                if (Password == null || Password == '') {
+                    $('.customsummary').text('');
+                    $('.customsummary').append("Password Required.");
+
+                    $('#myModal').modal('show');
+
+                    return true;
+                }
+            }
+
+
+
+    </script>
+
+}
+
+@*@model  StellaguardProductAssociation.Models.ProductAssociationLogin
+
+
     <div class="form-horizontal no-margin col-lg-12 form-padding">
         @Html.Partial("_Login", Model)
   
@@ -12,13 +112,28 @@
         
 
     </div>
-@*@section popup {
-    @Html.Partial("~/Views/Shared/_ModalPopup.cshtml", Model.Message)
-}*@                        
+                       
 
 @section scripts{
     <script src="~/Scripts/Common/commonjs.js"></script>
-    }
+<script type="text/javascript">
+
+		$(document).ready(function ()
+		{
+			//get default option object
+
+			var vars = $.ApplyCommonJs.GetDefaultOptions();
+
+
+			vars.setfocusTo = "#Username";  //set focus
+
+			$.ApplyCommonJs(vars);
+
+		});
+
+</script>
+
+    }*@
 
 
 

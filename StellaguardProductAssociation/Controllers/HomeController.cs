@@ -17,11 +17,9 @@ namespace StellaguardProductAssociation.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            return View(new ProductAssociationLogin { Message = new MessageDisplay { MessageVisible = false } });
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-
         public ActionResult Index(ProductAssociationLogin objUser)
         {
             bool isGoodMessage;
@@ -59,10 +57,12 @@ namespace StellaguardProductAssociation.Controllers
                         /*** removing model error for register partial view ****/
                         /*** starts ***/
                         ModelState.Clear();
-                        /*** ends ***/
-                        return View(new ProductAssociationLogin { Username = objUser.Username, Password = String.Empty, Message = new MessageDisplay { MessageVisible = true, IsGoodMessage = isGoodMessage, Message = result } });
+                            /*** ends ***/
+                            // TempData["notice"] = result;
+                            return View(new ProductAssociationLogin { Username = objUser.Username, Password = String.Empty, Message = new MessageDisplay { MessageVisible = true, IsGoodMessage = isGoodMessage, Message = result } });
 
-                    }
+
+                        }
                     }
                     //ModelState.AddModelError("Result", result);
                 }
@@ -75,7 +75,9 @@ namespace StellaguardProductAssociation.Controllers
             //objUser.Message.Message = "Message";
             //objUser.Message.IsGoodMessage = true;
             //objUser.Message.MessageVisible = true;
-            return View();
+            // return View();
+            return View(objUser);
+            //return RedirectToAction("Index", "Home", new { area = "", message = String.Empty });
         }
 
         public ActionResult Logout()
@@ -83,7 +85,7 @@ namespace StellaguardProductAssociation.Controllers
             Session["Username"] = null;
             Session["UserId"] = null;
             Session["RoleName"] = null;
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { area = "", message = String.Empty });
         }
 
 

@@ -22,7 +22,7 @@ if (SerialNumber != null )
 {
     if (true)
     {
-            @Html.ActionLink(SerialNumber, "Index", "SerialNumberHistory", new { serialnumber = SerialNumber }, new { title = "Click_to_edit_address" });
+            @Html.ActionLink(SerialNumber, "Index", "SerialNumberHistory", new { serialnumber = SerialNumber }, new { title = "Click For Details" });
     }
     else
     {
@@ -68,9 +68,9 @@ if (SerialNumber != null )
                                 <div class="panel-body">
                                     <div class="form-group">
                                        
-                                        @Html.Label("Serial Number", new { @class = "col-xs-12 col-sm-2 control-label" })
+                                        @Html.Label("Serial Code", new { @class = "col-xs-12 col-sm-2 control-label" })
                                         <div class="col-xs-12 col-sm-4">
-                                            @Html.TextBoxFor(model => model.FilterParameters.SerialNumber, new { @class = "form-control", @placeholder = "Serial Number" })
+                                            @Html.TextBoxFor(model => model.FilterParameters.SerialNumber, new { @class = "form-control", @placeholder = "Serial Code" })
                                         </div>
                                         @Html.Label("Product UPC", new { @class = "col-xs-12 col-sm-2 control-label" })
                                         <div class="col-xs-12 col-sm-4">
@@ -86,7 +86,7 @@ if (SerialNumber != null )
                                             From Date
                                         </label>
                                         <div class="col-xs-12 col-sm-2" id="dtPickerFrom">
-                                            @Html.TextBoxFor(model => model.FilterParameters.FromDate, "{0:dd/mm/yyyy}", new
+                                            @Html.TextBoxFor(model => model.FilterParameters.FromDate, "{0:yyyy/mm/dd}", new
                        {
                            @class = "form-control date",
                            @placeholder = "From Date"
@@ -94,7 +94,7 @@ if (SerialNumber != null )
                                         </div>
 
                                         <div class="col-xs-12 col-sm-2" id="dtPickerTo">
-                                            @Html.TextBoxFor(model => model.FilterParameters.ToDate, "{0:dd/mm/yyyy}", new { @class = "form-control date", @placeholder = "To Date" })
+                                            @Html.TextBoxFor(model => model.FilterParameters.ToDate, "{0:yyyy/mm/dd}", new { @class = "form-control date", @placeholder = "To Date" })
                                         </div>
 
 
@@ -196,7 +196,7 @@ if (SerialNumber != null )
                                          columns: new[]{
             grid.Column("", header: "#",style:"text-right col-custom-1 width-1_3",format: item1 =>item1.WebGrid.Rows.IndexOf(item1) + 1),
 
-            grid.Column("SerialNumber", header: "Serial Number",style:"text-right col-custom-1 width-1_3",format: (item1)=> SerialNumberDetailsLink(item1.SerialNumber)),
+            grid.Column("SerialNumber", header: "Serial Codes",style:"text-right col-custom-1 width-1_3",format: (item1)=> SerialNumberDetailsLink(item1.SerialNumber)),
             grid.Column("UPC",style:"text-right col-custom-1 width-1_3", header: "UPC"),
             grid.Column("ProductName", header: "Product Name",style:"text-right col-custom-1 width-1_3"),
 
@@ -219,6 +219,10 @@ if (SerialNumber != null )
 
 
                                     }
+                                    else
+                                    {
+                                        <text>NO RECORD FOUND</text>
+    }
                     </div>
 
                     <br />
@@ -227,7 +231,7 @@ if (SerialNumber != null )
                                     }
                                     else
                                     {
-                                        <text>NORECORDFOUND</text>
+                                        <text>NO RECORD FOUND</text>
                                     }
 
                                 </div>
@@ -240,6 +244,9 @@ if (SerialNumber != null )
             </div>
         </div>
     </div>
+    @section popup {
+        @Html.Partial("_ModalPopup", Model.Message)
+    }
 </section>
 
 
@@ -314,7 +321,7 @@ if (SerialNumber != null )
                         // ADD CLICK EVENT FOR MAKE COLLAPSIBLE
                         $(".hoverEff", this).on("click", function () {
 
-                            debugger;
+                            //debugger;
                             $(this).parent().closest("tr").next().slideToggle(100);
                             if ($(this).hasClass("fa-plus-square-o")) {
                                 $(this).removeClass("fa fa-plus-square-o");
@@ -416,7 +423,7 @@ if (SerialNumber != null )
             });
 
             $("#btnSubmit").click(function () {
-                debugger;
+                //debugger;
 
                 var fromDate = $("#FilterParameters_FromDate").val();
                 var toDate = $("#FilterParameters_ToDate").val();
@@ -432,11 +439,16 @@ if (SerialNumber != null )
                 // var statusId = $("#SelectedStatusId").val();
 
                 if (fromDate == "" && toDate == "" && shippmentId == "" && SourceId == 0 && Batch == "" && DestinationId == 0 ) {
-                    debugger;
-                    alert("Please enter atleast one of the search criteria!");
+                    //debugger;
+                   // alert("Please enter atleast one of the search criteria!");
                     //$('.customsummary').text('');
                    // $('.customsummary').append('TRACKHISTORYREQUIREDVALIDATION');
-                   // $('#myModal').modal('show');
+                    // $('#myModal').modal('show');
+
+                    $('.customsummary').text('');
+                    $('.customsummary').append("Please enter atleast one of the search criteria!");
+                    $('#myModal').modal('show');
+
                     return false;
                 }
 

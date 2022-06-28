@@ -14,9 +14,9 @@
                     <div class="panel-actions">
                         <p class="panel-subtitle">@Html.Label("*", new Dictionary<string, object> { { "class", "errormessage" } })</p>
                     </div>
-                    <div>
+                    @*<div>
                         <span id="ErrorMessage" >@Html.DisplayFor(m => m.Message)</span><span class="text-info"> </span>
-                    </div>
+                    </div>*@
 
                     <h2 class="panel-title"><br />Shipping</h2>
 
@@ -33,13 +33,13 @@
                                         @Html.LabelFor(model => model.SerialCodes, new { @id = "lblHRCodes", @class = "col-md-12 control-label" })
                                     </div>
                                     <div class="col-xs-12 col-md-9">
-                                        @Html.TextAreaFor(model => model.SerialCodes, new { rows = 5, cols = 21, @class = "form-control" })
+                                        @Html.TextAreaFor(model => model.SerialCodes, new { rows = 5, cols = 21, @class = "form-control",style= "width: 900px;" })
 
                                     </div>
 
                                     <div class="col-sm-offset-2 col-sm-8 col-xs-12">
                                         <span id="count" class="label label-info count-label">0</span><span class="text-info">
-                                            ItemsScanned
+                                            Items Scanned
                                         </span>
                                     </div>
                                 </div>
@@ -52,16 +52,17 @@
                     <div class="form-group required">
                         <div class="col-sm-6">
                             @Html.LabelFor(model => model.ShipmentDateTime, new { @class = "col-sm-3 control-label" })
-                            <div class="col-sm-8" style="float:left">
-                                @Html.TextBoxFor(model => model.ShipmentDateTime, new { @class = "form-control date datetimepicker" })
+                            <div class="col-sm-8" style="float:left;">
+                                @Html.TextBoxFor(model => model.ShipmentDateTime, new { @class = "form-control date datetimepicker",Style= "margin-left: 55px;" })
                             </div>
 
                         </div>
                         <div class="col-sm-6">
                             @Html.Label("Time Zone", new { @class = "col-sm-3 control-label" })
 
-                            <div class="col-sm-8" style="float:left">
-                                @Html.DropDownList("timezone1", new SelectList(Model.timeZoneList, "Value", "Text"), new { @class = "form-control" })
+                            <div class="col-sm-8" style="float:left;">
+                                @Html.DropDownList("timezone1", new SelectList(Model.timeZoneList, "Value", "Text"), new { @class = "form-control",
+                               Style = "margin-right:16px;" })
                             </div>
 
                         </div>
@@ -70,8 +71,8 @@
                     <div class="form-group required">
                         <div class="col-sm-6">
                             @Html.LabelFor(model => model.OrderNumber, new { @class = "col-sm-3 control-label"})
-                            <div class="col-sm-8" style="float:left">
-                                @Html.TextBoxFor(model => model.OrderNumber, new { @class = "form-control" })
+                            <div class="col-sm-8" style="float:left;">
+                                @Html.TextBoxFor(model => model.OrderNumber, new { @class = "form-control",Style= "margin-left: 55px;" })
 
                             </div>
 
@@ -96,14 +97,14 @@
 
 
 
-                    <div class="validsummary"> @Html.ValidationSummary()</div>
+                    <div class="validsummary" hidden="hidden"> @Html.ValidationSummary()</div>
 
 
 
                 </div>
-                @*@section popup {
+                @section popup {
                         @Html.Partial("_ModalPopup", Model.Message)
-                    }*@
+                    }
 
             </section>
         </div>
@@ -219,6 +220,31 @@
     countLabel.html(i);
 
 
+    $(document).ready(function () {
+
+
+
+        if ('@Model.Message.MessageVisible.ToString().ToLower()' == 'true') {
+            //debugger;
+            var message = '@Model.Message.Message.Trim()';
+            if (message != '') {
+                $('#myModal').modal('show');
+                $('#myModal button:nth-child(1)').focus();
+            }
+        }
+        $('.closePopup').click(function () {
+            if ('@Model.Message.IsGoodMessage.ToString().ToLower()' == 'true') {
+                //debugger;
+                var url = '@Url.Action("Index", "Shipping")';
+                window.location.href = url;
+            }
+            else {
+                $("#myModal").hide();
+            }
+        });
+
+        return true;
+    });
 
 
 
@@ -240,7 +266,7 @@
     
 
     function isItemInArray(twolist, currentarray) {
-        debugger;
+        //debugger;
         console.log("two list length" + twolist.length)
         for (var i = 0; i < twolist.length; i++) {
             // This if statement depends on the format of your array
@@ -263,10 +289,15 @@
 
     });
     function checkvalid(e) {
-        debugger;
+        //debugger;
 
         var frmValid = true;
         if ($('#timezone1').val() == null) {
+
+
+            $('.customsummary').text('');
+            $('.customsummary').append("Please select TimeZone.");
+            $('#myModal').modal('show');
             frmValid = false;
         }
         if (validResult == true) {
@@ -284,7 +315,7 @@
 
     function ValidateSerialCode()
     {
-        debugger;
+        //debugger;
         var textvalue = $("#SerialCodes").val();
         
         $("#ErrorMessage").hide();
@@ -297,6 +328,12 @@
         var FinalUPC = UPCSN[0];
         var FinalSN;
         var TempSN = UPCSN[0];
+        if (textvalue == null || textvalue == "")
+        {
+            $('.customsummary').text('');
+            $('.customsummary').append("Please scan atleast one Serial Number");
+            $('#myModal').modal('show');
+        }
         if (FinalUPC.length > 12) {
             FinalSN = UPCSN[0].substring(2);
         }
@@ -343,17 +380,30 @@
         if (result) {
             invalid = true;
             document.getElementById('xyz').play();
-            alert("  Serial Number - " + currentarray[1] + "  Already Scanned.")
             $('#SerialCodes').val("");
+            $('.customsummary').text('');
+            $('.customsummary').append(" Serial Number - " + currentarray[1] + "  Already Scanned.");
+            $('#myModal').modal('show');
+            //alert("  Serial Number - " + currentarray[1] + "  Already Scanned.")
+
         }
         if (userBatchNumber == "") {
-            $("#ErrorMessage").show()
-            ErrorMessage = "Please Scan Again."
-            countLabel2.html(ErrorMessage);
+            //$("#ErrorMessage").show()
+            //ErrorMessage = "Please Scan Again."
+            //countLabel2.html(ErrorMessage);
+            $('#SerialCodes').val("");
+            $('.customsummary').text('');
+            $('.customsummary').append(" Please Scan Again.");
+            $('#myModal').modal('show');
             invalid = true;
         }
         if (!invalid)
-            return true;
+            {
+            $('#SerialCodes').val("");
+        $('.customsummary').text('');
+        $('.customsummary').append(" Serial Number - " + currentarray[1] + "  Already Scanned.");
+        $('#myModal').modal('show');
+        }
         else
             return false;
     }

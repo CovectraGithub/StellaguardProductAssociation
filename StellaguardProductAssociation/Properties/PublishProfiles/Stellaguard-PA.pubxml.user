@@ -5452,7 +5452,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2022 13:33:51</publishTime>
     </File>
     <File Include="bin/StellaguardProductAssociation.dll">
-      <publishTime>06/14/2022 18:19:45</publishTime>
+      <publishTime>06/22/2022 18:41:10</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>06/01/2022 13:33:51</publishTime>
@@ -6043,16 +6043,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/26/2019 13:40:05</publishTime>
     </File>
     <File Include="Scripts/validation.js">
-      <publishTime>06/14/2022 18:19:40</publishTime>
+      <publishTime>06/22/2022 18:41:06</publishTime>
     </File>
     <File Include="Scripts/validation.js.map">
-      <publishTime>06/14/2022 18:19:40</publishTime>
+      <publishTime>06/22/2022 18:41:06</publishTime>
     </File>
     <File Include="Scripts/validation.old.js">
       <publishTime>09/26/2019 13:40:05</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>06/06/2022 12:01:21</publishTime>
+      <publishTime>06/22/2022 18:32:46</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>06/01/2022 13:33:49</publishTime>
@@ -6097,7 +6097,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2022 13:33:49</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>06/01/2022 13:33:49</publishTime>
+      <publishTime>06/22/2022 11:51:46</publishTime>
+    </File>
+    <File Include="Views/Home/_Login.cshtml">
+      <publishTime>06/21/2022 18:17:56</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>06/01/2022 13:33:49</publishTime>
@@ -6118,10 +6121,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2022 13:33:49</publishTime>
     </File>
     <File Include="Views/ProductAssociation/Index.cshtml">
-      <publishTime>06/14/2022 13:51:40</publishTime>
+      <publishTime>06/22/2022 11:51:46</publishTime>
     </File>
     <File Include="Views/ProductAssociationHistory/Index.cshtml">
-      <publishTime>06/14/2022 17:06:43</publishTime>
+      <publishTime>06/22/2022 12:13:54</publishTime>
     </File>
     <File Include="Views/SerialNumberHistory/Index.cshtml">
       <publishTime>06/14/2022 17:07:11</publishTime>
@@ -6157,16 +6160,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2022 13:33:49</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/14/2022 13:52:12</publishTime>
+      <publishTime>06/21/2022 13:11:45</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>06/01/2022 13:33:49</publishTime>
     </File>
+    <File Include="Views/Shared/_MessageDisplay.cshtml">
+      <publishTime>06/21/2022 13:11:03</publishTime>
+    </File>
     <File Include="Views/Shared/_ModalPopup.cshtml">
-      <publishTime>06/10/2022 20:37:24</publishTime>
+      <publishTime>06/21/2022 18:25:37</publishTime>
     </File>
     <File Include="Views/Shipping/Index.cshtml">
-      <publishTime>06/14/2022 13:51:30</publishTime>
+      <publishTime>06/22/2022 11:51:44</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>06/01/2022 13:33:49</publishTime>
@@ -6175,7 +6181,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2022 13:33:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/06/2022 12:56:55</publishTime>
+      <publishTime>06/21/2022 20:44:46</publishTime>
     </File>
   </ItemGroup>
 </Project>
