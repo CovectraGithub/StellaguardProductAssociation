@@ -11,12 +11,12 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    <div class="panel-actions">
+                    @*<div class="panel-actions">
                         <p class="panel-subtitle">@Html.Label("*", new Dictionary<string, object> { { "class", "errormessage" } })</p>
                     </div>
                     <div>
                         <span id="ErrorMessage">@Html.DisplayFor(m => m.Message)</span><span class="text-info"> </span>
-                    </div>
+                    </div>*@
 
                     <h2 class="panel-title"><br />Shipping</h2>
 
@@ -86,24 +86,15 @@
                         </div>
                     </div>
 
-
-
-
-
                     @Html.Hidden("timezone")
                     @*@Html.Hidden("HtmlValue")
                         @Html.HiddenFor(x => x.IsDropShipment)*@
 
-
-
                     <div class="validsummary"> @Html.ValidationSummary()</div>
-
-
-
                 </div>
-                @*@section popup {
+                @section popup {
                         @Html.Partial("_ModalPopup", Model.Message)
-                    }*@
+                    }
 
             </section>
         </div>
@@ -129,6 +120,27 @@
 
     $(document).ready(function () {
 
+        
+        if ('@Model.Message.MessageVisible.ToString().ToLower()' == 'true') {
+            //debugger;
+            var message = '@Model.Message.Message.Trim()';
+
+            if (message != '') {
+                $('#myModal').modal('show');
+                $('#myModal button:nth-child(1)').focus();
+            }
+            return false;
+        }
+        $('.closePopup').click(function () {
+            if ('@Model.Message.IsGoodMessage.ToString().ToLower()' == 'true') {
+                //debugger;
+                var url = '@Url.Action("Index", "Shipping")';
+                window.location.href = url;
+            }
+            else {
+                $("#myModal").hide();
+            }
+        });
         var abbrs = {
             AST: 'Atlantic Standard Time',
             EST: 'Eastern Standard Time',
@@ -252,31 +264,44 @@
 
             for (let j = 0; j < strSerial.length; j++) {
                 //console.log("value of strSerial" + j + "string value " + strSerial[j]);
-                var str = strSerial[j].split('8200https:');
-                for (let i = 0; i < str.length; i++) {
+                if (strSerial[j].includes('8200https:')) {
+                    var str = strSerial[j].split('8200https:');
+                    console.log("Str value" + str);
+                    for (let i = 0; i < str.length; i++) {
 
-                    //  console.log("value of i" + i + "string value " + str[i]);
-                    if (str[i].toLowerCase().startsWith('21')) {
-                        var FinalSN = str[i].substring(2);
+                        //  console.log("value of i" + i + "string value " + str[i]);
+                        if (str[i].toLowerCase().startsWith('21')) {
+                            var FinalSN = str[i].substring(2);
 
-                        //var FinalSN;
-                        //var TempSN = UPCSN[0];
-                        //console.log("FinalUPC" + FinalUPC);
-                        //if (FinalUPC.length > 12) {
-                        //    FinalSN = UPCSN[0].substring(2);
-                        //}
-                        //else {
-                        //    FinalSN = UPCSN[1].substring(2);
+                            //var FinalSN;
+                            //var TempSN = UPCSN[0];
+                            //console.log("FinalUPC" + FinalUPC);
+                            //if (FinalUPC.length > 12) {
+                            //    FinalSN = UPCSN[0].substring(2);
+                            //}
+                            //else {
+                            //    FinalSN = UPCSN[1].substring(2);
 
-                        //}
-                        console.log("final SN" + FinalSN);
-                        currentarray.push(FinalSN)
+                            //}
+                            console.log("final SN" + FinalSN);
+                            currentarray.push(FinalSN)
+                        }
+
+                        return true;
                     }
-
-
                 }
+                else {
+                    ErrorMessage = "Invalid serial code !!!" + "<br/>" + serialNumbersStr;
+                    document.getElementById('xyz').play();
+                    $('.customsummary').text('');
+                    $('.customsummary').append(ErrorMessage);
+                    $('#myModal').modal('show');
+                    return false;
+                }
+
             }
         }
+
         //console.log("currentarray" + currentarray);
 
         var i;
@@ -307,23 +332,24 @@
         if (duplicates.length > 0) {
 
             var duplicatelen = duplicates.length, j = 0;
-            for (j; j < duplicatelen; j++) {
+            for (j; j < duplicatelen; j++)
+            {
+                console.log("error length" + ErrorMessage.length);
                 if (ErrorMessage.length > 0) {
                     ErrorMessage = "<br/><br/>" + duplicates[j];
+
                 }
                 else {
 
                     ErrorMessage = "Duplicate serial # found" + "<br/>" + duplicates[j];
                 }
 
-            }
-            document.getElementById('xyz').play();
-            alert(ErrorMessage);
+            } $('.customsummary').text('');
+            $('.customsummary').append(ErrorMessage);
+            $('#myModal').modal('show');
             return false;
         }
-        else {
-            return true;
-        }
+
     }
 
     function CheckValidSerialNumber(serialNumberarray) {
