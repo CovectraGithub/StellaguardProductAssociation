@@ -28,7 +28,7 @@ namespace StellaguardProductAssociation.Models
 
     public class WorkOrderDetails
     {
-        public byte Id { get; set; }
+        public int WorkOrderId { get; set; }
 
         [Display(Name = "TimeStamp")]
         public string TimeStamp { get; set; }
@@ -57,7 +57,7 @@ namespace StellaguardProductAssociation.Models
     public class ScannedBarcodeDetailClass
     {
 
-        public byte Id { get; set; }
+        public int WorkOrderId { get; set; }
 
         public string CreatedDate { get; set; }
 
@@ -79,7 +79,7 @@ namespace StellaguardProductAssociation.Models
         [Display(Name = "AssociationId")]
         public short AssociationId { get; set; }
 
-        public byte Id { get; set; }
+        public int  WorkOrderId { get; set; }
 
      
         public string SerialNumber { get; set; }

@@ -10,7 +10,7 @@
             <p class="panel-subtitle"></p>
         </div>
 
-        <h2 class="panel-title"><br />Serial Number History</h2>
+        <h2 class="panel-title"><br />Serial Code History</h2>
 
     </header>
 
@@ -28,7 +28,7 @@
                 @if (Model != null && Model.SerialNumberStatusList != null && Model.SerialNumberStatusList.Count > 0)
             {
 
-                    <div class="col-sm-4 col-lg-4 text-info"><strong><text>Serial Number : </text></strong>  @Model.SerialNumber </div>
+                    <div class="col-sm-4 col-lg-4 text-info"><strong><text>Serial Code : </text></strong>  @Model.SerialNumber </div>
                     <div class="col-sm-4 col-lg-4 text-info"><strong>  <text>Product Name : </text></strong> @Model.ProductName </div>
 
 
@@ -74,7 +74,7 @@
 
                                 </div>
                                 <h3 class="panel-title">
-                                    Product Association Details
+                                    Serial Code Deatils
                                     @*@AuthentiTrack.I18NResources.Serialization.Product.Index.Product_Details*@
 
                                 </h3>
@@ -103,7 +103,7 @@
                                 columns: grid.Columns(
                                 grid.Column("CreatedBy", style: "col-custom-8 col-merge", header: "Created By"),
                                 grid.Column("CreateDate", header: "Create Date", style: "col-custom-10 col-merge", format: @<text>@item.CreatedDate.ToString("MM/dd/yyyy HH:mm:ss")</text>),
-                                grid.Column("Note", header: "Note", style: "col-sm-4 col-xs-4 col-merge"),
+                                grid.Column("Note", header: "Order No.", style: "col-sm-4 col-xs-4 col-merge"),
                                 grid.Column("Status", header: "Status")
                                 )
                                 )

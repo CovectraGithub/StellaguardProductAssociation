@@ -39,43 +39,88 @@ namespace StellaguardProductAssociation.Controllers
             try
             {
 
-                List<ScannedBarcodeDetailClass> ScannedBarcodeDetailList;
-
+                //List<ScannedBarcodeDetailClass> ScannedBarcodeDetailList;
+                List<WorkOrderDetails> WorkOrderList = new List<WorkOrderDetails>();
                 //if (workorderFilterDTO.Id == 0)
                 //{ workorderFilterDTO = null; }
-                ScannedBarcodeDetailList = GetAllProducts(workorderFilterDTO, offset, sortBy, sortDir);
+                var result = GetAllProducts(workorderFilterDTO, offset, sortBy, sortDir);
 
-                List<WorkOrderDetails> WorkOrderList = new List<WorkOrderDetails>();
-                foreach (ScannedBarcodeDetailClass scc in ScannedBarcodeDetailList)
+                foreach (ScannedBarcodeDetailClass scc in result)
                 {
-                    WorkOrderDetails sc = WorkOrderList.Where(x => x.Id == scc.Id).FirstOrDefault();
-                    if (sc == null || sc.Id == 0)
+                    WorkOrderDetails sc = WorkOrderList.Where(x => x.WorkOrderId == scc.WorkOrderId).FirstOrDefault();
+                    // WorkOrderDetails sc WorkOrderList.GroupBy(x => x.WorkOrder).ToList();
+
+                    if (sc == null || sc.WorkOrderId==0)
                     {
-
-
                         //dt.ToString("yyyy-MM-ddTHH':'mm':'sszzz");
                         sc = new WorkOrderDetails();
                         sc.TimeStamp = scc.CreatedDate;
                         sc.WorkOrder = scc.WorkOrderNumber;
                         sc.User = scc.UserName;
-                        sc.ScannedBarcodeList = new List<ScannedBarcodeDetails>();
+                        sc.ScannedBarcodeList = new List<ScannedBarcodeDetails>()
+                        {
+                         new ScannedBarcodeDetails() { 
+                       //ScannedBarcodeDetails bd = new ScannedBarcodeDetails();
+                        WorkOrderId = scc.WorkOrderId,
+                        SerialNumber = scc.SerialNumber,
+                        UPC = scc.UPC,
+                        ProductName = scc.ProductName
+                    },
+
+                    //sc.ScannedBarcodeList.Add(bd);
+                    };
+
+
+
                         WorkOrderList.Add(sc);
-
-
-                        //sc.ScannedBarcodeList = new List<ScannedBarcodeDetails>();
-                        //bd.AssociationId = scc.Id;
-
                     }
-                    if (scc.Id != null)
-                    {
-                        ScannedBarcodeDetails bd = new ScannedBarcodeDetails();
-                        bd.Id = scc.Id;
-                        bd.SerialNumber = scc.SerialNumber;
-                        bd.UPC = scc.UPC;
-                        bd.ProductName = scc.ProductName;
-                        bd.AssociationId = scc.Id;
-                        sc.ScannedBarcodeList.Add(bd);
-                    }
+
+                    //if (scc.WorkOrderId != null)
+                    //{ 
+                    //ScannedBarcodeDetails bd = new ScannedBarcodeDetails();
+                    //bd.WorkOrderId = scc.WorkOrderId;
+                    //bd.SerialNumber = scc.SerialNumber;
+                    //bd.UPC = scc.UPC;
+                    //bd.ProductName = scc.ProductName;
+
+                    //sc.ScannedBarcodeList.Add(bd);
+
+                   
+
+                    //}
+
+
+                    ////List<WorkOrderDetails> WorkOrderList = new List<WorkOrderDetails>();
+                    ////foreach (ScannedBarcodeDetailClass scc in ScannedBarcodeDetailList)
+                    ////{
+                    ////    WorkOrderDetails sc = WorkOrderList.Where(x => x.WorkOrder == scc.WorkOrderNumber).FirstOrDefault();
+                    ////    if (sc.WorkOrder == scc.WorkOrderNumber)
+                    ////    {
+
+
+                    ////        //dt.ToString("yyyy-MM-ddTHH':'mm':'sszzz");
+                    ////        sc = new WorkOrderDetails();
+                    ////        sc.TimeStamp = scc.CreatedDate;
+                    ////        sc.WorkOrder = scc.WorkOrderNumber;
+                    ////        sc.User = scc.UserName;
+                    ////        sc.ScannedBarcodeList = new List<ScannedBarcodeDetails>();
+                    ////        WorkOrderList.Add(sc);
+
+
+                    ////        //sc.ScannedBarcodeList = new List<ScannedBarcodeDetails>();
+                    ////        //bd.AssociationId = scc.Id;
+
+                    ////    }
+                    ////    if (scc.WorkOrderNumber != null)
+                    ////    {
+                    ////        ScannedBarcodeDetails bd = new ScannedBarcodeDetails();
+                    ////        bd.Id = scc.Id;
+                    ////        bd.SerialNumber = scc.SerialNumber;
+                    ////        bd.UPC = scc.UPC;
+                    ////        bd.ProductName = scc.ProductName;
+                    ////        bd.AssociationId = scc.Id;
+                    ////        sc.ScannedBarcodeList.Add(bd);
+                    ////    }
 
                 }
 
@@ -145,7 +190,7 @@ namespace StellaguardProductAssociation.Controllers
             // DataSet dsinsert = GetDataSet(sqlQuery, "tblProducts");
             string username = Session["Username"].ToString();
             SqlParameter[] param = null;
-            param = new SqlParameter[9];
+            param = new SqlParameter[11];
 
             param[0] = new SqlParameter("Id", filterCriteriaDTO.Id);
             param[1] = new SqlParameter("UserName", username);
@@ -157,8 +202,10 @@ namespace StellaguardProductAssociation.Controllers
             param[6].Direction = ParameterDirection.Output;
             param[7] = new SqlParameter("SortBy", sortBy);
             param[8] = new SqlParameter("SortDir", sortDir);
-           // param[7] = new SqlParameter("RowCount", rowCount);
-            
+            param[9] = new SqlParameter("FromDate", filterCriteriaDTO.FromDate);
+            param[10] = new SqlParameter("ToDate", filterCriteriaDTO.ToDate);
+            // param[7] = new SqlParameter("RowCount", rowCount);
+
             helper = new DBHelper(mustCloseConnection: false);
             DataSet dsinsert = helper.ExecuteDataSet(CommandType.StoredProcedure, "GetProductAssociationList_New", param);
 
@@ -185,84 +232,100 @@ namespace StellaguardProductAssociation.Controllers
         [HttpGet]
         public ActionResult Index(int? page, string Type, ProductAssociationHistoryModels model, string sort, string sortDir)
         {
-              ProductAssociationHistoryModels ListSupplierChainModel = new ProductAssociationHistoryModels();
-
-            ListSupplierChainModel = new ProductAssociationHistoryModels { Message = new MessageDisplay { MessageVisible = false, IsGoodMessage = true, Message = String.Empty } };
-
-            
-            if (page == null && sort == null && sortDir == null)
+            if (Session["Username"] != null)
             {
-                TempData.Remove("Filter");
-            }
-            if (model.FilterParameters == null)
-            {
-                model.FilterParameters = (ProductAssociationFilter)TempData["Filter"];
-                ListSupplierChainModel.FilterParameters = (ProductAssociationFilter)TempData["Filter"];
-                TempData.Keep();
-            }
+                ProductAssociationHistoryModels ListSupplierChainModel = new ProductAssociationHistoryModels();
 
-            if (Type == "Reset")
-            { TempData.Remove("Filter"); }
+                ListSupplierChainModel = new ProductAssociationHistoryModels { Message = new MessageDisplay { MessageVisible = false, IsGoodMessage = true, Message = String.Empty } };
 
-            int pageSize = 10;
-            ViewBag.PageSize = pageSize;
 
-            int offset = ((page ?? 1) - 1) * pageSize;
-            string sortBy = sort;
-            if (!string.IsNullOrEmpty(Type))
-            {
-                ListSupplierChainModel.FilterParameters = null;
-                model.FilterParameters = new ProductAssociationFilter();
-                ListSupplierChainModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
-
-            }
-            else
-            {
-                if (model.FilterParameters != null)
+                if (page == null && sort == null && sortDir == null)
                 {
+                    TempData.Remove("Filter");
+                }
+                if (model.FilterParameters == null)
+                {
+                    model.FilterParameters = (ProductAssociationFilter)TempData["Filter"];
+                    ListSupplierChainModel.FilterParameters = (ProductAssociationFilter)TempData["Filter"];
+                    TempData.Keep();
+                }
+
+                if (Type == "Reset")
+                { TempData.Remove("Filter"); }
+
+                int pageSize = 10;
+                ViewBag.PageSize = pageSize;
+
+                int offset = ((page ?? 1) - 1) * pageSize;
+                string sortBy = sort;
+                if (!string.IsNullOrEmpty(Type))
+                {
+                    ListSupplierChainModel.FilterParameters = null;
+                    model.FilterParameters = new ProductAssociationFilter();
                     ListSupplierChainModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
-                    ListSupplierChainModel.FilterParameters = model.FilterParameters;
+
                 }
                 else
                 {
-                    ListSupplierChainModel.Users = GetAllUsers();
-                    model.FilterParameters = new ProductAssociationFilter();
-                    ListSupplierChainModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
-                   
+                    if (model.FilterParameters != null)
+                    {
+                        ListSupplierChainModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
+                        ListSupplierChainModel.FilterParameters = model.FilterParameters;
+                    }
+                    else
+                    {
+                        ListSupplierChainModel.Users = GetAllUsers();
+                        model.FilterParameters = new ProductAssociationFilter();
+                        ListSupplierChainModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
 
 
+
+                    }
                 }
+                return View(ListSupplierChainModel);
             }
-            return View(ListSupplierChainModel);
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
 
         [HttpPost]
         public ActionResult Index(ProductAssociationHistoryModels model, int? page, string sort, string sortDir)
         {
-            ProductAssociationHistoryModels productassociationListViewModel = new ProductAssociationHistoryModels { Message = new MessageDisplay { MessageVisible = false, IsGoodMessage = true, Message = String.Empty } };
+            if (Session["Username"] != null)
+            {
+                ProductAssociationHistoryModels productassociationListViewModel = new ProductAssociationHistoryModels { Message = new MessageDisplay { MessageVisible = false, IsGoodMessage = true, Message = String.Empty } };
 
-            int pageSize = 10;
-            ViewBag.PageSize = pageSize;
+                int pageSize = 10;
+                ViewBag.PageSize = pageSize;
 
-            int offset = ((page ?? 1) - 1) * pageSize;
-            string sortBy = sort;
-            //productListViewModel = GetProductListWithFilters(pageSize, offset, model.FilterParameters, sortBy, sortDir);
-            productassociationListViewModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
-            TempData["Filter"] = model.FilterParameters;
-            TempData.Keep();
-            // productassociationListViewModel.FilterParameters.UserName=
+                int offset = ((page ?? 1) - 1) * pageSize;
+                string sortBy = sort;
+                //productListViewModel = GetProductListWithFilters(pageSize, offset, model.FilterParameters, sortBy, sortDir);
+                productassociationListViewModel.WorkOrderList = GetWorkOrderList(pageSize, offset, model.FilterParameters, sortBy, sortDir);
+                TempData["Filter"] = model.FilterParameters;
+                TempData.Keep();
+                // productassociationListViewModel.FilterParameters.UserName=
 
-            // productassociationListViewModel.FilterParameters.UserName.Insert(0, new UserDetails() { Id = 0, UserName = "---Select EPCIS Trigger---" });
-            //Obtain permissions
-            /// ModulePermissionsModel permissions = GetModulePermissionsForCurrentUser(AuthentiTrack.Utility.Modules.PRODUCT_MODULE);
+                // productassociationListViewModel.FilterParameters.UserName.Insert(0, new UserDetails() { Id = 0, UserName = "---Select EPCIS Trigger---" });
+                //Obtain permissions
+                /// ModulePermissionsModel permissions = GetModulePermissionsForCurrentUser(AuthentiTrack.Utility.Modules.PRODUCT_MODULE);
 
-            //productListViewModel.Permissions = permissions;
-            //productListViewModel.TotalRecords = productListViewModel.ProductList.Count;
-            //productListViewModel.Message = new UI.Models.MessageDisplay();
-            productassociationListViewModel.Users = GetAllUsers();
-            return View(productassociationListViewModel);
+                //productListViewModel.Permissions = permissions;
+                //productListViewModel.TotalRecords = productListViewModel.ProductList.Count;
+                //productListViewModel.Message = new UI.Models.MessageDisplay();
+                productassociationListViewModel.Users = GetAllUsers();
+                return View(productassociationListViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
         }
-
     }
 }
+
